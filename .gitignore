@@ -55,6 +55,8 @@ uv.lock
 cache/
 log/
 logs/
+!starter-bundles/codex/.codex/
+!starter-bundles/codex/.codex/config.toml
 !AGENTS.md
 !CLAUDE.md
 *.egg-info/
