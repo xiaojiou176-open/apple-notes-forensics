@@ -474,6 +474,33 @@ def test_discovery_surface_contract_passes_for_aligned_surface(tmp_path: Path) -
         ),
     )
     _write(
+        tmp_path / "site.webmanifest",
+        "\n".join(
+            [
+                '{',
+                '  "name": "NoteStore Lab",',
+                '  "short_name": "NoteStore Lab",',
+                '  "start_url": "/apple-notes-forensics/",',
+                '  "scope": "/apple-notes-forensics/",',
+                '  "theme_color": "#16212b",',
+                '  "background_color": "#f5f1e8",',
+                '  "icons": [',
+                '    {"src": "assets/brand/icon-192.png"},',
+                '    {"src": "assets/brand/icon-512.png"}',
+                "  ]",
+                '}',
+            ]
+        ),
+    )
+    for rel_path in (
+        "assets/brand/notestorelab-mark.svg",
+        "assets/brand/favicon-32.png",
+        "assets/brand/apple-touch-icon.png",
+        "assets/brand/icon-192.png",
+        "assets/brand/icon-512.png",
+    ):
+        _write(tmp_path / rel_path, "asset\n")
+    _write(
         tmp_path / "README.md",
         "\n".join(
             [
@@ -527,6 +554,10 @@ def test_discovery_surface_contract_passes_for_aligned_surface(tmp_path: Path) -
                 "canonical",
                 "og:site_name",
                 "og:locale",
+                'rel="icon"',
+                "apple-touch-icon",
+                "site.webmanifest",
+                "brand-mark",
                 'hreflang=\"x-default\"',
                 '"inLanguage": "en-US"',
                 "Comparison path only.",
@@ -559,6 +590,7 @@ def test_discovery_surface_contract_detects_missing_llms_tokens(tmp_path: Path) 
     _write(tmp_path / "robots.txt", "User-agent: *\nAllow: /\n")
     _write(tmp_path / "sitemap.xml", "<urlset></urlset>\n")
     _write(tmp_path / "404.html", "Page not found\n")
+    _write(tmp_path / "site.webmanifest", "{}\n")
     _write(tmp_path / "README.md", "# NoteStore Lab\n")
     _write(tmp_path / "INTEGRATIONS.md", "# Builder Guide\n")
     _write(tmp_path / "SUPPORT.md", "# Support\n")
@@ -567,6 +599,8 @@ def test_discovery_surface_contract_detects_missing_llms_tokens(tmp_path: Path) 
     errors = collect_discovery_surface_errors(tmp_path)
     assert any("llms.txt is missing required token: Codex" in error for error in errors)
     assert any("llms.txt is missing discovery token: good current examples of hosts" in error for error in errors)
+    assert any("missing discovery asset file: assets/brand/notestorelab-mark.svg" in error for error in errors)
+    assert any("site.webmanifest is missing required token: \"name\": \"NoteStore Lab\"" in error for error in errors)
     assert any("README.md is missing discovery token" in error for error in errors)
     assert any("INTEGRATIONS.md is missing discovery token: [mcp_servers.notestorelab]" in error for error in errors)
     assert any('INTEGRATIONS.md is missing discovery token: cwd = ".."' in error for error in errors)

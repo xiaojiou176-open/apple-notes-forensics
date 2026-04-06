@@ -2,6 +2,10 @@
 
 <!-- mcp-name: io.github.xiaojiou176-open/notestorelab-mcp -->
 
+<p>
+  <img src="./assets/brand/notestorelab-mark.svg" alt="NoteStore Lab brand mark" width="84" height="84" />
+</p>
+
 > Category: copy-first Apple Notes recovery and review toolkit for macOS.
 > AI / agent hook: AI-assisted triage, evidence-backed case Q&A, and a
 > read-mostly MCP surface for Codex / Claude Code style local agent workflows.

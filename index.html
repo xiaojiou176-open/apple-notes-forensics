@@ -37,7 +37,12 @@
     />
     <meta name="twitter:image" content="assets/social/social-preview.png" />
     <meta name="twitter:url" content="https://xiaojiou176-open.github.io/apple-notes-forensics/" />
+    <meta name="theme-color" content="#16212b" />
     <link rel="canonical" href="https://xiaojiou176-open.github.io/apple-notes-forensics/" />
+    <link rel="icon" type="image/svg+xml" href="assets/brand/notestorelab-mark.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon-32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/brand/apple-touch-icon.png" />
+    <link rel="manifest" href="site.webmanifest" />
     <link rel="alternate" hreflang="en" href="https://xiaojiou176-open.github.io/apple-notes-forensics/" />
     <link rel="alternate" hreflang="x-default" href="https://xiaojiou176-open.github.io/apple-notes-forensics/" />
     <script type="application/ld+json">
@@ -118,9 +123,23 @@
 
       .brand {
         display: flex;
-        align-items: baseline;
-        gap: 12px;
+        align-items: center;
+        gap: 14px;
         font-size: 0.98rem;
+      }
+
+      .brand-copy {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+
+      .brand-mark {
+        width: 42px;
+        height: 42px;
+        flex: 0 0 auto;
+        border-radius: 12px;
+        box-shadow: 0 8px 24px rgba(18, 33, 43, 0.16);
       }
 
       .brand strong {
@@ -462,8 +481,11 @@
     <div class="shell">
       <header class="topbar">
         <div class="brand">
-          <strong>NoteStore Lab</strong>
-          <span>Repository identity: <code>apple-notes-forensics</code></span>
+          <img class="brand-mark" src="assets/brand/notestorelab-mark.svg" alt="" width="42" height="42" />
+          <div class="brand-copy">
+            <strong>NoteStore Lab</strong>
+            <span>Repository identity: <code>apple-notes-forensics</code></span>
+          </div>
         </div>
         <nav class="nav" aria-label="Primary">
           <a class="pill" href="https://github.com/xiaojiou176-open/apple-notes-forensics">GitHub repo</a>
