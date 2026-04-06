@@ -64,7 +64,7 @@ The current single-maintainer review owner for security-sensitive changes is
 `@xiaojiou176`.
 
 The canonical public repository is expected to stay under the
-`xiaojiou176` GitHub account, with branch protection and required
+`xiaojiou176-open` GitHub organization, with branch protection and required
 pull request reviews enforced on `main`.
 
 ## Current Limits

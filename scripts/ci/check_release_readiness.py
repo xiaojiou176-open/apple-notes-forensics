@@ -326,12 +326,12 @@ def _evaluate_release_summary(
         f"default_branch={repo.get('default_branch')}."
     )
 
-    if owner.get("login") != "xiaojiou176" or owner.get("type") != "User":
+    if owner.get("login") != "xiaojiou176-open" or owner.get("type") != "Organization":
         blockers.append(
-            "The canonical GitHub repository is not owned by the expected xiaojiou176 user account."
+            "The canonical GitHub repository is not owned by the expected xiaojiou176-open organization."
         )
     else:
-        notes.append("The canonical GitHub repository is owned by the expected xiaojiou176 user account.")
+        notes.append("The canonical GitHub repository is owned by the expected xiaojiou176-open organization.")
 
     if repo.get("fork"):
         blockers.append("The canonical GitHub repository is itself a fork; confirm public positioning before release.")

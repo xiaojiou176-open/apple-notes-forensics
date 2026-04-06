@@ -26,7 +26,7 @@ def _remote_summary_base() -> dict[str, object]:
             "fork": False,
             "forks_count": 0,
             "default_branch": "main",
-            "owner": {"login": "xiaojiou176", "type": "User"},
+            "owner": {"login": "xiaojiou176-open", "type": "Organization"},
             "security_and_analysis": {
                 "secret_scanning": {"status": "enabled"},
                 "secret_scanning_push_protection": {"status": "enabled"},
@@ -180,7 +180,7 @@ def test_evaluate_release_summary_treats_fully_merged_pr_history_as_notes() -> N
             "number": 1,
             "state": "MERGED",
             "title": "Merge governance closeout",
-            "url": "https://github.com/xiaojiou176/apple-notes-forensics/pull/1",
+            "url": "https://github.com/xiaojiou176-open/apple-notes-forensics/pull/1",
         }
     ]
 

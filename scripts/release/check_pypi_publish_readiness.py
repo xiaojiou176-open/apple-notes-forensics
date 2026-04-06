@@ -98,14 +98,14 @@ def collect_publish_readiness_errors(repo_root: Path) -> list[str]:
         errors.append("server.json packages[0] is not an object")
         return errors
 
-    if server_payload.get("name") != "io.github.xiaojiou176/notestorelab-mcp":
+    if server_payload.get("name") != "io.github.xiaojiou176-open/notestorelab-mcp":
         errors.append("server.json name drifted from the canonical MCP identifier")
 
     repository = server_payload.get("repository")
     if not isinstance(repository, dict):
         errors.append("server.json is missing repository metadata")
     else:
-        if repository.get("url") != "https://github.com/xiaojiou176/apple-notes-forensics":
+        if repository.get("url") != "https://github.com/xiaojiou176-open/apple-notes-forensics":
             errors.append("server.json repository.url must point at the canonical GitHub repository")
         if repository.get("source") != "github":
             errors.append("server.json repository.source must be github")

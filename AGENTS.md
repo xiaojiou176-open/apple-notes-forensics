@@ -3,7 +3,7 @@
 ## Repository Identity
 
 - Project: NoteStore Lab
-- Canonical public repo: `xiaojiou176/apple-notes-forensics`
+- Canonical public repo: `xiaojiou176-open/apple-notes-forensics`
 - Primary entrypoint: `notes-recovery`
 - Host boundary: macOS only
 - Working style: operate on copied evidence, never the live Notes store
