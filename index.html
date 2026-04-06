@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>NoteStore Lab | Copy-first Apple Notes recovery and review toolkit</title>
+    <meta
+      name="description"
+      content="Copy-first Apple Notes recovery and review toolkit for macOS, with AI-assisted triage, evidence-backed case Q&A, and a read-mostly MCP surface for Codex / Claude Code style local agent workflows."
+    />
+    <meta
+      property="og:title"
+      content="NoteStore Lab | Copy-first Apple Notes recovery and review toolkit"
+    />
+    <meta
+      property="og:description"
+      content="Recovery and review stay primary. AI remains a bounded review layer, and MCP stays a local stdio-first protocol surface for builders and Codex / Claude Code style local agents."
+    />
+    <meta property="og:site_name" content="NoteStore Lab" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="assets/social/social-preview.png" />
+    <meta property="og:url" content="https://xiaojiou176.github.io/apple-notes-forensics/" />
+    <meta name="robots" content="index,follow,max-image-preview:large" />
+    <meta
+      name="keywords"
+      content="Apple Notes recovery, Apple Notes forensics, AI-assisted review, MCP server, Codex, Claude Code, local agent workflow, digital forensics, case root review"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="NoteStore Lab | Copy-first Apple Notes recovery and review toolkit"
+    />
+    <meta
+      name="twitter:description"
+      content="AI-assisted triage, evidence-backed case Q&A, and a read-mostly MCP surface for Codex / Claude Code style local agent workflows."
+    />
+    <meta name="twitter:image" content="assets/social/social-preview.png" />
+    <meta name="twitter:url" content="https://xiaojiou176.github.io/apple-notes-forensics/" />
+    <link rel="canonical" href="https://xiaojiou176.github.io/apple-notes-forensics/" />
+    <link rel="alternate" hreflang="en" href="https://xiaojiou176.github.io/apple-notes-forensics/" />
+    <link rel="alternate" hreflang="x-default" href="https://xiaojiou176.github.io/apple-notes-forensics/" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareSourceCode",
+        "name": "NoteStore Lab",
+        "codeRepository": "https://github.com/xiaojiou176/apple-notes-forensics",
+        "url": "https://xiaojiou176.github.io/apple-notes-forensics/",
+        "description": "Copy-first Apple Notes recovery and review toolkit for macOS, with AI-assisted triage, evidence-backed case Q&A, and a read-mostly MCP surface for Codex / Claude Code style local agent workflows.",
+        "inLanguage": "en-US",
+        "programmingLanguage": "Python",
+        "runtimePlatform": "macOS",
+        "keywords": [
+          "Apple Notes recovery",
+          "Apple Notes forensics",
+          "AI-assisted review",
+          "MCP server",
+          "Codex",
+          "Claude Code",
+          "digital forensics",
+          "local agent workflow"
+        ],
+        "license": "https://github.com/xiaojiou176/apple-notes-forensics/blob/main/LICENSE"
+      }
+    </script>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f5f1e8;
+        --panel: #fffaf1;
+        --ink: #16212b;
+        --muted: #576574;
+        --line: #d7cbb9;
+        --accent: #10566d;
+        --accent-strong: #0c4558;
+        --accent-soft: #dcecf1;
+        --warm: #8a4d20;
+        --shadow: rgba(18, 33, 43, 0.08);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino, serif;
+        background:
+          radial-gradient(circle at top right, rgba(16, 86, 109, 0.14), transparent 28%),
+          linear-gradient(180deg, #fdf7ed 0%, var(--bg) 38%, #efe5d8 100%);
+        color: var(--ink);
+        line-height: 1.55;
+      }
+
+      a {
+        color: var(--accent);
+      }
+
+      a:hover {
+        color: var(--accent-strong);
+      }
+
+      .shell {
+        width: min(1120px, calc(100% - 32px));
+        margin: 0 auto;
+        padding: 24px 0 64px;
+      }
+
+      .topbar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px 20px;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 28px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: baseline;
+        gap: 12px;
+        font-size: 0.98rem;
+      }
+
+      .brand strong {
+        font-size: 1.2rem;
+        letter-spacing: 0.02em;
+      }
+
+      .brand span {
+        color: var(--muted);
+      }
+
+      .nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .nav a,
+      .cta-row a,
+      .card a,
+      .footer-links a {
+        text-decoration: none;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 12px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.72);
+        border: 1px solid rgba(22, 33, 43, 0.1);
+        color: var(--ink);
+        font-size: 0.92rem;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: 1.25fr 0.95fr;
+        gap: 28px;
+        align-items: stretch;
+        margin-bottom: 28px;
+      }
+
+      .hero-copy,
+      .hero-proof,
+      .section,
+      .grid-card {
+        background: rgba(255, 250, 241, 0.82);
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(22, 33, 43, 0.08);
+        border-radius: 24px;
+        box-shadow: 0 18px 48px var(--shadow);
+      }
+
+      .hero-copy {
+        padding: 30px;
+      }
+
+      .eyebrow {
+        display: inline-block;
+        padding: 6px 10px;
+        border-radius: 999px;
+        background: var(--accent-soft);
+        color: var(--accent-strong);
+        font-size: 0.84rem;
+        font-weight: 700;
+        letter-spacing: 0.03em;
+        text-transform: uppercase;
+      }
+
+      h1,
+      h2,
+      h3 {
+        margin: 0 0 14px;
+        line-height: 1.1;
+      }
+
+      h1 {
+        margin-top: 18px;
+        font-size: clamp(2.4rem, 5vw, 4.2rem);
+      }
+
+      .lede {
+        font-size: 1.15rem;
+        color: var(--muted);
+        max-width: 64ch;
+      }
+
+      .truth-block {
+        margin-top: 22px;
+        padding: 18px;
+        border-radius: 18px;
+        background: rgba(16, 86, 109, 0.06);
+        border: 1px solid rgba(16, 86, 109, 0.14);
+      }
+
+      .truth-block strong {
+        color: var(--accent-strong);
+      }
+
+      .cta-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 22px;
+      }
+
+      .signal-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 20px;
+      }
+
+      .signal-pill {
+        display: inline-flex;
+        align-items: center;
+        padding: 8px 12px;
+        border-radius: 999px;
+        background: rgba(16, 86, 109, 0.08);
+        border: 1px solid rgba(16, 86, 109, 0.12);
+        color: var(--accent-strong);
+        font-size: 0.92rem;
+        font-weight: 700;
+      }
+
+      .cta-primary,
+      .cta-secondary {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 46px;
+        padding: 0 18px;
+        border-radius: 14px;
+        font-size: 0.98rem;
+        font-weight: 700;
+      }
+
+      .cta-primary {
+        background: var(--accent);
+        color: #fefcf7;
+      }
+
+      .cta-secondary {
+        background: transparent;
+        color: var(--accent-strong);
+        border: 1px solid rgba(16, 86, 109, 0.18);
+      }
+
+      .hero-proof {
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .hero-proof img {
+        width: 100%;
+        border-radius: 18px;
+        border: 1px solid rgba(22, 33, 43, 0.08);
+      }
+
+      .proof-caption {
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      .section {
+        padding: 28px;
+        margin-bottom: 22px;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 18px;
+        margin-top: 18px;
+      }
+
+      .grid-card {
+        padding: 22px;
+      }
+
+      .grid-card p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .grid-card strong {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 1.02rem;
+      }
+
+      .proof-list,
+      .boundary-list,
+      .builder-list,
+      .footer-links {
+        margin: 0;
+        padding-left: 18px;
+      }
+
+      .proof-list li,
+      .boundary-list li,
+      .builder-list li {
+        margin-bottom: 10px;
+      }
+
+      .journey {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 18px;
+        margin-top: 18px;
+      }
+
+      .journey-step,
+      .snippet-card,
+      .callout-card {
+        padding: 22px;
+        border-radius: 22px;
+        background: rgba(255, 255, 255, 0.58);
+        border: 1px solid rgba(22, 33, 43, 0.08);
+      }
+
+      .journey-kicker {
+        display: inline-block;
+        margin-bottom: 10px;
+        color: var(--warm);
+        font-size: 0.85rem;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      .journey-step p,
+      .callout-card p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .journey-step strong,
+      .callout-card h3 {
+        display: block;
+        margin-bottom: 10px;
+      }
+
+      .wrapper-grid,
+      .callout-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+        margin-top: 18px;
+      }
+
+      .snippet-card h3 {
+        margin-bottom: 8px;
+      }
+
+      .snippet-card p {
+        margin: 0 0 14px;
+        color: var(--muted);
+      }
+
+      .snippet-card pre {
+        margin: 0;
+        padding: 16px;
+        overflow-x: auto;
+        border-radius: 16px;
+        background: #1a2730;
+        color: #f3f7f8;
+        font-size: 0.9rem;
+        line-height: 1.45;
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+      }
+
+      .snippet-card code {
+        font-family: "SFMono-Regular", "Menlo", "Monaco", monospace;
+      }
+
+      .mini-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 16px;
+      }
+
+      .mini-table th,
+      .mini-table td {
+        text-align: left;
+        vertical-align: top;
+        padding: 10px 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .mini-table th {
+        width: 26%;
+        color: var(--warm);
+        font-weight: 700;
+      }
+
+      .note {
+        margin-top: 18px;
+        padding: 14px 16px;
+        border-left: 4px solid var(--warm);
+        background: rgba(138, 77, 32, 0.08);
+        border-radius: 12px;
+        color: var(--ink);
+      }
+
+      .footer-links {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px 18px;
+        padding-left: 18px;
+      }
+
+      footer {
+        margin-top: 26px;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      @media (max-width: 920px) {
+        .hero,
+        .grid,
+        .journey,
+        .wrapper-grid,
+        .callout-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .footer-links {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <header class="topbar">
+        <div class="brand">
+          <strong>NoteStore Lab</strong>
+          <span>Repository identity: <code>apple-notes-forensics</code></span>
+        </div>
+        <nav class="nav" aria-label="Primary">
+          <a class="pill" href="https://github.com/xiaojiou176/apple-notes-forensics">GitHub repo</a>
+          <a class="pill" href="https://github.com/xiaojiou176/apple-notes-forensics/releases">Releases</a>
+          <a class="pill" href="llms.txt">LLMs guide</a>
+          <a class="pill" href="https://github.com/xiaojiou176/apple-notes-forensics/blob/main/USE_CASES.md">Use cases</a>
+          <a class="pill" href="https://github.com/xiaojiou176/apple-notes-forensics/blob/main/ECOSYSTEM.md">Ecosystem fit</a>
+          <a class="pill" href="https://github.com/xiaojiou176/apple-notes-forensics/blob/main/INTEGRATIONS.md">Builder guide</a>
+        </nav>
+      </header>
+
+      <main>
+      <section class="hero">
+        <div class="hero-copy">
+          <span class="eyebrow">Copy-first recovery · AI-assisted review · MCP-ready builder surface</span>
+          <h1>Prove a copied Apple Notes case path in minutes, then review it with AI and local MCP.</h1>
+          <p class="lede">
+            NoteStore Lab is a macOS Apple Notes recovery and review toolkit built
+            around copied case roots, reviewable outputs, bounded AI assistance,
+            and a local read-mostly MCP surface for builders and Codex / Claude
+            Code style local-agent workflows. Recovery stays primary. AI and MCP
+            only make the review layer easier to understand and reuse.
+          </p>
+          <div class="signal-row" aria-label="Proof signals">
+            <span class="signal-pill">Zero-risk demo</span>
+            <span class="signal-pill">AI triage on derived artifacts</span>
+            <span class="signal-pill">Evidence-backed case Q&amp;A</span>
+            <span class="signal-pill">Local stdio MCP for Codex / Claude</span>
+          </div>
+          <div class="truth-block">
+            <strong>Core truth:</strong> recovery and review stay primary. AI is a
+            bounded review layer, and MCP is a protocol surface for local agents
+            and builders. There is no shipped hosted API, generated client, SDK
+            platform, or write-capable MCP by default.
+          </div>
+          <div class="cta-row">
+            <a class="cta-primary" href="#prove-it">Run the zero-risk proof path</a>
+            <a class="cta-secondary" href="#wrappers">Copy the Codex / Claude wrapper</a>
+          </div>
+        </div>
+
+        <div class="hero-proof">
+          <img src="assets/readme/hero-public-demo.png" alt="Public-safe demo proof showing copied-evidence case outputs." />
+          <div class="proof-caption">
+            One copied-evidence workflow, one timestamped case root, and one
+            review-safe proof surface: backup, recovery, verification, report,
+            AI review, and bounded case Q&amp;A.
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>One case, three consumers</h2>
+        <div class="journey">
+          <article class="journey-step">
+            <span class="journey-kicker">Operator</span>
+            <strong>Run the copied-evidence workflow once</strong>
+            <p>
+              Start with <code>demo</code>, <code>doctor</code>, or a real copied
+              case root. The repo leaves behind manifests, verification previews,
+              timelines, reports, and one review index instead of ad hoc files.
+            </p>
+          </article>
+          <article class="journey-step">
+            <span class="journey-kicker">AI Review</span>
+            <strong>Summarize before you dig deeper</strong>
+            <p>
+              <code>ai-review</code> and <code>ask-case</code> sit on derived
+              artifacts first. They rank what to inspect next, cite evidence, and
+              keep the recovery engine separate from the explanation layer.
+            </p>
+          </article>
+          <article class="journey-step">
+            <span class="journey-kicker">Local Agent</span>
+            <strong>Mount the same case root in Codex or Claude Code</strong>
+            <p>
+              The MCP surface stays local <code>stdio</code>-first, read-mostly,
+              and case-root-centric. That makes it easy to reuse the same review
+              substrate without inventing a hosted platform.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="prove-it">
+        <h2>4 things you can prove in 5 minutes</h2>
+        <div class="grid">
+          <article class="grid-card">
+            <strong><code>notes-recovery demo</code></strong>
+            <p>See one public-safe, timestamped case root with recovery, verification, report, and review artifacts before you touch a real copied case.</p>
+          </article>
+          <article class="grid-card">
+            <strong><code>notes-recovery ai-review --demo</code></strong>
+            <p>Generate a synthetic triage summary, top findings, next questions, and artifact priority from derived demo artifacts instead of raw private data.</p>
+          </article>
+          <article class="grid-card">
+            <strong><code>notes-recovery ask-case --demo ...</code></strong>
+            <p>Ask one bounded question and get an answer with evidence refs, confidence, uncertainty, and next inspection targets from the same review-safe surface.</p>
+          </article>
+          <article class="grid-card">
+            <strong><code>notes-recovery-mcp --case-dir &lt;case-root&gt;</code></strong>
+            <p>Mount the same case root in a local MCP client and reuse manifests, review artifacts, and bounded protocol surfaces in Codex or Claude Code.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Why AI and MCP users should care</h2>
+        <table class="mini-table">
+          <tbody>
+            <tr>
+              <th>Category</th>
+              <td>Digital forensics and evidence review for copied Apple Notes case roots.</td>
+            </tr>
+            <tr>
+              <th>AI / agent hook</th>
+              <td>AI-assisted triage, evidence-backed case Q&amp;A, and a local MCP surface that works with Codex / Claude Code style local-agent workflows.</td>
+            </tr>
+            <tr>
+              <th>Result</th>
+              <td>Recover, inspect, question, compare, and safely hand off reviewable outputs without pretending the repo is a hosted autonomy platform.</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="note">
+          The repo is intentionally <strong>not</strong> a generic AI assistant,
+          not a hosted review portal, and not an SDK platform. It is a
+          case-root-centric toolkit with a bounded AI/MCP layer.
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Current ecosystem fit</h2>
+        <ul class="builder-list">
+          <li><strong>Primary fit:</strong> MCP, Codex, Claude Code</li>
+          <li><strong>Secondary / comparison fit:</strong> OpenHands, OpenCode</li>
+          <li><strong>Not a main front-door claim:</strong> OpenClaw-specific positioning, hosted portals, generic agent-platform promises</li>
+        </ul>
+      </section>
+
+      <section class="section" id="wrappers">
+        <h2>For Codex and Claude Code</h2>
+        <p class="lede">
+          If your local coding-agent host supports stdio MCP servers, register
+          the shipped MCP entrypoint below and point it at a real case root.
+        </p>
+        <div class="truth-block">
+          <strong>Registration command:</strong><br />
+          <code>.venv/bin/python -m notes_recovery.mcp.server --case-dir ./output/Notes_Forensics_&lt;run_ts&gt;</code>
+        </div>
+        <div class="note">
+          The exact JSON wrapper depends on the host. The stable part is the
+          command itself plus the case-root-centric, read-mostly contract.
+          This is a builder / local-agent entrypoint, not a hosted API.
+        </div>
+        <div class="note">
+          The builder guide includes minimal
+          <code>.codex/config.toml</code> and project <code>.mcp.json</code>
+          wrapper examples for this shipped local stdio command.
+        </div>
+        <div class="note">
+          OpenClaw-style hosts stay in the comparison bucket for now. This repo
+          now ships an OpenClaw-compatible bundle build path, but not a live
+          ClawHub listing or a first-class host-specific contract.
+        </div>
+        <div class="wrapper-grid">
+          <article class="snippet-card">
+            <h3>Codex project config</h3>
+            <p>
+              Use the project <code>.codex/config.toml</code> shape and keep the
+              path base honest.
+            </p>
+            <pre><code>[mcp_servers.notestorelab]
+command = "../.venv/bin/python"
+args = [
+  "-m",
+  "notes_recovery.mcp.server",
+  "--case-dir",
+  "./output/Notes_Forensics_&lt;run_ts&gt;",
+]
+cwd = ".."</code></pre>
+          </article>
+          <article class="snippet-card">
+            <h3>Claude Code project config</h3>
+            <p>
+              Use the project <code>.mcp.json</code> shape and point it at the
+              same shipped local stdio command.
+            </p>
+            <pre><code>{
+  "mcpServers": {
+    "notestorelab": {
+      "command": ".venv/bin/python",
+      "args": [
+        "-m",
+        "notes_recovery.mcp.server",
+        "--case-dir",
+        "./output/Notes_Forensics_&lt;run_ts&gt;"
+      ]
+    }
+  }
+}</code></pre>
+          </article>
+        </div>
+        <table class="mini-table">
+          <tbody>
+            <tr>
+              <th>Claude Code</th>
+              <td>Good fit for the shipped local stdio MCP contract and case-root-centric workflow.</td>
+            </tr>
+            <tr>
+              <th>Codex</th>
+              <td>Good fit for the same local stdio MCP contract. Carry the executable command into the host wrapper you use.</td>
+            </tr>
+            <tr>
+              <th>ChatGPT developer mode</th>
+              <td>Comparison path only. This repo does not ship a hosted or remote MCP deployment.</td>
+            </tr>
+            <tr>
+              <th>OpenClaw-style hosts</th>
+              <td>Compatible bundle path now shipped. Reuse the same local MCP command and the bundled archive build, but do not claim a live ClawHub listing or first-class wrapper without fresh external read-back.</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="note">
+          Fastest host smoke: run <code>demo</code>, run
+          <code>ask-case --demo</code>, then register the exact
+          <code>notes_recovery.mcp.server</code> command against one case root.
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Why developers star it</h2>
+        <div class="callout-grid">
+          <article class="callout-card">
+            <h3>It is inspectable</h3>
+            <p>
+              The repo gives you one case root, one review index, and one set of
+              review-safe artifacts. You can inspect the outputs first and then
+              let AI or MCP consume the same surfaces.
+            </p>
+          </article>
+          <article class="callout-card">
+            <h3>It is local-first</h3>
+            <p>
+              The workflow stays on macOS, on copies, and on local
+              <code>stdio</code>-first tooling. That is a strong fit for
+              developers who want traceable behavior instead of hosted magic.
+            </p>
+          </article>
+          <article class="callout-card">
+            <h3>It has real AI hooks</h3>
+            <p>
+              <code>ai-review</code>, <code>ask-case</code>, and the MCP server
+              are already shipped. They are not roadmap placeholders or vague AI
+              branding layers.
+            </p>
+          </article>
+          <article class="callout-card">
+            <h3>It does not pretend</h3>
+            <p>
+              No hosted API, no generated client, no generic agent platform
+              promise. The repo is attractive precisely because the boundaries
+              are sharp and the proof is easy to audit.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Live entrypoints</h2>
+        <ul class="footer-links">
+          <li><a href="https://github.com/xiaojiou176/apple-notes-forensics">Repository overview</a></li>
+          <li><a href="https://github.com/xiaojiou176/apple-notes-forensics/releases">Release feed</a></li>
+          <li><a href="llms.txt">LLMs guide</a></li>
+          <li><a href="https://github.com/xiaojiou176/apple-notes-forensics/blob/main/README.md">README contract</a></li>
+          <li><a href="https://github.com/xiaojiou176/apple-notes-forensics/blob/main/CONTRIBUTING.md">Contributing / verification contract</a></li>
+          <li><a href="https://github.com/xiaojiou176/apple-notes-forensics/blob/main/USE_CASES.md">Use cases</a></li>
+          <li><a href="https://github.com/xiaojiou176/apple-notes-forensics/blob/main/ECOSYSTEM.md">Ecosystem fit matrix</a></li>
+          <li><a href="https://github.com/xiaojiou176/apple-notes-forensics/blob/main/INTEGRATIONS.md">Builder guide</a></li>
+          <li><a href="https://github.com/xiaojiou176/apple-notes-forensics/blob/main/SUPPORT.md">Support guide</a></li>
+        </ul>
+      </section>
+      </main>
+
+      <footer>
+        Current public contract: GitHub repo, GitHub release feed, this minimal
+        landing page, and the root-level contract files. Social preview,
+        optional custom domain, and any future external landing work still
+        follow explicit owner/platform boundaries.
+      </footer>
+    </div>
+  </body>
+</html>
