@@ -1,0 +1,17 @@
+{
+  "name": "notestorelab-starters",
+  "interface": {
+    "displayName": "NoteStore Lab Local Plugins"
+  },
+  "marketplaces": [
+    {
+      "name": "notestorelab-local",
+      "plugins": [
+        {
+          "name": "notestorelab",
+          "path": "plugins/notestorelab"
+        }
+      ]
+    }
+  ]
+}

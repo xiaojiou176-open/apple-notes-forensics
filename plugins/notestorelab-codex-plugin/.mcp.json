@@ -1,0 +1,7 @@
+{
+  "mcpServers": {
+    "notestorelab": {
+      "command": "./bin/notestorelab-mcp"
+    }
+  }
+}

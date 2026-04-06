@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "notestorelab": {
+      "command": "${CLAUDE_PLUGIN_ROOT}/bin/notestorelab-mcp",
+      "env": {
+        "NOTESTORELAB_REPO_ROOT": "${NOTESTORELAB_REPO_ROOT}",
+        "NOTESTORELAB_CASE_DIR": "${NOTESTORELAB_CASE_DIR}",
+        "NOTESTORELAB_PYTHON": "${NOTESTORELAB_PYTHON}"
+      }
+    }
+  }
+}
