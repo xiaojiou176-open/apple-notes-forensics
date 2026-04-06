@@ -4,9 +4,9 @@
 
 ## Canonical URLs
 
-- Landing: https://xiaojiou176.github.io/apple-notes-forensics/
-- Repository: https://github.com/xiaojiou176/apple-notes-forensics
-- Releases: https://github.com/xiaojiou176/apple-notes-forensics/releases
+- Landing: https://xiaojiou176-open.github.io/apple-notes-forensics/
+- Repository: https://github.com/xiaojiou176-open/apple-notes-forensics
+- Releases: https://github.com/xiaojiou176-open/apple-notes-forensics/releases
 
 ## Start Here
 

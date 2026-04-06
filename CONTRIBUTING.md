@@ -434,7 +434,7 @@ Release-readiness audit:
 
 ```bash
 .venv/bin/python scripts/ci/check_release_readiness.py \
-  --repo xiaojiou176/apple-notes-forensics \
+  --repo xiaojiou176-open/apple-notes-forensics \
   --strict
 ```
 
@@ -503,10 +503,10 @@ Lower-level release drills may still be useful:
   --ignore 'examples*' \
   --json-pp .runtime-cache/scancode/repo-scan.json \
   .
-gh api 'repos/xiaojiou176/apple-notes-forensics'
-gh api 'repos/xiaojiou176/apple-notes-forensics/branches/main/protection'
-gh api 'repos/xiaojiou176/apple-notes-forensics/secret-scanning/alerts?per_page=100'
-gh api 'repos/xiaojiou176/apple-notes-forensics/security-advisories?state=all'
+gh api 'repos/xiaojiou176-open/apple-notes-forensics'
+gh api 'repos/xiaojiou176-open/apple-notes-forensics/branches/main/protection'
+gh api 'repos/xiaojiou176-open/apple-notes-forensics/secret-scanning/alerts?per_page=100'
+gh api 'repos/xiaojiou176-open/apple-notes-forensics/security-advisories?state=all'
 ```
 
 ## Optional Surface Boundary

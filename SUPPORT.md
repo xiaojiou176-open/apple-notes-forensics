@@ -45,9 +45,9 @@ baseline or optional surfaces described in [README.md](./README.md) and
 
 Useful public entrypoints:
 
-- Repository overview: <https://github.com/xiaojiou176/apple-notes-forensics>
-- Issue tracker: <https://github.com/xiaojiou176/apple-notes-forensics/issues>
-- Release feed: <https://github.com/xiaojiou176/apple-notes-forensics/releases>
+- Repository overview: <https://github.com/xiaojiou176-open/apple-notes-forensics>
+- Issue tracker: <https://github.com/xiaojiou176-open/apple-notes-forensics/issues>
+- Release feed: <https://github.com/xiaojiou176-open/apple-notes-forensics/releases>
 
 Storefront settings such as GitHub description, topics, custom social preview,
 and release-page copy remain maintainer-managed manual actions. Treat them as

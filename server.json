@@ -1,10 +1,10 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
-  "name": "io.github.xiaojiou176/notestorelab-mcp",
+  "name": "io.github.xiaojiou176-open/notestorelab-mcp",
   "title": "NoteStore Lab MCP",
   "description": "Local copy-first Apple Notes recovery and review MCP server for NoteStore Lab case roots.",
   "repository": {
-    "url": "https://github.com/xiaojiou176/apple-notes-forensics",
+    "url": "https://github.com/xiaojiou176-open/apple-notes-forensics",
     "source": "github"
   },
   "version": "0.1.0",

@@ -1,6 +1,6 @@
 # NoteStore Lab
 
-<!-- mcp-name: io.github.xiaojiou176/notestorelab-mcp -->
+<!-- mcp-name: io.github.xiaojiou176-open/notestorelab-mcp -->
 
 > Category: copy-first Apple Notes recovery and review toolkit for macOS.
 > AI / agent hook: AI-assisted triage, evidence-backed case Q&A, and a
@@ -11,19 +11,19 @@
 > Repository identity: `apple-notes-forensics` · Primary entrypoints:
 > `notes-recovery` and `notes-recovery-mcp`
 
-[![Release](https://img.shields.io/github/v/release/xiaojiou176/apple-notes-forensics?style=flat-square)](https://github.com/xiaojiou176/apple-notes-forensics/releases)
-[![License](https://img.shields.io/github/license/xiaojiou176/apple-notes-forensics?style=flat-square)](./LICENSE)
-[![CI](https://img.shields.io/github/actions/workflow/status/xiaojiou176/apple-notes-forensics/ci.yml?branch=main&style=flat-square&label=ci)](https://github.com/xiaojiou176/apple-notes-forensics/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/xiaojiou176-open/apple-notes-forensics?style=flat-square)](https://github.com/xiaojiou176-open/apple-notes-forensics/releases)
+[![License](https://img.shields.io/github/license/xiaojiou176-open/apple-notes-forensics?style=flat-square)](./LICENSE)
+[![CI](https://img.shields.io/github/actions/workflow/status/xiaojiou176-open/apple-notes-forensics/ci.yml?branch=main&style=flat-square&label=ci)](https://github.com/xiaojiou176-open/apple-notes-forensics/actions/workflows/ci.yml)
 
 [Quickstart](#quickstart) ·
-[Landing](https://xiaojiou176.github.io/apple-notes-forensics/) ·
+[Landing](https://xiaojiou176-open.github.io/apple-notes-forensics/) ·
 [LLMs Guide](./llms.txt) ·
 [Distribution](./DISTRIBUTION.md) ·
 [Demo Proof](#demo-proof) ·
 [Use Cases](./USE_CASES.md) ·
 [Ecosystem Fit](./ECOSYSTEM.md) ·
 [Builder Guide](./INTEGRATIONS.md) ·
-[Releases](https://github.com/xiaojiou176/apple-notes-forensics/releases) ·
+[Releases](https://github.com/xiaojiou176-open/apple-notes-forensics/releases) ·
 [Changelog](./CHANGELOG.md) ·
 [Trust Surface](#trust-surface) ·
 [Contributing](./CONTRIBUTING.md) ·
@@ -384,14 +384,14 @@ public truth for this project.
 Right now:
 
 - a public-safe demo is available in this repository
-- the GitHub Release feed is live at the [Releases](https://github.com/xiaojiou176/apple-notes-forensics/releases) page, with a synthetic public demo bundle attached to `v0.1.0`
-- the GitHub Pages landing is the current external front door at [xiaojiou176.github.io/apple-notes-forensics](https://xiaojiou176.github.io/apple-notes-forensics/)
+- the GitHub Release feed is live at the [Releases](https://github.com/xiaojiou176-open/apple-notes-forensics/releases) page, with a synthetic public demo bundle attached to `v0.1.0`
+- the GitHub Pages landing is the current external front door at [xiaojiou176-open.github.io/apple-notes-forensics](https://xiaojiou176-open.github.io/apple-notes-forensics/)
 - `llms.txt`, `robots.txt`, and `sitemap.xml` now expose the current public contract to AI crawlers and search engines without pretending the repo is an API platform
 - GitHub description, topics, and custom social preview status should be treated
   as GitHub Settings items, not repository facts
 
 Use [CHANGELOG.md](./CHANGELOG.md) for tracked milestone history and the
-[Releases](https://github.com/xiaojiou176/apple-notes-forensics/releases)
+[Releases](https://github.com/xiaojiou176-open/apple-notes-forensics/releases)
 page for the published GitHub release feed and the synthetic public demo bundle.
 
 The current live/public sync status is:
@@ -449,7 +449,7 @@ Tracked public proof should come from one of two places only:
 Public release readiness is not just about the current working tree. The
 repository audit explicitly reviews git history, pull request diffs, forks,
 mirrors, downloaded clones, branch protection, required pull request reviews,
-secret scanning, and hosting settings for the `xiaojiou176` canonical
+secret scanning, and hosting settings for the `xiaojiou176-open` canonical
 repository.
 
 Use `scripts/ci/check_release_readiness.py --strict` instead of assuming those
@@ -550,13 +550,13 @@ is intentionally metadata-focused:
 
 ## Repository Links
 
-- [Landing page](https://xiaojiou176.github.io/apple-notes-forensics/)
+- [Landing page](https://xiaojiou176-open.github.io/apple-notes-forensics/)
 - [LLMs guide](./llms.txt)
 - [Changelog](./CHANGELOG.md)
 - [Use Cases](./USE_CASES.md)
 - [Ecosystem Fit](./ECOSYSTEM.md)
 - [Builder Guide](./INTEGRATIONS.md)
-- [Issue tracker](https://github.com/xiaojiou176/apple-notes-forensics/issues)
+- [Issue tracker](https://github.com/xiaojiou176-open/apple-notes-forensics/issues)
 - [Support guide](./SUPPORT.md)
 - [Security policy](./SECURITY.md)
 - [Contributing guide](./CONTRIBUTING.md)

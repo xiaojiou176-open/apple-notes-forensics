@@ -25,13 +25,13 @@ LLMS_REQUIRED_TOKENS = (
 ROBOTS_REQUIRED_TOKENS = (
     "User-agent: *",
     "Allow: /",
-    "Sitemap: https://xiaojiou176.github.io/apple-notes-forensics/sitemap.xml",
+    "Sitemap: https://xiaojiou176-open.github.io/apple-notes-forensics/sitemap.xml",
 )
 
 SITEMAP_REQUIRED_TOKENS = (
-    "https://xiaojiou176.github.io/apple-notes-forensics/",
-    "https://xiaojiou176.github.io/apple-notes-forensics/llms.txt",
-    "https://xiaojiou176.github.io/apple-notes-forensics/robots.txt",
+    "https://xiaojiou176-open.github.io/apple-notes-forensics/",
+    "https://xiaojiou176-open.github.io/apple-notes-forensics/llms.txt",
+    "https://xiaojiou176-open.github.io/apple-notes-forensics/robots.txt",
 )
 
 ERROR_PAGE_REQUIRED_TOKENS = (
