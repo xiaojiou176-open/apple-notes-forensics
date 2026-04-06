@@ -9,6 +9,15 @@ DISCOVERY_FILES = (
     "robots.txt",
     "sitemap.xml",
     "404.html",
+    "site.webmanifest",
+)
+
+DISCOVERY_ASSET_FILES = (
+    "assets/brand/notestorelab-mark.svg",
+    "assets/brand/favicon-32.png",
+    "assets/brand/apple-touch-icon.png",
+    "assets/brand/icon-192.png",
+    "assets/brand/icon-512.png",
 )
 
 LLMS_REQUIRED_TOKENS = (
@@ -39,6 +48,17 @@ ERROR_PAGE_REQUIRED_TOKENS = (
     "Return to the landing page",
     "Open the GitHub repository",
     "Open the release feed",
+)
+
+WEBMANIFEST_REQUIRED_TOKENS = (
+    '"name": "NoteStore Lab"',
+    '"short_name": "NoteStore Lab"',
+    '"start_url": "/apple-notes-forensics/"',
+    '"scope": "/apple-notes-forensics/"',
+    '"theme_color": "#16212b"',
+    '"background_color": "#f5f1e8"',
+    '"src": "assets/brand/icon-192.png"',
+    '"src": "assets/brand/icon-512.png"',
 )
 
 README_DISCOVERY_TOKENS = (
@@ -97,6 +117,10 @@ INDEX_DISCOVERY_TOKENS = (
     "canonical",
     "og:site_name",
     "og:locale",
+    'rel="icon"',
+    'apple-touch-icon',
+    'site.webmanifest',
+    'brand-mark',
     'hreflang="x-default"',
     '"inLanguage": "en-US"',
     "Comparison path only.",
@@ -121,6 +145,10 @@ def collect_discovery_surface_errors(repo_root: Path) -> list[str]:
     for rel_path in DISCOVERY_FILES:
         if not (repo_root / rel_path).exists():
             errors.append(f"missing discovery surface file: {rel_path}")
+
+    for rel_path in DISCOVERY_ASSET_FILES:
+        if not (repo_root / rel_path).exists():
+            errors.append(f"missing discovery asset file: {rel_path}")
 
     llms_text = _read(repo_root, "llms.txt")
     if not llms_text:
@@ -156,6 +184,14 @@ def collect_discovery_surface_errors(repo_root: Path) -> list[str]:
         for token in ERROR_PAGE_REQUIRED_TOKENS:
             if token not in error_page_text:
                 errors.append(f"404.html is missing required token: {token}")
+
+    webmanifest_text = _read(repo_root, "site.webmanifest")
+    if not webmanifest_text:
+        errors.append("missing site.webmanifest")
+    else:
+        for token in WEBMANIFEST_REQUIRED_TOKENS:
+            if token not in webmanifest_text:
+                errors.append(f"site.webmanifest is missing required token: {token}")
 
     readme_text = _read(repo_root, "README.md")
     if not readme_text:
