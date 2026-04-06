@@ -1,0 +1,12 @@
+{
+  "name": "notestorelab-starters",
+  "owner": {
+    "name": "NoteStore Lab"
+  },
+  "plugins": [
+    {
+      "name": "notestorelab",
+      "source": "plugins/notestorelab"
+    }
+  ]
+}
