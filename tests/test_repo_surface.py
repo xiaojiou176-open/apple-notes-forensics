@@ -52,6 +52,7 @@ def test_docs_surface_passes_for_minimal_repo(tmp_path: Path) -> None:
                 "# NoteStore Lab",
                 "",
                 "[License](LICENSE)",
+                "[Public Proof](proof.html)",
                 "[LLMs](llms.txt)",
                 "[Security](SECURITY.md)",
                 "[Contributing](CONTRIBUTING.md)",
@@ -63,6 +64,7 @@ def test_docs_surface_passes_for_minimal_repo(tmp_path: Path) -> None:
             ]
         ),
     )
+    _write(tmp_path / "proof.html", "<html><body>proof</body></html>\n")
     _write(tmp_path / "llms.txt", "# NoteStore Lab\n")
     _write(tmp_path / "LICENSE", "MIT\n")
     _write(tmp_path / "CONTRIBUTING.md", "# Contributing\n")
@@ -83,6 +85,7 @@ def test_docs_surface_rejects_removed_docs_tree(tmp_path: Path) -> None:
                 "# NoteStore Lab",
                 "",
                 "[License](LICENSE)",
+                "[Public Proof](proof.html)",
                 "[LLMs](llms.txt)",
                 "[Security](SECURITY.md)",
                 "[Contributing](CONTRIBUTING.md)",
@@ -94,6 +97,7 @@ def test_docs_surface_rejects_removed_docs_tree(tmp_path: Path) -> None:
             ]
         ),
     )
+    _write(tmp_path / "proof.html", "<html><body>proof</body></html>\n")
     _write(tmp_path / "llms.txt", "# NoteStore Lab\n")
     _write(tmp_path / "LICENSE", "MIT\n")
     _write(tmp_path / "CONTRIBUTING.md", "# Contributing\n")
@@ -540,13 +544,13 @@ def test_discovery_surface_contract_passes_for_aligned_surface(tmp_path: Path) -
         tmp_path / "index.html",
         "\n".join(
             [
-                "Run the zero-risk proof path",
-                "Copy the Codex / Claude wrapper",
-                "4 things you can prove in 5 minutes",
+                "Follow the 4-command proof path",
+                "See the public proof boundary",
+                "4 operator-first steps in under 5 minutes",
                 "One case, three consumers",
-                "Why developers star it",
+                "Public proof boundary",
                 "LLMs guide",
-                "For Codex and Claude Code",
+                "Builder path: Codex and Claude Code",
                 "OpenClaw-style hosts",
                 "Fastest host smoke",
                 "Registration command:",

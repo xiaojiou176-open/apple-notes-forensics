@@ -2,6 +2,7 @@ from __future__ import annotations
 
 ROOT_PUBLIC_CONTRACT_FILES = (
     "README.md",
+    "proof.html",
     "llms.txt",
     "LICENSE",
     "CONTRIBUTING.md",
@@ -15,6 +16,7 @@ ROOT_PUBLIC_CONTRACT_FILES = (
 README_PUBLIC_SURFACE_TOKENS = (
     "NoteStore Lab",
     "notes-recovery",
+    "proof.html",
     "llms.txt",
     "LICENSE",
     "SECURITY.md",
