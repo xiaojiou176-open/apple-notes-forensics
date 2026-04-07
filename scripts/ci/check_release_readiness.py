@@ -46,6 +46,15 @@ SAFE_HISTORY_PATH_HIT_RULES = (
         "deadbeef:",
     ),
 )
+REVIEWED_CLOSED_UNMERGED_PULL_REQUESTS = {
+    1: "Reviewed closed dependabot CodeQL bump; current workflow state intentionally diverged from this abandoned update branch.",
+    3: "Reviewed closed dependency snapshot PR; superseded by merged PR #7.",
+    4: "Reviewed closed proof/front-door PR; superseded by merged PR #5 with the same patch set.",
+    6: "Reviewed closed dependency snapshot refresh PR; superseded by merged PR #7.",
+    9: "Reviewed closed hosted-squash identity hotfix PR; superseded by merged PR #12.",
+    10: "Reviewed closed hosted-squash identity hotfix PR; superseded by merged PR #12.",
+    11: "Reviewed closed hosted-squash identity hotfix PR; superseded by merged PR #12.",
+}
 
 
 def _run(
@@ -196,6 +205,11 @@ def _is_meaningful_history_path_hit(line: str) -> bool:
 
 def _meaningful_history_path_hits(lines: list[str]) -> list[str]:
     return [line for line in lines if _is_meaningful_history_path_hit(line)]
+
+
+def _is_reviewed_closed_unmerged_pr(pr: dict[str, Any]) -> bool:
+    number = pr.get("number")
+    return isinstance(number, int) and number in REVIEWED_CLOSED_UNMERGED_PULL_REQUESTS
 
 
 def _collect_local_summary(repo_root: Path, history_limit: int, blob_limit: int) -> dict[str, Any]:
@@ -414,6 +428,12 @@ def _evaluate_release_summary(
         closed_unmerged_pull_requests = [
             pr for pr in pull_requests if isinstance(pr, dict) and pr.get("state") == "CLOSED"
         ]
+        reviewed_closed_unmerged_pull_requests = [
+            pr for pr in closed_unmerged_pull_requests if _is_reviewed_closed_unmerged_pr(pr)
+        ]
+        unresolved_closed_unmerged_pull_requests = [
+            pr for pr in closed_unmerged_pull_requests if not _is_reviewed_closed_unmerged_pr(pr)
+        ]
         merged_pull_requests = [
             pr for pr in pull_requests if isinstance(pr, dict) and pr.get("state") == "MERGED"
         ]
@@ -423,10 +443,18 @@ def _evaluate_release_summary(
                 "GitHub repository currently has "
                 f"{len(open_pull_requests)} open pull request(s); review or close them before claiming full publication cleanup."
             )
-        if closed_unmerged_pull_requests:
+        if unresolved_closed_unmerged_pull_requests:
             manual_review.append(
                 "GitHub repository has "
-                f"{len(closed_unmerged_pull_requests)} closed unmerged pull request(s); review them before claiming full publication cleanup."
+                f"{len(unresolved_closed_unmerged_pull_requests)} closed unmerged pull request(s); review them before claiming full publication cleanup."
+            )
+        elif reviewed_closed_unmerged_pull_requests:
+            reviewed_numbers = ", ".join(
+                f"#{pr['number']}" for pr in reviewed_closed_unmerged_pull_requests if isinstance(pr.get("number"), int)
+            )
+            notes.append(
+                "Closed unmerged pull requests already reviewed and accepted as superseded history: "
+                f"{reviewed_numbers}."
             )
         if merged_pull_requests and not open_pull_requests and not closed_unmerged_pull_requests:
             notes.append(
