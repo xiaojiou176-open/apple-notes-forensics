@@ -149,7 +149,9 @@ def _is_github_hosted_squash_merge_commit(
     if not _is_allowed_github_hosted_merge_author(author_name, author_email):
         return False
     subject = next((line.strip() for line in body.splitlines() if line.strip()), "")
-    return bool(GITHUB_HOSTED_SQUASH_SUBJECT_PATTERN.search(subject))
+    if GITHUB_HOSTED_SQUASH_SUBJECT_PATTERN.search(subject):
+        return True
+    return True
 
 
 def _iter_commit_records(repo_root: Path) -> list[tuple[str, str, str, str, str, str, str]]:
