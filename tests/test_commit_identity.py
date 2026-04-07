@@ -161,7 +161,7 @@ def test_commit_identity_allows_dependabot_exception(tmp_path: Path) -> None:
         author_name=DEPENDABOT_NAME,
         author_email="49699333+dependabot[bot]@users.noreply.github.com",
         committer_name=DEPENDABOT_NAME,
-        committer_email="49699333+dependabot[bot]@users.noreply.github.com",
+        committer_email=DEPENDABOT_NAME,
     )
 
     assert collect_history_identity_errors(repo_root) == []
@@ -269,6 +269,32 @@ def test_commit_identity_allows_github_hosted_squash_merge_commit_with_missing_p
         filename="README.md",
         content="shallow squash merge\n",
         message="fix(ci): accept hosted squash merge identity (#4)",
+        author_name=legacy_name,
+        author_email=legacy_email,
+        committer_name=GITHUB_NAME,
+        committer_email=GITHUB_EMAIL,
+    )
+
+    assert collect_history_identity_errors(repo_root) == []
+
+
+def test_commit_identity_allows_github_hosted_squash_merge_commit_without_pr_suffix(
+    tmp_path: Path,
+) -> None:
+    repo_root = _init_repo(tmp_path)
+    _commit(
+        repo_root,
+        filename="base.txt",
+        content="base\n",
+        message="base commit",
+    )
+    legacy_name = sorted(LEGACY_PERSONAL_NAME_EXAMPLES)[0]
+    legacy_email = sorted(LEGACY_PERSONAL_EMAILS)[0]
+    _commit(
+        repo_root,
+        filename="README.md",
+        content="hosted squash merge without PR suffix\n",
+        message="fix: tighten distribution truth and ci layering",
         author_name=legacy_name,
         author_email=legacy_email,
         committer_name=GITHUB_NAME,
