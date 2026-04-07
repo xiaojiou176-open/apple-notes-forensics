@@ -203,6 +203,71 @@ def test_evaluate_release_summary_treats_fully_merged_pr_history_as_notes() -> N
     assert any("fully merged" in item for item in evaluation["notes"])
 
 
+def test_evaluate_release_summary_ignores_reviewed_closed_unmerged_pull_requests() -> None:
+    remote_summary = _remote_summary_base()
+    remote_summary["pull_requests"] = [
+        {
+            "number": 3,
+            "state": "CLOSED",
+            "title": "ci(deps): submit dependency snapshots for review support",
+            "url": "https://github.com/xiaojiou176-open/apple-notes-forensics/pull/3",
+        },
+        {
+            "number": 9,
+            "state": "CLOSED",
+            "title": "fix: allow github-hosted squash merge identity",
+            "url": "https://github.com/xiaojiou176-open/apple-notes-forensics/pull/9",
+        },
+    ]
+
+    local_summary = {
+        "tags": [],
+        "tracked_fixture_paths": [],
+        "largest_blobs": [],
+        "history_path_hits": [],
+        "lfs_status": "git-lfs unavailable",
+        "lfs_entries": [],
+    }
+
+    evaluation = _evaluate_release_summary(
+        local_summary,
+        remote_summary,
+        max_blob_bytes=1_000_000,
+    )
+
+    assert all("closed unmerged pull request" not in item for item in evaluation["manual_review"])
+    assert any("#3" in item and "#9" in item for item in evaluation["notes"])
+
+
+def test_evaluate_release_summary_keeps_unknown_closed_unmerged_pull_requests_manual() -> None:
+    remote_summary = _remote_summary_base()
+    remote_summary["pull_requests"] = [
+        {
+            "number": 99,
+            "state": "CLOSED",
+            "title": "unknown closed pull request",
+            "url": "https://github.com/xiaojiou176-open/apple-notes-forensics/pull/99",
+        }
+    ]
+
+    local_summary = {
+        "tags": [],
+        "tracked_fixture_paths": [],
+        "largest_blobs": [],
+        "history_path_hits": [],
+        "lfs_status": "git-lfs unavailable",
+        "lfs_entries": [],
+    }
+
+    evaluation = _evaluate_release_summary(
+        local_summary,
+        remote_summary,
+        max_blob_bytes=1_000_000,
+    )
+
+    assert any("closed unmerged pull request" in item for item in evaluation["manual_review"])
+
+
 def test_gh_json_treats_no_content_as_none(monkeypatch) -> None:
     def fake_run(*args, **kwargs):  # type: ignore[no-untyped-def]
         return subprocess.CompletedProcess(
