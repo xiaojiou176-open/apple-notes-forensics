@@ -9,13 +9,19 @@
       content="Page not found. Return to the NoteStore Lab landing page, releases, or repository overview."
     />
     <style>
+      :root {
+        --ink: #16212b;
+        --muted: #576574;
+        --accent: #10566d;
+      }
+
       body {
         margin: 0;
         min-height: 100vh;
         display: grid;
         place-items: center;
         background: linear-gradient(180deg, #fdf7ed 0%, #f5f1e8 100%);
-        color: #16212b;
+        color: var(--ink);
         font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino, serif;
       }
 
@@ -33,8 +39,27 @@
         font-size: clamp(2rem, 4vw, 3rem);
       }
 
+      .eyebrow {
+        display: inline-block;
+        padding: 6px 10px;
+        border-radius: 999px;
+        background: rgba(16, 86, 109, 0.1);
+        color: #0c4558;
+        font-size: 0.84rem;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+
+      .mark {
+        width: 42px;
+        height: 42px;
+        border-radius: 12px;
+        margin-bottom: 18px;
+        box-shadow: 0 8px 24px rgba(18, 33, 43, 0.16);
+      }
+
       p {
-        color: #576574;
+        color: var(--muted);
         line-height: 1.6;
       }
 
@@ -43,19 +68,23 @@
       }
 
       a {
-        color: #10566d;
+        color: var(--accent);
       }
     </style>
   </head>
   <body>
     <main>
+      <img class="mark" src="assets/brand/notestorelab-mark.svg" alt="" />
+      <span class="eyebrow">Navigation miss</span>
       <h1>Page not found</h1>
       <p>
         This NoteStore Lab page is missing. The current public front door is the
-        live landing page plus the GitHub repository and release feed.
+        live landing page, the public proof page, plus the GitHub repository
+        and release feed.
       </p>
       <ul>
         <li><a href="https://xiaojiou176-open.github.io/apple-notes-forensics/">Return to the landing page</a></li>
+        <li><a href="https://xiaojiou176-open.github.io/apple-notes-forensics/proof.html">Open the public proof boundary</a></li>
         <li><a href="https://github.com/xiaojiou176-open/apple-notes-forensics">Open the GitHub repository</a></li>
         <li><a href="https://github.com/xiaojiou176-open/apple-notes-forensics/releases">Open the release feed</a></li>
       </ul>

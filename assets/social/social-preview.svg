@@ -18,8 +18,8 @@
   <text x="92" y="168" fill="#f5f1e8" font-family="Menlo, Monaco, Consolas, monospace" font-size="28">NoteStore Lab</text>
   <text x="92" y="244" fill="#f5f1e8" font-family="Menlo, Monaco, Consolas, monospace" font-size="36" font-weight="700">Copy-first Apple Notes recovery,</text>
   <text x="92" y="292" fill="#f5f1e8" font-family="Menlo, Monaco, Consolas, monospace" font-size="36" font-weight="700">bounded AI review, and local MCP.</text>
-  <text x="92" y="336" fill="#bdd0df" font-family="Menlo, Monaco, Consolas, monospace" font-size="21">One copied-evidence case root. One review layer. One local</text>
-  <text x="92" y="366" fill="#bdd0df" font-family="Menlo, Monaco, Consolas, monospace" font-size="21">entrypoint for Codex and Claude Code style workflows.</text>
+  <text x="92" y="336" fill="#bdd0df" font-family="Menlo, Monaco, Consolas, monospace" font-size="21">Start with the operator proof path, then reuse the same</text>
+  <text x="92" y="366" fill="#bdd0df" font-family="Menlo, Monaco, Consolas, monospace" font-size="21">case root in Codex and Claude Code style workflows.</text>
 
   <rect x="92" y="410" width="336" height="126" rx="20" fill="#172334" stroke="#4d6d90" stroke-width="2"/>
   <text x="118" y="446" fill="#8cc5ff" font-family="Menlo, Monaco, Consolas, monospace" font-size="20" font-weight="700">Prove it fast</text>
@@ -33,11 +33,12 @@
   <text x="478" y="504" fill="#d5dde6" font-family="Menlo, Monaco, Consolas, monospace" font-size="17">- triage + next steps</text>
   <text x="478" y="528" fill="#d5dde6" font-family="Menlo, Monaco, Consolas, monospace" font-size="17">- evidence refs</text>
 
-  <rect x="812" y="410" width="372" height="126" rx="20" fill="#2a191f" stroke="#9b5d74" stroke-width="2"/>
-  <text x="838" y="446" fill="#ffb1ca" font-family="Menlo, Monaco, Consolas, monospace" font-size="20" font-weight="700">Mount it in local agents</text>
-  <text x="838" y="482" fill="#f5f1e8" font-family="Menlo, Monaco, Consolas, monospace" font-size="18">project .codex/config.toml</text>
-  <text x="838" y="510" fill="#f5f1e8" font-family="Menlo, Monaco, Consolas, monospace" font-size="18">project .mcp.json</text>
-  <text x="838" y="528" fill="#d5dde6" font-family="Menlo, Monaco, Consolas, monospace" font-size="17">- Codex + Claude ready</text>
+  <rect x="812" y="410" width="372" height="136" rx="20" fill="#2a191f" stroke="#9b5d74" stroke-width="2"/>
+  <text x="838" y="442" fill="#ffb1ca" font-family="Menlo, Monaco, Consolas, monospace" font-size="18" font-weight="700">Reuse the same case root</text>
+  <text x="838" y="466" fill="#ffb1ca" font-family="Menlo, Monaco, Consolas, monospace" font-size="18" font-weight="700">in local agents</text>
+  <text x="838" y="494" fill="#f5f1e8" font-family="Menlo, Monaco, Consolas, monospace" font-size="17">Codex + Claude via local MCP</text>
+  <text x="838" y="518" fill="#d5dde6" font-family="Menlo, Monaco, Consolas, monospace" font-size="16">- reuse the same review surface</text>
+  <text x="838" y="536" fill="#d5dde6" font-family="Menlo, Monaco, Consolas, monospace" font-size="16">- builder lane second</text>
 
   <text x="92" y="572" fill="#c9d3de" font-family="Menlo, Monaco, Consolas, monospace" font-size="16">Tracked source for GitHub social preview. Export a 1280x640 PNG before upload.</text>
 </svg>

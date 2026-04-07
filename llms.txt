@@ -10,7 +10,8 @@
 
 ## Start Here
 
-- README.md: primary public contract and quickstart
+- README.md: primary public contract and operator-first path
+- proof.html: public proof, remote read-back, and manual external boundary
 - CONTRIBUTING.md: canonical verification contract
 - USE_CASES.md: operator and builder use cases
 - ECOSYSTEM.md: ecosystem fit matrix
@@ -45,6 +46,7 @@
 - `notes-recovery demo`
 - `notes-recovery ai-review --demo`
 - `notes-recovery ask-case --demo --question "What should I inspect first?"`
+- `notes-recovery doctor`
 - `.venv/bin/python -m notes_recovery.mcp.server --case-dir ./output/Notes_Forensics_<run_ts>`
 
 ## AI / Agent / MCP Fit

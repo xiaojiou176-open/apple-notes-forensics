@@ -6,11 +6,13 @@
   <img src="./assets/brand/notestorelab-mark.svg" alt="NoteStore Lab brand mark" width="84" height="84" />
 </p>
 
-> Category: copy-first Apple Notes recovery and review toolkit for macOS.
-> AI / agent hook: AI-assisted triage, evidence-backed case Q&A, and a
-> read-mostly MCP surface for Codex / Claude Code style local agent workflows.
-> Result: recover, inspect, question, compare, and safely hand off copied
-> evidence without turning the repo into a hosted platform.
+> Copy first. Prove the case path. Then let AI and local MCP review the same
+> case root.
+>
+> Operator-first proof path:
+> `notes-recovery demo` -> `notes-recovery ai-review --demo` ->
+> `notes-recovery ask-case --demo --question "What should I inspect first?"` ->
+> `notes-recovery doctor`
 >
 > Repository identity: `apple-notes-forensics` · Primary entrypoints:
 > `notes-recovery` and `notes-recovery-mcp`
@@ -19,33 +21,30 @@
 [![License](https://img.shields.io/github/license/xiaojiou176-open/apple-notes-forensics?style=flat-square)](./LICENSE)
 [![CI](https://img.shields.io/github/actions/workflow/status/xiaojiou176-open/apple-notes-forensics/ci.yml?branch=main&style=flat-square&label=ci)](https://github.com/xiaojiou176-open/apple-notes-forensics/actions/workflows/ci.yml)
 
-[Quickstart](#quickstart) ·
+[Start Here](#start-here) ·
+[Public Proof](./proof.html) ·
 [Landing](https://xiaojiou176-open.github.io/apple-notes-forensics/) ·
-[LLMs Guide](./llms.txt) ·
-[Distribution](./DISTRIBUTION.md) ·
-[Demo Proof](#demo-proof) ·
-[Use Cases](./USE_CASES.md) ·
-[Ecosystem Fit](./ECOSYSTEM.md) ·
 [Builder Guide](./INTEGRATIONS.md) ·
-[Releases](https://github.com/xiaojiou176-open/apple-notes-forensics/releases) ·
-[Changelog](./CHANGELOG.md) ·
-[Trust Surface](#trust-surface) ·
-[Contributing](./CONTRIBUTING.md) ·
-[Support](./SUPPORT.md) ·
-[Security](./SECURITY.md)
+[Support](./SUPPORT.md)
 
 ![Public-safe demo proof showing one copied-evidence case root with backup, recovery, verification, and report outputs.](./assets/readme/hero-public-demo.png)
 
 *Public-safe proof block: one copied-evidence workflow, one timestamped case
 root, and reviewable outputs for backup, recovery, verification, and reports.*
 
-## Demo Proof
+## Start Here
 
-You can think of this repository as a lab bench instead of a rescue button.
-It helps you work on copied Apple Notes evidence, keep every artifact together,
-and review the result later instead of poking at a live store.
+Treat this repository like a lab bench, not a rescue button. Start by proving
+the workflow shape on synthetic artifacts first:
 
-What you get from the public-safe demo:
+```bash
+notes-recovery demo
+notes-recovery ai-review --demo
+notes-recovery ask-case --demo --question "What should I inspect first?"
+notes-recovery doctor
+```
+
+What this path proves in under five minutes:
 
 - one timestamped case root instead of ad hoc loose files
 - reviewable outputs for backup, recovery, verification, and reports
@@ -53,8 +52,15 @@ What you get from the public-safe demo:
   store
 - a synthetic AI triage path that stays on review artifacts instead of raw
   copied evidence
-- a synthetic evidence pack that can also drive `ask-case` without pretending
-  the demo is a real incident
+- an evidence-backed case question flow that cites what it used
+
+If you are here for Codex / Claude Code integration, run the operator path
+once, then jump to the [Builder Guide](./INTEGRATIONS.md). The builder lane is
+real, but it is not the first thing a new operator should read.
+
+Deep reads once the first path makes sense:
+[LLMs Guide](./llms.txt) · [Distribution](./DISTRIBUTION.md) ·
+[Use Cases](./USE_CASES.md) · [Ecosystem Fit](./ECOSYSTEM.md)
 
 ## What It Is
 
@@ -71,6 +77,9 @@ The builder-facing chain is just as important:
 
 That is the current external substrate for local agents and builder tooling.
 It is real today. A hosted API or generated SDK is not.
+
+For the exact repo-side proof, remote read-back proof, and manual external
+boundary, use [Public Proof](./proof.html).
 
 ## What It Is Not
 
@@ -142,8 +151,8 @@ The allowed local scope stays intentionally narrow:
 | get a zero-risk first look | `notes-recovery demo` | it shows the public-safe demo surface without touching private evidence or a live Notes store |
 | preview AI-assisted review on synthetic data | `notes-recovery ai-review --demo` | it generates triage, findings, and next-step questions from public-safe demo artifacts |
 | ask one evidence-backed question about the synthetic review surface | `notes-recovery ask-case --demo --question "What should I inspect first?"` | it answers from tracked derived demo artifacts and cites which surfaces it used |
+| check whether this host is ready for a real copied-evidence run | `notes-recovery doctor` | it confirms the host boundary and tells you whether to stay on demo or move to a real copied-evidence run |
 | browse a richer local review cockpit | `forensics-dashboard` | it gives you case-root selection, resource inventory, AI quick view, and bounded case-diff without becoming a hosted portal |
-| check whether this host is ready for a real copied-evidence run | `notes-recovery doctor` | it summarizes host boundary, baseline readiness, optional surfaces, and the safest next step |
 | run the standard copied-evidence workflow | `notes-recovery auto --out ... --report --verify --recover --keyword ...` | it builds one timestamped case root with recovery, review, and manifest outputs |
 | share a safer review bundle later | `notes-recovery public-safe-export --dir <case-root> --out ./output/public_safe_bundle` | it creates a redacted sharing layer instead of exposing the forensic-local case root |
 
@@ -170,6 +179,8 @@ Expected first-look signals:
   findings, and next-step questions
 - `notes-recovery ask-case --demo ...` returns an evidence-backed answer with
   cited derived surfaces
+- `notes-recovery doctor` tells you whether the host is ready for a real
+  copied-evidence run
 - you see a case tree preview, a verification preview, and an operator brief
 - nothing touches private evidence or a live Notes store
 - the demo surface gives you one coherent story: workflow shape, AI proof, and
