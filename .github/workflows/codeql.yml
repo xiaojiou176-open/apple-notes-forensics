@@ -7,8 +7,9 @@ on:
   pull_request:
     branches:
       - main
+  workflow_dispatch:
   schedule:
-    - cron: "21 7 * * 1"
+    - cron: "21 7 * * *"
 
 permissions:
   actions: read

@@ -25,7 +25,7 @@ def test_distribution_artifacts_exist() -> None:
     assert marketplace_payload["plugins"][0]["name"] == "notestorelab-claude-plugin"
     assert marketplace_payload["plugins"][0]["author"]["email"] == marketplace_payload["owner"]["email"]
     assert marketplace_payload["plugins"][0]["source"] == "./plugins/notestorelab-claude-plugin"
-    assert "already exists on PyPI" in distribution_text
+    assert "intended PyPI package identifier and version" in distribution_text
     assert '"MCP Registry submission completed"' in distribution_text
 
     assert (repo_root / "plugins" / "notestorelab-codex-plugin" / ".codex-plugin" / "plugin.json").exists()

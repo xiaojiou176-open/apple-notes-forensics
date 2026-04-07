@@ -164,10 +164,11 @@ bundles locally:
 ```
 
 If you are touching `server.json` or the MCP Registry story, keep the package
-boundary honest: registry metadata alone is not publish-ready until the
-referenced public package artifact exists in the package registry.
+boundary honest: registry metadata alone is not a live-package claim. Treat the
+package name/version in `server.json` as the intended publication target until
+fresh PyPI read-back says otherwise.
 
-PyPI publish-readiness smoke:
+PyPI metadata/build-readiness smoke:
 
 ```bash
 .venv/bin/python scripts/release/check_pypi_publish_readiness.py
@@ -208,6 +209,21 @@ python3 scripts/ci/check_host_safety_contract.py
 This file is the canonical detailed verification contract. Keep README focused
 on the public front door, and keep the full command-level verification surface
 here.
+
+## CI Layer Map
+
+Use this layer map when you decide where a check belongs:
+
+| Layer | Default trigger | What belongs here |
+| --- | --- | --- |
+| `pre-commit` | every local commit attempt | fast local static gates, hygiene, docs/public-surface drift guards, and host-safety checks |
+| `pre-push` | before pushing a branch | local baseline smoke on the core recovery path, plus commit-history identity checks |
+| `hosted` | GitHub Actions on `push` / `pull_request` | required matrix jobs, repo-hygiene/security scans, optional-surface smoke, and deterministic distribution build-readiness |
+| `nightly` | scheduled GitHub Actions | non-required deep analysis that is useful over time but too heavy or too platform-bound for the default push path |
+| `manual` | maintainer-triggered or owner-side | live GitHub settings/storefront checks, registry/marketplace submission, PyPI publish, and final release-readiness acceptance |
+
+Keep remote GitHub-state checks and publication checks out of the default local
+push path unless they are the specific surface you are actively validating.
 
 Start with the baseline smoke contract:
 
@@ -286,7 +302,7 @@ Distribution bundle smoke:
 .venv/bin/python scripts/release/build_distribution_bundles.py --out-dir ./dist
 ```
 
-PyPI publish-readiness smoke:
+PyPI metadata/build-readiness smoke:
 
 ```bash
 .venv/bin/python scripts/release/check_pypi_publish_readiness.py
@@ -479,7 +495,9 @@ checklist instead of pretending they are repo-side facts:
 
 - Verify that the current Topics list still matches the repository positioning
 - Upload and re-check the custom social preview from the GitHub repository
-  Settings UI after any `assets/social/` change
+  Settings UI after any `assets/social/` change. Treat REST
+  `open_graph_image_url` as the custom-upload signal; the GraphQL
+  `openGraphImageUrl` field can still expose a generated repository card.
 - Confirm that the current release page includes the expected synthetic public
   demo asset before describing it as live
 

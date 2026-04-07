@@ -339,8 +339,9 @@ Those public-ready surfaces live under `plugins/`, `.claude-plugin/`, and
 ```
 
 For the MCP Registry specifically, `server.json` is only the metadata draft.
-The referenced public package artifact must exist before MCP Registry
-publication becomes truthfully submit-ready.
+It records the intended PyPI package identifier/version for a future publish
+step, not proof that PyPI already serves the package. Use
+[DISTRIBUTION.md](./DISTRIBUTION.md) for current listing truth.
 
 When you want the repo-side publish gate before any owner-side PyPI upload, run:
 
@@ -417,7 +418,8 @@ The current live/public sync status is:
 - `llms.txt` is now the fastest AI-crawler / agent-reader entrypoint for the current shipped public contract
 - GitHub description and topics are refreshed to the current AI/MCP story
 - release `v0.1.0` title/body/asset are refreshed
-- custom social preview still requires a GitHub Settings upload/verify step
+- custom social preview still requires a GitHub Settings upload plus REST
+  `open_graph_image_url` read-back before you claim a custom card is live
 
 ## Trust Surface
 
@@ -443,8 +445,9 @@ The root-level public contract for this repository is intentionally narrow:
 
 ### Baseline verification contract
 
-The repository keeps a narrow baseline smoke contract that matches the default
-CI guarantee. The canonical baseline smoke and full suite commands live in
+The repository keeps a narrow baseline smoke contract that matches the hosted
+baseline lane, not the entire CI matrix. The canonical baseline smoke and full
+suite commands live in
 [CONTRIBUTING.md](./CONTRIBUTING.md) so the public front door stays brief while
 the detailed verification contract stays in one place.
 

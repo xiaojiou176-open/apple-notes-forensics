@@ -136,10 +136,11 @@ Those bundles are repo-owned public-ready artifacts, not official marketplace
 or registry listings.
 
 For MCP Registry publication, `server.json` is still only the metadata layer.
-The referenced public package artifact must exist before this repository can
-truthfully claim MCP Registry publish readiness.
+Treat the package name/version there as the intended publication target, not as
+proof that PyPI already serves it. Use [DISTRIBUTION.md](./DISTRIBUTION.md)
+when you need the current listing or live-package truth.
 
-Repo-side publish-readiness proof:
+Repo-side metadata/build-readiness proof:
 
 ```bash
 .venv/bin/python scripts/release/check_pypi_publish_readiness.py

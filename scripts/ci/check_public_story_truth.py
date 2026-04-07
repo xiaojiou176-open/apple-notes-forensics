@@ -4,9 +4,17 @@ import sys
 from pathlib import Path
 
 try:
-    from scripts.ci.contracts import PUBLIC_STORY_FORBIDDEN_CHANGELOG_TOKENS, README_TAG_RELEASE_URL
+    from scripts.ci.contracts import (
+        PUBLIC_STORY_FORBIDDEN_CHANGELOG_TOKENS,
+        PUBLIC_STORY_FORBIDDEN_DOC_TOKENS,
+        README_TAG_RELEASE_URL,
+    )
 except ModuleNotFoundError:  # pragma: no cover - direct script execution fallback
-    from contracts import PUBLIC_STORY_FORBIDDEN_CHANGELOG_TOKENS, README_TAG_RELEASE_URL
+    from contracts import (
+        PUBLIC_STORY_FORBIDDEN_CHANGELOG_TOKENS,
+        PUBLIC_STORY_FORBIDDEN_DOC_TOKENS,
+        README_TAG_RELEASE_URL,
+    )
 
 TAIL_HANDLER_TAG_RELEASE_URL = README_TAG_RELEASE_URL
 
@@ -16,6 +24,16 @@ def _read(repo_root: Path, rel_path: str) -> str | None:
     if not path.exists():
         return None
     return path.read_text(encoding="utf-8")
+
+
+def _contains_overclaimed_distribution_token(text: str, token: str) -> bool:
+    for line in text.splitlines():
+        if token not in line:
+            continue
+        if "without fresh PyPI read-back" in line:
+            continue
+        return True
+    return False
 
 
 def collect_public_story_truth_errors(repo_root: Path) -> list[str]:
@@ -41,6 +59,14 @@ def collect_public_story_truth_errors(repo_root: Path) -> list[str]:
     for token in PUBLIC_STORY_FORBIDDEN_CHANGELOG_TOKENS:
         if token in changelog_text:
             errors.append(f"CHANGELOG.md contains a stale public-story claim: {token}")
+
+    for rel_path in ("README.md", "DISTRIBUTION.md", "INTEGRATIONS.md"):
+        text = _read(repo_root, rel_path)
+        if text is None:
+            continue
+        for token in PUBLIC_STORY_FORBIDDEN_DOC_TOKENS:
+            if _contains_overclaimed_distribution_token(text, token):
+                errors.append(f"{rel_path} contains an over-claimed distribution token: {token}")
 
     return errors
 
