@@ -105,13 +105,13 @@ SUPPORT_DISCOVERY_TOKENS = (
 )
 
 INDEX_DISCOVERY_TOKENS = (
-    "Run the zero-risk proof path",
-    "Copy the Codex / Claude wrapper",
-    "4 things you can prove in 5 minutes",
+    "Follow the 4-command proof path",
+    "See the public proof boundary",
+    "4 operator-first steps in under 5 minutes",
     "One case, three consumers",
-    "Why developers star it",
+    "Public proof boundary",
     "LLMs guide",
-    "For Codex and Claude Code",
+    "Builder path: Codex and Claude Code",
     "Registration command:",
     "twitter:title",
     "canonical",

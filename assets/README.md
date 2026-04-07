@@ -63,7 +63,8 @@ This directory stores tracked source assets for the GitHub-native storefront.
 - Re-export the social preview through a browser-render or other full-frame SVG
   raster path so the PNG keeps the intended 1280x640 aspect ratio.
 - Keep the social preview copy aligned with the live README punchline, the
-  current release truth, and the current AI/MCP proof story.
+  current release truth, the public proof page, and the current AI/MCP proof
+  story.
 - Upload the custom social preview from the GitHub repository Settings UI; this
   remains a GitHub-managed step instead of a tracked repo-side fact.
 - Treat Topics, the uploaded social preview, and release asset presence as

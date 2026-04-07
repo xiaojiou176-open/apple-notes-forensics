@@ -7,7 +7,8 @@ clarifications.
 
 Use the repository issue templates so reports stay structured and reproducible.
 If you are still evaluating the project from the outside, start with the root
-README and this support guide before opening a new issue.
+README, [proof.html](./proof.html), and this support guide before opening a new
+issue.
 
 ## What To Include
 
