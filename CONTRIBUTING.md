@@ -60,6 +60,19 @@ The pre-push and CI guardrail chain also runs
 secret-scanning open alerts and GitHub code-scanning open alerts must stay at
 zero before the repository can claim a clean public security surface.
 
+GitHub PR dependency review is also backed by a repo-owned dependency snapshot
+lane because this repository ships a PEP 621 `pyproject.toml` contract instead
+of a static lockfile-only layout. The snapshot lane installs the full validation
+environment and submits the resolved Python package set to GitHub's dependency
+graph so pull-request dependency review can diff real package state instead of
+failing as "unsupported."
+
+If you need to inspect the payload locally before wiring a workflow change, run:
+
+```bash
+python3 scripts/ci/submit_dependency_snapshot.py --repo xiaojiou176-open/apple-notes-forensics --dry-run
+```
+
 For a maintainer-side full-history secret scan beyond the default local hooks,
 run:
 
