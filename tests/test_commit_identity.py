@@ -161,7 +161,7 @@ def test_commit_identity_allows_dependabot_exception(tmp_path: Path) -> None:
         author_name=DEPENDABOT_NAME,
         author_email="49699333+dependabot[bot]@users.noreply.github.com",
         committer_name=DEPENDABOT_NAME,
-        committer_email=DEPENDABOT_NAME,
+        committer_email="49699333+dependabot[bot]@users.noreply.github.com",
     )
 
     assert collect_history_identity_errors(repo_root) == []
