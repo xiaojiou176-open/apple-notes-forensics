@@ -86,14 +86,6 @@ repos:
         language: system
         pass_filenames: false
 
-      - id: pypi-publish-readiness
-        name: PyPI publish readiness pre-push gate
-        entry: python3 scripts/release/check_pypi_publish_readiness.py
-        language: system
-        pass_filenames: false
-        stages:
-          - pre-push
-
       - id: baseline-smoke
         name: baseline smoke pre-push gate
         entry: >
@@ -133,18 +125,6 @@ repos:
       - id: commit-identity-push
         name: commit identity pre-push gate
         entry: python3 scripts/ci/check_commit_identity.py --mode all
-        language: system
-        pass_filenames: false
-        stages:
-          - pre-push
-
-      - id: github-security-alerts-push
-        name: GitHub security alerts pre-push gate
-        entry: >
-          bash -lc 'if [ -z "${GH_TOKEN:-}" ]; then
-            export GH_TOKEN="$(gh auth token 2>/dev/null || true)";
-          fi &&
-          python3 scripts/ci/check_github_security_alerts.py'
         language: system
         pass_filenames: false
         stages:

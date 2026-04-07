@@ -14,7 +14,7 @@ Use it when you need to answer:
 
 | Surface | Official public surface exists | Repo-owned artifact shipped | Already listed | Current truthful claim |
 | --- | --- | --- | --- | --- |
-| MCP Registry | yes, the official MCP Registry exists and is still documented as a preview surface | yes: `server.json` and `notes-recovery-mcp` | not confirmed | registry metadata draft shipped and points at a live PyPI package; do not claim canonical alignment, submission success, or listing without fresh registry read-back |
+| MCP Registry | yes, the official MCP Registry exists and is still documented as a preview surface | yes: `server.json` and `notes-recovery-mcp` | not confirmed | registry metadata draft shipped; `server.json` records the intended PyPI package identifier/version, but the package is not yet confirmed live on PyPI. Do not claim submission success, listing, or package availability without fresh PyPI and registry read-back |
 | Codex | yes, the official Codex plugin directory exists, but third-party official-directory submission is still coming soon | yes: `plugins/notestorelab-codex-plugin/` | not confirmed | public-ready Codex plugin bundle shipped; do not claim official Codex directory listing |
 | Claude Code | yes, official plugin and marketplace surfaces exist | yes: `plugins/notestorelab-claude-plugin/` plus root `.claude-plugin/marketplace.json` | not confirmed | submit-ready Claude Code marketplace artifact shipped; do not claim Anthropic-managed listing without fresh read-back |
 | OpenClaw | yes, the official ClawHub public registry exists | yes: `plugins/notestorelab-openclaw-bundle/` | not confirmed | public-ready compatible bundle shipped; do not claim live ClawHub or official OpenClaw listing |
@@ -65,15 +65,13 @@ claude plugin validate .
 
 `server.json` is only the metadata side of the MCP Registry story.
 
-The referenced `pypi` package for this repository already exists on PyPI.
+Right now, that file should be treated as a submission draft, not as proof that
+PyPI already serves `apple-notes-forensics`.
 
-That means the remaining boundary is no longer "publish the package first."
-The remaining boundary is external: registry submission, listing, and fresh
-read-back.
-
-The repo-side proof command below is still useful because it checks that the
-metadata continues to point at the expected package surface. Passing it does
-not prove that the MCP Registry has accepted, listed, or rendered the entry.
+The repo-side proof command below checks metadata alignment plus
+build-and-`twine` readiness before an owner-side publish step. Passing it does
+not prove that PyPI, the MCP Registry, or any official directory has accepted,
+listed, or rendered the package.
 
 The repo-side publish-readiness proof command is:
 
@@ -84,7 +82,7 @@ The repo-side publish-readiness proof command is:
 ## Allowed Claims
 
 - "registry metadata draft shipped"
-- "registry metadata points at the live PyPI package"
+- "`server.json` records the intended PyPI package identifier and version"
 - "public-ready Codex plugin bundle shipped"
 - "submit-ready Claude Code marketplace artifact shipped"
 - "OpenClaw-compatible bundle shipped"
@@ -93,6 +91,8 @@ The repo-side publish-readiness proof command is:
 
 - "officially listed" without fresh external read-back
 - "MCP Registry submission completed" without fresh registry read-back
+- "PyPI package already exists" without fresh PyPI read-back
+- "registry metadata points at the live PyPI package" without fresh PyPI read-back
 - "official Codex plugin directory listing" without OpenAI-managed listing proof
 - "official Anthropic marketplace listing" without fresh marketplace read-back
 - "live ClawHub listing" without fresh OpenClaw-side listing proof

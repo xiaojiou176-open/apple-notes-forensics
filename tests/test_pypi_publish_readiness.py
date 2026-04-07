@@ -13,14 +13,16 @@ def test_collect_publish_readiness_errors_passes_for_repo_root() -> None:
     assert errors == []
 
 
-def test_publish_readiness_is_wired_into_guardrails() -> None:
+def test_publish_readiness_is_wired_into_hosted_guardrails() -> None:
     repo_root = Path.cwd()
     precommit_text = (repo_root / ".pre-commit-config.yaml").read_text(encoding="utf-8")
     workflow_text = (repo_root / ".github" / "workflows" / "ci.yml").read_text(encoding="utf-8")
 
-    assert "check_pypi_publish_readiness.py" in precommit_text
-    assert "PyPI publish readiness pre-push gate" in precommit_text
-    assert "Run pre-push guardrails" in workflow_text
+    assert "check_pypi_publish_readiness.py" not in precommit_text
+    assert "PyPI publish readiness pre-push gate" not in precommit_text
+    assert "distribution-readiness:" in workflow_text
+    assert "Check distribution metadata and build readiness" in workflow_text
+    assert "check_pypi_publish_readiness.py" in workflow_text
 
 
 def test_module_runner_prefers_repo_venv_fallback(monkeypatch, tmp_path: Path) -> None:
