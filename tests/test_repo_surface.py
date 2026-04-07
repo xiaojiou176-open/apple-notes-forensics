@@ -151,7 +151,6 @@ def test_repo_hygiene_detects_missing_precommit_tokens(tmp_path: Path) -> None:
     assert any("missing required token: actionlint workflow lint" in error for error in errors)
     assert any("missing required token: check_commit_identity.py" in error for error in errors)
     assert any("missing required token: check_sensitive_surface.py" in error for error in errors)
-    assert any("missing required token: check_github_security_alerts.py" in error for error in errors)
     assert any("missing required token: check_host_safety_contract.py" in error for error in errors)
     assert any("open-source-boundary" in error for error in errors)
     assert any(".env.example is missing required token: NOTES_CASE_PGP_KEY" in error for error in errors)
@@ -409,6 +408,14 @@ def test_public_story_truth_passes_for_truthful_surface(tmp_path: Path) -> None:
         tmp_path / "notes_recovery" / "cli" / "tail_handlers.py",
         'CHANGELOG_URL = "https://github.com/xiaojiou176-open/apple-notes-forensics/blob/main/CHANGELOG.md"\n',
     )
+    _write(
+        tmp_path / "DISTRIBUTION.md",
+        "# Distribution\nserver.json records the intended PyPI package identifier and version.\n",
+    )
+    _write(
+        tmp_path / "INTEGRATIONS.md",
+        "# Integrations\nUse DISTRIBUTION.md for current listing truth.\n## Forbidden Claims\n- \"registry metadata points at the live PyPI package\" without fresh PyPI read-back\n",
+    )
 
     assert collect_public_story_truth_errors(tmp_path) == []
 
@@ -441,11 +448,16 @@ def test_public_story_truth_detects_stale_release_and_pages_claims(tmp_path: Pat
         tmp_path / "notes_recovery" / "cli" / "tail_handlers.py",
         'RELEASE_URL = "https://github.com/xiaojiou176-open/apple-notes-forensics/releases/tag/v0.1.0"\n',
     )
+    _write(
+        tmp_path / "DISTRIBUTION.md",
+        "# Distribution\nThe referenced pypi package for this repository already exists on PyPI.\nregistry metadata points at the live PyPI package.\n",
+    )
 
     errors = collect_public_story_truth_errors(tmp_path)
     assert any("tag-specific release URL" in error for error in errors)
     assert any("Pages docs surface are now live" in error for error in errors)
     assert any("Public visual asset set" in error for error in errors)
+    assert any("already exists on PyPI" in error for error in errors)
 
 
 def test_discovery_surface_contract_passes_for_aligned_surface(tmp_path: Path) -> None:

@@ -39,7 +39,6 @@ REQUIRED_PRECOMMIT_TOKENS = (
     "actionlint workflow lint",
     "check_commit_identity.py",
     "check_sensitive_surface.py",
-    "check_github_security_alerts.py",
     "check_host_safety_contract.py",
     "check_repo_hygiene.py --mode hygiene",
     "check_repo_hygiene.py --mode open-source-boundary",
@@ -53,6 +52,7 @@ REQUIRED_WORKFLOW_TOKENS = (
     "check_commit_identity.py",
     "check_sensitive_surface.py",
     "check_github_security_alerts.py",
+    "check_pypi_publish_readiness.py",
     "check_host_safety_contract.py",
     "rhysd/actionlint@",
     "trufflehog git",
@@ -64,7 +64,8 @@ REQUIRED_WORKFLOW_TOKENS = (
 REQUIRED_DEPENDABOT_TOKENS = (
     'package-ecosystem: "pip"',
     'package-ecosystem: "github-actions"',
-    'interval: "weekly"',
+    'interval: "daily"',
+    'time: "09:00"',
     'timezone: "America/Los_Angeles"',
 )
 
