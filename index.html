@@ -197,6 +197,20 @@
 
       .hero-copy {
         padding: 30px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero-copy::after {
+        content: "";
+        position: absolute;
+        right: -120px;
+        top: -120px;
+        width: 280px;
+        height: 280px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(16, 86, 109, 0.12) 0%, rgba(16, 86, 109, 0) 68%);
+        pointer-events: none;
       }
 
       .eyebrow {
@@ -290,6 +304,19 @@
         border: 1px solid rgba(16, 86, 109, 0.18);
       }
 
+      .cta-inline {
+        display: inline-flex;
+        align-items: center;
+        margin-top: 14px;
+        color: var(--accent-strong);
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      .cta-inline:hover {
+        text-decoration: underline;
+      }
+
       .hero-proof {
         padding: 16px;
         display: flex;
@@ -308,9 +335,116 @@
         font-size: 0.95rem;
       }
 
+      .proof-rail {
+        display: grid;
+        gap: 10px;
+      }
+
+      .proof-rail-card {
+        padding: 14px 16px;
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.58);
+        border: 1px solid rgba(22, 33, 43, 0.08);
+      }
+
+      .proof-rail-card strong {
+        display: block;
+        margin-bottom: 4px;
+      }
+
+      .proof-rail-card p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.93rem;
+      }
+
+      .proof-rail-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .path-card {
+        margin-top: 22px;
+        padding: 18px;
+        border-radius: 20px;
+        background: linear-gradient(135deg, rgba(22, 33, 43, 0.05), rgba(16, 86, 109, 0.1));
+        border: 1px solid rgba(22, 33, 43, 0.08);
+      }
+
+      .path-card h3 {
+        margin-bottom: 8px;
+      }
+
+      .path-card p {
+        margin: 0 0 14px;
+        color: var(--muted);
+      }
+
+      .path-steps {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: grid;
+        gap: 10px;
+      }
+
+      .path-step {
+        display: grid;
+        grid-template-columns: 34px 1fr;
+        gap: 12px;
+        align-items: start;
+      }
+
+      .path-step-index {
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--ink);
+        color: #fefcf7;
+        font-size: 0.92rem;
+        font-weight: 700;
+      }
+
+      .path-step code {
+        display: inline-block;
+        margin-bottom: 4px;
+      }
+
+      .path-step p {
+        margin: 0;
+        font-size: 0.95rem;
+      }
+
       .section {
         padding: 28px;
         margin-bottom: 22px;
+      }
+
+      .section-head {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: end;
+        justify-content: space-between;
+        gap: 10px 18px;
+        margin-bottom: 4px;
+      }
+
+      .section-kicker {
+        color: var(--warm);
+        font-size: 0.82rem;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+      }
+
+      .section-intro {
+        margin: 0 0 18px;
+        color: var(--muted);
+        max-width: 68ch;
       }
 
       .grid {
@@ -322,6 +456,9 @@
 
       .grid-card {
         padding: 22px;
+        position: relative;
+        overflow: hidden;
+        transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
       }
 
       .grid-card p {
@@ -333,6 +470,88 @@
         display: block;
         margin-bottom: 8px;
         font-size: 1.02rem;
+      }
+
+      .grid-card::before {
+        content: "";
+        display: block;
+        width: 64px;
+        height: 4px;
+        border-radius: 999px;
+        background: linear-gradient(90deg, var(--accent), rgba(16, 86, 109, 0.15));
+        margin-bottom: 14px;
+      }
+
+      .grid-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 22px 52px rgba(18, 33, 43, 0.12);
+      }
+
+      .step-card--demo {
+        background: linear-gradient(135deg, rgba(16, 86, 109, 0.12), rgba(255, 255, 255, 0.78));
+      }
+
+      .step-card--review {
+        background: linear-gradient(135deg, rgba(89, 125, 53, 0.13), rgba(255, 255, 255, 0.78));
+      }
+
+      .step-card--ask {
+        background: linear-gradient(135deg, rgba(138, 77, 32, 0.12), rgba(255, 255, 255, 0.78));
+      }
+
+      .step-card--doctor {
+        background: linear-gradient(135deg, rgba(96, 76, 133, 0.1), rgba(255, 255, 255, 0.78));
+      }
+
+      .surface-card--proof {
+        background: linear-gradient(135deg, rgba(16, 86, 109, 0.12), rgba(255, 255, 255, 0.78));
+      }
+
+      .surface-card--distribution {
+        background: linear-gradient(135deg, rgba(34, 47, 69, 0.11), rgba(255, 255, 255, 0.78));
+      }
+
+      .surface-card--support {
+        background: linear-gradient(135deg, rgba(138, 77, 32, 0.1), rgba(255, 255, 255, 0.78));
+      }
+
+      .lane-grid {
+        display: grid;
+        grid-template-columns: 1.15fr 1fr;
+        gap: 18px;
+      }
+
+      .lane-card {
+        padding: 22px;
+        border-radius: 22px;
+        background: rgba(255, 255, 255, 0.6);
+        border: 1px solid rgba(22, 33, 43, 0.08);
+      }
+
+      .lane-card--operator {
+        background:
+          linear-gradient(135deg, rgba(16, 86, 109, 0.12), rgba(255, 255, 255, 0.76)),
+          rgba(255, 255, 255, 0.64);
+      }
+
+      .lane-kicker {
+        display: inline-block;
+        margin-bottom: 10px;
+        color: var(--warm);
+        font-size: 0.82rem;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+      }
+
+      .lane-card p,
+      .lane-card ul {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .lane-card ul {
+        padding-left: 18px;
       }
 
       .proof-list,
@@ -449,11 +668,31 @@
         color: var(--ink);
       }
 
-      .footer-links {
+      .footer-shelves {
         display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 10px 18px;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 18px;
+        margin-top: 18px;
+      }
+
+      .footer-shelf {
+        padding: 20px;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.6);
+        border: 1px solid rgba(22, 33, 43, 0.08);
+      }
+
+      .footer-shelf h3 {
+        margin: 0 0 10px;
+      }
+
+      .footer-links {
+        display: block;
         padding-left: 18px;
+      }
+
+      .footer-links li {
+        margin-bottom: 8px;
       }
 
       footer {
@@ -465,13 +704,14 @@
       @media (max-width: 920px) {
         .hero,
         .grid,
+        .lane-grid,
         .journey,
         .wrapper-grid,
         .callout-grid {
           grid-template-columns: 1fr;
         }
 
-        .footer-links {
+        .footer-shelves {
           grid-template-columns: 1fr;
         }
       }
@@ -490,41 +730,72 @@
         <nav class="nav" aria-label="Primary">
           <a class="pill" href="https://github.com/xiaojiou176-open/apple-notes-forensics">GitHub repo</a>
           <a class="pill" href="https://github.com/xiaojiou176-open/apple-notes-forensics/releases">Releases</a>
-          <a class="pill" href="llms.txt">LLMs guide</a>
-          <a class="pill" href="https://github.com/xiaojiou176-open/apple-notes-forensics/blob/main/USE_CASES.md">Use cases</a>
-          <a class="pill" href="https://github.com/xiaojiou176-open/apple-notes-forensics/blob/main/ECOSYSTEM.md">Ecosystem fit</a>
-          <a class="pill" href="https://github.com/xiaojiou176-open/apple-notes-forensics/blob/main/INTEGRATIONS.md">Builder guide</a>
+          <a class="pill" href="proof.html">Public proof</a>
+          <a class="pill" href="https://github.com/xiaojiou176-open/apple-notes-forensics/blob/main/README.md">README contract</a>
         </nav>
       </header>
 
       <main>
       <section class="hero">
         <div class="hero-copy">
-          <span class="eyebrow">Copy-first recovery · AI-assisted review · MCP-ready builder surface</span>
-          <h1>Prove a copied Apple Notes case path in minutes, then review it with AI and local MCP.</h1>
+          <span class="eyebrow">Copy-first recovery · Operator-first proof · Builder lane second</span>
+          <h1>Prove a copied Apple Notes case path in 4 commands before you touch a real case.</h1>
           <p class="lede">
-            NoteStore Lab is a macOS Apple Notes recovery and review toolkit built
-            around copied case roots, reviewable outputs, bounded AI assistance,
-            and a local read-mostly MCP surface for builders and Codex / Claude
-            Code style local-agent workflows. Recovery stays primary. AI and MCP
-            only make the review layer easier to understand and reuse.
+            NoteStore Lab is a macOS Apple Notes recovery and review toolkit
+            built around copied case roots, reviewable outputs, bounded AI
+            assistance, and a local read-mostly MCP surface. The first story is
+            the operator story: prove the workflow shape, inspect the artifacts,
+            and confirm the host boundary. Builder integrations come after that.
           </p>
+          <div class="path-card">
+            <h3>Start in 60 seconds</h3>
+            <p>Run these in order. The sequence is the product story, not just a checklist.</p>
+            <ol class="path-steps">
+              <li class="path-step">
+                <span class="path-step-index">1</span>
+                <div>
+                  <code>notes-recovery demo</code>
+                  <p>See the case-root shape before touching a real copied-evidence run.</p>
+                </div>
+              </li>
+              <li class="path-step">
+                <span class="path-step-index">2</span>
+                <div>
+                  <code>notes-recovery ai-review --demo</code>
+                  <p>Watch AI stay on derived artifacts instead of pretending to be the recovery engine.</p>
+                </div>
+              </li>
+              <li class="path-step">
+                <span class="path-step-index">3</span>
+                <div>
+                  <code>notes-recovery ask-case --demo --question "What should I inspect first?"</code>
+                  <p>Ask one bounded question and inspect the cited evidence refs.</p>
+                </div>
+              </li>
+              <li class="path-step">
+                <span class="path-step-index">4</span>
+                <div>
+                  <code>notes-recovery doctor</code>
+                  <p>Only then decide whether this host is ready for a real copied-evidence run.</p>
+                </div>
+              </li>
+            </ol>
+          </div>
           <div class="signal-row" aria-label="Proof signals">
             <span class="signal-pill">Zero-risk demo</span>
             <span class="signal-pill">AI triage on derived artifacts</span>
             <span class="signal-pill">Evidence-backed case Q&amp;A</span>
-            <span class="signal-pill">Local stdio MCP for Codex / Claude</span>
+            <span class="signal-pill">Doctor preflight before real runs</span>
           </div>
           <div class="truth-block">
-            <strong>Core truth:</strong> recovery and review stay primary. AI is a
-            bounded review layer, and MCP is a protocol surface for local agents
-            and builders. There is no shipped hosted API, generated client, SDK
-            platform, or write-capable MCP by default.
+            <strong>Core truth:</strong> recovery and review stay primary. AI is
+            a bounded review layer, and MCP is a local builder surface that
+            rides on the same case root after the operator proof path is clear.
           </div>
           <div class="cta-row">
-            <a class="cta-primary" href="#prove-it">Run the zero-risk proof path</a>
-            <a class="cta-secondary" href="#wrappers">Copy the Codex / Claude wrapper</a>
+            <a class="cta-primary" href="#operator-path">Follow the 4-command proof path</a>
           </div>
+          <a class="cta-inline" href="proof.html">See the public proof boundary before you move to a real case.</a>
         </div>
 
         <div class="hero-proof">
@@ -534,19 +805,110 @@
             review-safe proof surface: backup, recovery, verification, report,
             AI review, and bounded case Q&amp;A.
           </div>
+          <div class="proof-rail">
+            <div class="proof-rail-card">
+              <strong>Operator lane first</strong>
+              <p>Demo, triage, question, doctor. That path should make sense before any builder wrapper enters the story.</p>
+            </div>
+            <div class="proof-rail-card">
+              <strong>Proof stays inspectable</strong>
+              <p>Manifests, summaries, verification previews, and reports remain the center of gravity.</p>
+            </div>
+            <div class="proof-rail-links">
+              <a class="pill" href="https://github.com/xiaojiou176-open/apple-notes-forensics/blob/main/USE_CASES.md">Use cases</a>
+              <a class="pill" href="llms.txt">LLMs guide</a>
+              <a class="pill" href="https://github.com/xiaojiou176-open/apple-notes-forensics/blob/main/INTEGRATIONS.md">Builder guide</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="operator-path">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">First success</div>
+            <h2>4 operator-first steps in under 5 minutes</h2>
+          </div>
+        </div>
+        <p class="section-intro">
+          This is the shortest path from “I just arrived” to “I now trust what
+          this repo is trying to do”.
+        </p>
+        <div class="grid">
+          <article class="grid-card step-card step-card--demo">
+            <strong><code>notes-recovery demo</code></strong>
+            <p>See one public-safe, timestamped case root with recovery, verification, report, and review artifacts before you touch a real copied case.</p>
+          </article>
+          <article class="grid-card step-card step-card--review">
+            <strong><code>notes-recovery ai-review --demo</code></strong>
+            <p>Generate a synthetic triage summary, top findings, next questions, and artifact priority from derived demo artifacts instead of raw private data.</p>
+          </article>
+          <article class="grid-card step-card step-card--ask">
+            <strong><code>notes-recovery ask-case --demo ...</code></strong>
+            <p>Ask one bounded question and get an answer with evidence refs, confidence, uncertainty, and next inspection targets from the same review-safe surface.</p>
+          </article>
+          <article class="grid-card step-card step-card--doctor">
+            <strong><code>notes-recovery doctor</code></strong>
+            <p>Confirm the host boundary, optional surfaces, and the safest next step before you point the toolkit at a real copied-evidence run.</p>
+          </article>
         </div>
       </section>
 
       <section class="section">
-        <h2>One case, three consumers</h2>
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Curation</div>
+            <h2>Choose your lane after the proof path</h2>
+          </div>
+        </div>
+        <p class="section-intro">
+          This repo works best when it feels like a guided exhibit: the operator
+          story comes first, the AI story sharpens it, and the builder lane only
+          opens after the case-root workflow already feels real.
+        </p>
+        <div class="lane-grid">
+          <article class="lane-card lane-card--operator">
+            <span class="lane-kicker">Operator lane</span>
+            <h3>First-read path for almost everyone</h3>
+            <p>
+              Stay on the public-safe case-root story first. The goal is to
+              understand one workflow, one boundary, and one review surface
+              before you think about integrations.
+            </p>
+          </article>
+          <article class="lane-card">
+            <span class="lane-kicker">Builder lane</span>
+            <h3>Only after the workflow feels real</h3>
+            <ul>
+              <li>Register the shipped stdio MCP command.</li>
+              <li>Reuse the same case root in Codex or Claude Code.</li>
+              <li>Treat distribution and registry surfaces as second-order truth.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Workflow shape</div>
+            <h2>One case, three consumers</h2>
+          </div>
+        </div>
+        <p class="section-intro">
+          The product gets stronger when the same case root supports human
+          review, bounded AI help, and local agents without opening a second
+          data plane.
+        </p>
         <div class="journey">
           <article class="journey-step">
             <span class="journey-kicker">Operator</span>
-            <strong>Run the copied-evidence workflow once</strong>
+            <strong>Prove the copied-evidence workflow once</strong>
             <p>
-              Start with <code>demo</code>, <code>doctor</code>, or a real copied
-              case root. The repo leaves behind manifests, verification previews,
-              timelines, reports, and one review index instead of ad hoc files.
+              Start with <code>demo</code>, <code>ai-review --demo</code>,
+              <code>ask-case --demo</code>, then <code>doctor</code>. The repo
+              leaves behind manifests, verification previews, timelines,
+              reports, and one review index instead of ad hoc files.
             </p>
           </article>
           <article class="journey-step">
@@ -570,30 +932,41 @@
         </div>
       </section>
 
-      <section class="section" id="prove-it">
-        <h2>4 things you can prove in 5 minutes</h2>
+      <section class="section">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Surfaces</div>
+            <h2>Proof, distribution, and support</h2>
+          </div>
+        </div>
+        <p class="section-intro">
+          Once the first success path lands, these are the three surfaces that
+          stop the repo from feeling hand-wavy: proof, listing truth, and the
+          support contract.
+        </p>
         <div class="grid">
-          <article class="grid-card">
-            <strong><code>notes-recovery demo</code></strong>
-            <p>See one public-safe, timestamped case root with recovery, verification, report, and review artifacts before you touch a real copied case.</p>
+          <article class="grid-card surface-card surface-card--proof">
+            <strong><a href="proof.html">Public proof boundary</a></strong>
+            <p>See the exact repo-side proof, remote read-back proof, and the manual external tail that still lives in GitHub Settings or platform controls.</p>
           </article>
-          <article class="grid-card">
-            <strong><code>notes-recovery ai-review --demo</code></strong>
-            <p>Generate a synthetic triage summary, top findings, next questions, and artifact priority from derived demo artifacts instead of raw private data.</p>
+          <article class="grid-card surface-card surface-card--distribution">
+            <strong><a href="https://github.com/xiaojiou176-open/apple-notes-forensics/blob/main/DISTRIBUTION.md">Distribution truth</a></strong>
+            <p>Check which registry and plugin surfaces are shipped, public-ready, or still waiting on official listing read-back.</p>
           </article>
-          <article class="grid-card">
-            <strong><code>notes-recovery ask-case --demo ...</code></strong>
-            <p>Ask one bounded question and get an answer with evidence refs, confidence, uncertainty, and next inspection targets from the same review-safe surface.</p>
-          </article>
-          <article class="grid-card">
-            <strong><code>notes-recovery-mcp --case-dir &lt;case-root&gt;</code></strong>
-            <p>Mount the same case root in a local MCP client and reuse manifests, review artifacts, and bounded protocol surfaces in Codex or Claude Code.</p>
+          <article class="grid-card surface-card surface-card--support">
+            <strong><a href="https://github.com/xiaojiou176-open/apple-notes-forensics/blob/main/SUPPORT.md">Support contract</a></strong>
+            <p>Use the issue route, required report details, and support boundary without guessing which surface the maintainer actually supports.</p>
           </article>
         </div>
       </section>
 
       <section class="section">
-        <h2>Why AI and MCP users should care</h2>
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Positioning</div>
+            <h2>Why AI and MCP users should care</h2>
+          </div>
+        </div>
         <table class="mini-table">
           <tbody>
             <tr>
@@ -611,14 +984,19 @@
           </tbody>
         </table>
         <div class="note">
-          The repo is intentionally <strong>not</strong> a generic AI assistant,
-          not a hosted review portal, and not an SDK platform. It is a
-          case-root-centric toolkit with a bounded AI/MCP layer.
+          The repo is intentionally operator-first. AI and MCP matter here
+          because they help people reuse one case root, not because the repo is
+          pretending to be a hosted autonomy platform.
         </div>
       </section>
 
       <section class="section">
-        <h2>Current ecosystem fit</h2>
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Ecosystem</div>
+            <h2>Current ecosystem fit</h2>
+          </div>
+        </div>
         <ul class="builder-list">
           <li><strong>Primary fit:</strong> MCP, Codex, Claude Code</li>
           <li><strong>Secondary / comparison fit:</strong> OpenHands, OpenCode</li>
@@ -627,10 +1005,15 @@
       </section>
 
       <section class="section" id="wrappers">
-        <h2>For Codex and Claude Code</h2>
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Builder path</div>
+            <h2>Builder path: Codex and Claude Code</h2>
+          </div>
+        </div>
         <p class="lede">
-          If your local coding-agent host supports stdio MCP servers, register
-          the shipped MCP entrypoint below and point it at a real case root.
+          Once the operator path is clear, register the shipped stdio MCP
+          entrypoint and point it at a real case root.
         </p>
         <div class="truth-block">
           <strong>Registration command:</strong><br />
@@ -717,7 +1100,16 @@ cwd = ".."</code></pre>
       </section>
 
       <section class="section">
-        <h2>Why developers star it</h2>
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Signal</div>
+            <h2>Why developers star it</h2>
+          </div>
+        </div>
+        <p class="section-intro">
+          These are the product signals that make the repo feel real once the
+          first proof path has landed.
+        </p>
         <div class="callout-grid">
           <article class="callout-card">
             <h3>It is inspectable</h3>
@@ -755,26 +1147,52 @@ cwd = ".."</code></pre>
       </section>
 
       <section class="section">
-        <h2>Live entrypoints</h2>
-        <ul class="footer-links">
-          <li><a href="https://github.com/xiaojiou176-open/apple-notes-forensics">Repository overview</a></li>
-          <li><a href="https://github.com/xiaojiou176-open/apple-notes-forensics/releases">Release feed</a></li>
-          <li><a href="llms.txt">LLMs guide</a></li>
-          <li><a href="https://github.com/xiaojiou176-open/apple-notes-forensics/blob/main/README.md">README contract</a></li>
-          <li><a href="https://github.com/xiaojiou176-open/apple-notes-forensics/blob/main/CONTRIBUTING.md">Contributing / verification contract</a></li>
-          <li><a href="https://github.com/xiaojiou176-open/apple-notes-forensics/blob/main/USE_CASES.md">Use cases</a></li>
-          <li><a href="https://github.com/xiaojiou176-open/apple-notes-forensics/blob/main/ECOSYSTEM.md">Ecosystem fit matrix</a></li>
-          <li><a href="https://github.com/xiaojiou176-open/apple-notes-forensics/blob/main/INTEGRATIONS.md">Builder guide</a></li>
-          <li><a href="https://github.com/xiaojiou176-open/apple-notes-forensics/blob/main/SUPPORT.md">Support guide</a></li>
-        </ul>
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Reading shelf</div>
+            <h2>Keep reading</h2>
+          </div>
+        </div>
+        <p class="section-intro">
+          Think of this as the shelf behind the front desk: operator path first,
+          then deeper truth, then builder and support surfaces.
+        </p>
+        <div class="footer-shelves">
+          <article class="footer-shelf">
+            <h3>Start here</h3>
+            <ul class="footer-links">
+              <li><a href="https://github.com/xiaojiou176-open/apple-notes-forensics/blob/main/README.md">README contract</a></li>
+              <li><a href="proof.html">Public proof boundary</a></li>
+              <li><a href="https://github.com/xiaojiou176-open/apple-notes-forensics/releases">Release feed</a></li>
+            </ul>
+          </article>
+          <article class="footer-shelf">
+            <h3>Deep reads</h3>
+            <ul class="footer-links">
+              <li><a href="llms.txt">LLMs guide</a></li>
+              <li><a href="https://github.com/xiaojiou176-open/apple-notes-forensics/blob/main/USE_CASES.md">Use cases</a></li>
+              <li><a href="https://github.com/xiaojiou176-open/apple-notes-forensics/blob/main/ECOSYSTEM.md">Ecosystem fit matrix</a></li>
+              <li><a href="https://github.com/xiaojiou176-open/apple-notes-forensics/blob/main/DISTRIBUTION.md">Distribution truth</a></li>
+            </ul>
+          </article>
+          <article class="footer-shelf">
+            <h3>Builder and support</h3>
+            <ul class="footer-links">
+              <li><a href="https://github.com/xiaojiou176-open/apple-notes-forensics/blob/main/INTEGRATIONS.md">Builder guide</a></li>
+              <li><a href="https://github.com/xiaojiou176-open/apple-notes-forensics/blob/main/CONTRIBUTING.md">Contributing / verification contract</a></li>
+              <li><a href="https://github.com/xiaojiou176-open/apple-notes-forensics/blob/main/SUPPORT.md">Support guide</a></li>
+              <li><a href="https://github.com/xiaojiou176-open/apple-notes-forensics">Repository overview</a></li>
+            </ul>
+          </article>
+        </div>
       </section>
       </main>
 
       <footer>
-        Current public contract: GitHub repo, GitHub release feed, this minimal
-        landing page, and the root-level contract files. Social preview,
-        optional custom domain, and any future external landing work still
-        follow explicit owner/platform boundaries.
+        Current public contract: GitHub repo, GitHub release feed, this
+        landing page, the public proof page, and the root-level contract files.
+        Social preview, optional custom domain, and any future external landing
+        work still follow explicit owner/platform boundaries.
       </footer>
     </div>
   </body>
