@@ -5,8 +5,11 @@ import json
 import sys
 from pathlib import Path
 
+import pytest
 from mcp import ClientSession
 from mcp.client.stdio import StdioServerParameters, stdio_client
+
+from notes_recovery.mcp import server as mcp_server
 
 
 def _write(path: Path, text: str) -> None:
@@ -29,6 +32,33 @@ def _build_case_root(tmp_path: Path) -> Path:
 def _json_from_tool(result) -> dict:
     assert result.content
     return json.loads(result.content[0].text)
+
+
+def test_mcp_help_does_not_require_optional_dependency(monkeypatch: pytest.MonkeyPatch) -> None:
+    def fail_if_called():
+        raise AssertionError("optional MCP runtime should not be loaded for --help")
+
+    monkeypatch.setattr(mcp_server, "_load_mcp_runtime", fail_if_called)
+
+    with pytest.raises(SystemExit) as exc:
+        mcp_server.main(["--help"])
+
+    assert exc.value.code == 0
+
+
+def test_mcp_runtime_emits_install_hint_when_dependency_missing(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+) -> None:
+    def raise_missing():
+        raise SystemExit(mcp_server.MCP_DEPENDENCY_HELP)
+
+    monkeypatch.setattr(mcp_server, "_load_mcp_runtime", raise_missing)
+
+    with pytest.raises(SystemExit) as exc:
+        mcp_server.main(["--case-dir", str(tmp_path)])
+
+    assert str(exc.value) == mcp_server.MCP_DEPENDENCY_HELP
 
 
 def test_mcp_server_lists_resources_and_runs_verify(tmp_path: Path) -> None:

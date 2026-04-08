@@ -44,13 +44,20 @@ from notes_recovery.services.report import generate_report
 from notes_recovery.services.timeline import build_timeline
 from notes_recovery.services.verify import verify_hits
 
-try:
-    from mcp.server.fastmcp import FastMCP
-    from mcp.types import ToolAnnotations
-except ModuleNotFoundError as exc:  # pragma: no cover - exercised in runtime usage
-    raise SystemExit(
-        "The MCP server requires the optional MCP dependencies. Install `python -m pip install -e .[mcp]` first."
-    ) from exc
+MCP_DEPENDENCY_HELP = (
+    "The MCP server requires the optional MCP dependencies. "
+    "Install `python -m pip install 'apple-notes-forensics[mcp]'` "
+    "or `python -m pip install -e .[mcp]` first."
+)
+
+
+def _load_mcp_runtime():
+    try:
+        from mcp.server.fastmcp import FastMCP
+        from mcp.types import ToolAnnotations
+    except ModuleNotFoundError as exc:  # pragma: no cover - exercised in runtime usage
+        raise SystemExit(MCP_DEPENDENCY_HELP) from exc
+    return FastMCP, ToolAnnotations
 
 
 def _quiet_logging(*_args: Any, **_kwargs: Any) -> None:
@@ -264,6 +271,7 @@ def build_mcp_server(
     case_dirs: Iterable[Path],
     cases_roots: Iterable[Path],
 ) -> FastMCP:
+    FastMCP, ToolAnnotations = _load_mcp_runtime()
     registry = CaseRegistry.build(case_dirs, cases_roots)
     retrieval_contract = derived_artifact_retrieval_contract()
     server = FastMCP(
