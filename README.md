@@ -357,6 +357,12 @@ package, and treat the plugin/starter skill files as host-specific derived
 copies. That makes the skill independently referenceable without pretending it
 is already officially listed anywhere.
 
+For OpenHands/extensions and ClawHub-style submissions, the repo now also ships
+an OpenHands/extensions-friendly public skill folder at
+`public-skills/notestorelab-case-review/`. Treat that packet as the
+portable listing lane, while `skills/notestorelab-case-review/` remains the
+canonical skill text.
+
 When you want the repo-side metadata/build-readiness gate before the next PyPI
 version bump, run:
 
@@ -375,7 +381,8 @@ Practical host notes:
 Current integration fit:
 
 - **Primary fit**: MCP, Codex, Claude Code
-- **Secondary / comparison fit**: OpenHands, OpenCode
+- **OpenHands/extensions-friendly public skill folder**: `public-skills/notestorelab-case-review/`
+- **Secondary / comparison fit**: OpenCode
 - **Not a primary front-door claim**: OpenClaw, hosted portals, generic AI-agent platforms
 
 Builder-facing status today:
@@ -388,6 +395,7 @@ Builder-facing status today:
 | thin SDK | not shipped | future path only, after the shared case/MCP contract is locked |
 | repo-owned host bundles | shipped | use `plugins/`, `.claude-plugin/`, `server.json`, and `scripts/release/build_distribution_bundles.py` |
 | canonical independent skill surface | shipped | use `skills/notestorelab-case-review/` as the only SSOT skill surface; plugin/starter copies are derived packaging |
+| OpenHands/extensions-friendly public skill folder | shipped | use `public-skills/notestorelab-case-review/` for OpenHands/extensions or ClawHub-style skill submissions |
 | official marketplace/catalog listing | not shipped | public-ready artifacts do not imply official listing or publish read-back |
 
 ## Docker Surface
@@ -434,6 +442,16 @@ live registry image until fresh push and pull verification both succeed.
 
 The container image is a reproducible local runtime, not a hosted portal, not
 an API gateway, and not proof of any live Glama or OCI catalog listing.
+
+The repo-side Glama metadata surface is now explicit as well:
+
+- `glama.json`
+- `Dockerfile`
+- `ghcr.io/xiaojiou176-open/apple-notes-forensics:0.1.0.post1`
+
+That is enough to prepare a Glama Add Server submission or a Docker-first
+catalog conversation. It is still not proof of a live Glama listing until fresh
+Glama-side read-back exists.
 
 Use the dedicated builder notes in [INTEGRATIONS.md](./INTEGRATIONS.md) and the
 ecosystem binding matrix in [ECOSYSTEM.md](./ECOSYSTEM.md) before you describe

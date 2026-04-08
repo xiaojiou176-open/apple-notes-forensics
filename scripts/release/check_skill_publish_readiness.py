@@ -23,9 +23,12 @@ DERIVED_SKILL_PATHS = (
     Path("starter-bundles/claude-code/plugins/notestorelab/skills/notestorelab-mcp/SKILL.md"),
     Path("plugins/notestorelab-openclaw-bundle/workspace/skills/notestorelab/SKILL.md"),
     Path("starter-bundles/openclaw/workspace/skills/notestorelab/SKILL.md"),
+    Path("public-skills/notestorelab-case-review/SKILL.md"),
 )
 REPO_URL = "https://github.com/xiaojiou176-open/apple-notes-forensics"
 CANONICAL_NAME = "notestorelab-case-review"
+PUBLIC_SKILL_DIR = Path("public-skills/notestorelab-case-review")
+PUBLIC_SKILL_SEMVER = "1.0.0"
 
 
 def _load_pyproject(repo_root: Path) -> dict[str, object]:
@@ -125,6 +128,46 @@ def collect_skill_publish_errors(repo_root: Path) -> list[str]:
     if _manifest_scalar(manifest_text, "entrypoint") != "./SKILL.md":
         errors.append("manifest.yaml entrypoint must stay ./SKILL.md")
 
+    public_skill_dir = repo_root / PUBLIC_SKILL_DIR
+    public_skill_manifest = public_skill_dir / "manifest.yaml"
+    public_skill_readme = public_skill_dir / "README.md"
+    if not public_skill_dir.exists():
+        errors.append(f"missing public skill directory: {PUBLIC_SKILL_DIR}")
+    if not public_skill_manifest.exists():
+        errors.append(f"missing public skill manifest: {public_skill_manifest.relative_to(repo_root)}")
+    if not public_skill_readme.exists():
+        errors.append(f"missing public skill README: {public_skill_readme.relative_to(repo_root)}")
+    if public_skill_manifest.exists():
+        public_manifest_text = public_skill_manifest.read_text(encoding="utf-8")
+        for token in (
+            "schema_version: 1",
+            "artifact: public-skill-listing-manifest",
+            "name: notestorelab-case-review",
+            "version: 1.0.0",
+            "display_name: NoteStore Lab Case Review",
+            "package_shape: skill-folder",
+            "clawhub:",
+            "openhands-extensions:",
+            "status: ready-but-not-listed",
+            "status: folder-ready",
+            "submit_via: openclaw skill publish .",
+            "submit_via: submit this folder as skills/notestorelab-case-review/ in OpenHands/extensions",
+            "canonical_repo_version: 0.1.0.post1",
+            "official_listing_state: not-yet-listed",
+        ):
+            if token not in public_manifest_text:
+                errors.append(f"public skill manifest is missing required token: {token}")
+    if public_skill_readme.exists():
+        public_readme_text = public_skill_readme.read_text(encoding="utf-8")
+        for token in (
+            "OpenHands/extensions-friendly",
+            "ClawHub-style",
+            "skills/notestorelab-case-review/SKILL.md",
+            "no official OpenHands/extensions listing without fresh PR/read-back",
+        ):
+            if token not in public_readme_text:
+                errors.append(f"public skill README is missing required token: {token}")
+
     codex_plugin_payload = _load_json(
         repo_root / "plugins/notestorelab-codex-plugin/.codex-plugin/plugin.json"
     )
@@ -149,12 +192,21 @@ def collect_skill_publish_errors(repo_root: Path) -> list[str]:
     readme_text = (repo_root / "README.md").read_text(encoding="utf-8")
     distribution_text = (repo_root / "DISTRIBUTION.md").read_text(encoding="utf-8")
     integrations_text = (repo_root / "INTEGRATIONS.md").read_text(encoding="utf-8")
+    ecosystem_text = (repo_root / "ECOSYSTEM.md").read_text(encoding="utf-8")
     if "skills/notestorelab-case-review/" not in readme_text:
         errors.append("README.md must mention the canonical independent skill surface")
+    if "public-skills/notestorelab-case-review/" not in readme_text:
+        errors.append("README.md must mention the OpenHands/ClawHub-facing public skill folder")
     if "independent skill surface" not in distribution_text:
         errors.append("DISTRIBUTION.md must describe the independent skill surface truthfully")
+    if "OpenHands/extensions" not in distribution_text:
+        errors.append("DISTRIBUTION.md must describe the OpenHands/extensions listing boundary")
     if "canonical independent skill surface" not in integrations_text:
         errors.append("INTEGRATIONS.md must describe the canonical independent skill surface")
+    if "OpenHands/extensions-friendly public skill folder" not in integrations_text:
+        errors.append("INTEGRATIONS.md must describe the OpenHands-facing public skill folder")
+    if "OpenHands/extensions-ready public skill folder" not in ecosystem_text:
+        errors.append("ECOSYSTEM.md must describe the OpenHands-facing public skill lane")
 
     return errors
 

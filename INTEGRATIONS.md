@@ -69,6 +69,7 @@ Public-ready host artifacts now shipped in-repo:
 - Claude Code plugin bundle: `plugins/notestorelab-claude-plugin/`
 - Claude marketplace manifest: `.claude-plugin/marketplace.json`
 - OpenClaw-compatible bundle build: `.venv/bin/python scripts/release/build_distribution_bundles.py --out-dir ./dist`
+- OpenHands/extensions-friendly public skill folder: `public-skills/notestorelab-case-review/`
 
 Fast host smoke checklist:
 
@@ -174,6 +175,7 @@ Current design intent:
 | Claude Code marketplace-ready plugin | shipped | use `.claude-plugin/marketplace.json` plus `plugins/notestorelab-claude-plugin/` |
 | OpenClaw-compatible bundle | shipped | build the local archive from `plugins/notestorelab-openclaw-bundle/`; do not claim a live ClawHub listing yet |
 | canonical independent skill surface | shipped | use `skills/notestorelab-case-review/` as the canonical independent skill surface; plugin/starter skill files are host-specific derived copies |
+| OpenHands/extensions-friendly public skill folder | shipped | use `public-skills/notestorelab-case-review/` when you need a standalone skill-folder packet for OpenHands/extensions or similar registries |
 | repo-owned host plugin | shipped as installable bundles | the shipped plugins are installable surfaces, but installability does not imply official listing |
 
 ## Container Surface
@@ -215,6 +217,10 @@ describe that image as live until fresh GHCR push and pull read-back exist.
 `docker-compose` is intentionally absent here. This repo is a local CLI / MCP
 workbench, not a multi-service stack. The container image is the repo-side
 maximum we can claim truthfully today; it does not prove a live Glama listing.
+
+The Glama metadata side now lives in `glama.json`. That file is enough to make
+the Add Server handoff explicit for a Docker-backed submission, but it still
+does not prove a live Glama listing or hosted runtime by itself.
 
 ## API / SDK Status
 
