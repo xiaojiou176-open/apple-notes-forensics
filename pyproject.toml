@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "apple-notes-forensics"
-version = "0.1.0"
+version = "0.1.0.post1"
 description = "Copy-first Apple Notes recovery toolkit for macOS, with reviewable case outputs, AI-assisted review, verification, and public-safe demo artifacts."
 readme = "README.md"
 requires-python = ">=3.11"

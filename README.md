@@ -338,10 +338,18 @@ Those public-ready surfaces live under `plugins/`, `.claude-plugin/`, and
 .venv/bin/python scripts/release/build_distribution_bundles.py --out-dir ./dist
 ```
 
-For the MCP Registry specifically, `server.json` is only the metadata draft.
-It records the intended PyPI package identifier/version for a future publish
-step, not proof that PyPI already serves the package. Use
-[DISTRIBUTION.md](./DISTRIBUTION.md) for current listing truth.
+For the MCP Registry specifically, `server.json` is still only the metadata
+layer. Fresh PyPI read-back now confirms a live package at
+`apple-notes-forensics==0.1.0.post1`, and fresh install smoke confirms that
+the published package is installable now. That does **not** by itself prove an
+MCP Registry listing; use [DISTRIBUTION.md](./DISTRIBUTION.md) for the current
+listing boundary.
+
+When you want the live package directly from PyPI, install:
+
+```bash
+python -m pip install apple-notes-forensics==0.1.0.post1
+```
 
 The repository now also ships a canonical independent skill surface at
 `skills/notestorelab-case-review/`. Treat that directory as the SSOT skill
@@ -349,7 +357,8 @@ package, and treat the plugin/starter skill files as host-specific derived
 copies. That makes the skill independently referenceable without pretending it
 is already officially listed anywhere.
 
-When you want the repo-side publish gate before any owner-side PyPI upload, run:
+When you want the repo-side metadata/build-readiness gate before the next PyPI
+version bump, run:
 
 ```bash
 .venv/bin/python scripts/release/check_pypi_publish_readiness.py

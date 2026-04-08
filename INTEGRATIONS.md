@@ -136,9 +136,16 @@ Those bundles are repo-owned public-ready artifacts, not official marketplace
 or registry listings.
 
 For MCP Registry publication, `server.json` is still only the metadata layer.
-Treat the package name/version there as the intended publication target, not as
-proof that PyPI already serves it. Use [DISTRIBUTION.md](./DISTRIBUTION.md)
-when you need the current listing or live-package truth.
+Fresh PyPI read-back now confirms a live package at
+`apple-notes-forensics==0.1.0.post1`, but that does **not** prove an MCP
+Registry listing by itself. Use [DISTRIBUTION.md](./DISTRIBUTION.md) when you
+need the current listing or live-package truth.
+
+Fresh PyPI install path:
+
+```bash
+python -m pip install apple-notes-forensics==0.1.0.post1
+```
 
 Repo-side metadata/build-readiness proof:
 
