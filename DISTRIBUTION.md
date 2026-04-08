@@ -18,6 +18,9 @@ Use it when you need to answer:
 | Codex | yes, the official Codex plugin directory exists, but third-party official-directory submission is still coming soon | yes: `plugins/notestorelab-codex-plugin/` | not confirmed | public-ready Codex plugin bundle shipped; do not claim official Codex directory listing |
 | Claude Code | yes, official plugin and marketplace surfaces exist | yes: `plugins/notestorelab-claude-plugin/` plus root `.claude-plugin/marketplace.json` | not confirmed | submit-ready Claude Code marketplace artifact shipped; do not claim Anthropic-managed listing without fresh read-back |
 | OpenClaw | yes, the official ClawHub public registry exists | yes: `plugins/notestorelab-openclaw-bundle/` | not confirmed | public-ready compatible bundle shipped; do not claim live ClawHub or official OpenClaw listing |
+| OpenHands/extensions | yes, the official OpenHands public extensions registry exists | yes: `public-skills/notestorelab-case-review/` plus canonical `skills/notestorelab-case-review/` | not confirmed | OpenHands/extensions-friendly public skill folder shipped; do not claim a live OpenHands/extensions listing without fresh PR/read-back |
+| Glama | yes, the public Add Server and hosted MCP surface exists | yes: `glama.json`, `Dockerfile`, and the canonical GHCR target | not confirmed | repo-owned Glama-ready metadata and Docker surface shipped; do not claim a live Glama listing without fresh Glama-side read-back |
+| Docker MCP Catalog | yes, the official curated Docker MCP Catalog exists | yes: `Dockerfile`, `scripts/release/check_docker_surface.py`, and the canonical GHCR target | not confirmed | Docker-ready local container surface shipped; do not claim a live Docker catalog listing without fresh Docker-side submission/read-back |
 
 ## Repo-Owned Artifacts
 
@@ -27,7 +30,9 @@ Use it when you need to answer:
 - `plugins/notestorelab-claude-plugin/`
 - `plugins/notestorelab-openclaw-bundle/`
 - `skills/notestorelab-case-review/`
+- `public-skills/notestorelab-case-review/`
 - `.claude-plugin/marketplace.json`
+- `glama.json`
 - `server.json`
 - `scripts/release/build_distribution_bundles.py`
 - `Dockerfile`
@@ -54,6 +59,17 @@ This means the repository can now truthfully say "independent skill surface
 shipped" or "independent skill ready" without claiming any official directory
 listing.
 
+For public skill-folder registries, the portable listing packet now lives at
+`public-skills/notestorelab-case-review/`.
+
+That packet is intentionally separate from the canonical skill SSOT:
+
+- canonical truth still lives in `skills/notestorelab-case-review/`
+- the public packet adds semver-ready listing metadata for ClawHub-style
+  publication
+- the public packet adds an OpenHands/extensions-facing README so external
+  reviewers do not need to infer the install story from internal bundle paths
+
 ## Package Surface
 
 The canonical installable package surface for this repository is PyPI:
@@ -62,6 +78,8 @@ The canonical installable package surface for this repository is PyPI:
 - live package truth comes from PyPI JSON read-back plus install smoke
 - `server.json` points at the PyPI package because the current MCP publication
   story is Python-first
+- this is the intended PyPI package identifier and version for the current repo
+  contract: `apple-notes-forensics==0.1.0.post1`
 
 There is no tracked npm package surface in the current public contract:
 
@@ -92,6 +110,12 @@ The canonical live-image target, if and when fresh publish proof exists, is:
 
 Do not claim a live OCI image without fresh GHCR push read-back and pull/read
 verification.
+
+`glama.json` is now the repo-owned metadata side of the Glama story. It makes
+the intended maintainer identity explicit, but it does **not** prove a live
+Glama listing or hosted deployment by itself.
+
+Do not claim a live Glama listing without fresh Glama-side read-back.
 
 ## Proof Loops
 
@@ -142,6 +166,8 @@ The repo-side publish-readiness proof command is:
 - "submit-ready Claude Code marketplace artifact shipped"
 - "OpenClaw-compatible bundle shipped"
 - "independent skill surface shipped"
+- "OpenHands/extensions-friendly public skill folder shipped"
+- "repo-owned Glama-ready metadata shipped"
 - "Docker-ready local container surface shipped"
 - "`ghcr.io/xiaojiou176-open/apple-notes-forensics` is the canonical live-image target, but live-image claims still require fresh GHCR push and pull read-back"
 
@@ -153,6 +179,7 @@ The repo-side publish-readiness proof command is:
 - "official Codex plugin directory listing" without OpenAI-managed listing proof
 - "official Anthropic marketplace listing" without fresh marketplace read-back
 - "live ClawHub listing" without fresh OpenClaw-side listing proof
+- "live OpenHands/extensions listing" without fresh OpenHands PR/read-back
 - "official npm package" or "npm is the canonical install path" without a real shipped npm package surface
 - "officially listed skill" without fresh host-side read-back
 - "hosted service" or "multi-tenant platform" for the Docker surface
