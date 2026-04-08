@@ -339,11 +339,12 @@ Those public-ready surfaces live under `plugins/`, `.claude-plugin/`, and
 ```
 
 For the MCP Registry specifically, `server.json` is still only the metadata
-layer. Fresh PyPI read-back now confirms a live package at
-`apple-notes-forensics==0.1.0.post1`, and fresh install smoke confirms that
-the published package is installable now. That does **not** by itself prove an
-MCP Registry listing; use [DISTRIBUTION.md](./DISTRIBUTION.md) for the current
-listing boundary.
+layer. Fresh PyPI read-back confirms a live package at
+`apple-notes-forensics==0.1.0.post1`, fresh install smoke confirms that the
+published package is installable now, and fresh registry read-back confirms an
+active official MCP Registry listing for
+`io.github.xiaojiou176-open/notestorelab-mcp`. Use
+[DISTRIBUTION.md](./DISTRIBUTION.md) for the exact listing boundary.
 
 When you want the live package directly from PyPI, install:
 
@@ -435,10 +436,9 @@ docker run --rm -i \
   --case-dir /cases/Notes_Forensics_<run_ts>
 ```
 
-If you later publish a registry image, the canonical target is
+The canonical registry image is now live at
 `ghcr.io/xiaojiou176-open/apple-notes-forensics:0.1.0.post1`, with `latest`
-as an optional convenience tag only after matching read-back. Do not claim a
-live registry image until fresh push and pull verification both succeed.
+as a convenience tag that currently resolves to the same verified digest.
 
 The container image is a reproducible local runtime, not a hosted portal, not
 an API gateway, and not proof of any live Glama or OCI catalog listing.
