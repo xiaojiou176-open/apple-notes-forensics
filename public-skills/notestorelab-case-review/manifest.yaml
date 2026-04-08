@@ -12,7 +12,7 @@ registry_targets:
   clawhub:
     status: ready-but-not-listed
     package_shape: skill-folder
-    submit_via: openclaw skill publish .
+    submit_via: clawhub publish . --slug notestorelab-case-review --name "NoteStore Lab Case Review" --version 1.0.0 --tags apple-notes,forensics,incident-response,mcp
   openhands-extensions:
     status: folder-ready
     package_shape: skill-folder
