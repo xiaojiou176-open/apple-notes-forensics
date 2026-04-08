@@ -23,12 +23,11 @@ DERIVED_SKILL_PATHS = (
     Path("starter-bundles/claude-code/plugins/notestorelab/skills/notestorelab-mcp/SKILL.md"),
     Path("plugins/notestorelab-openclaw-bundle/workspace/skills/notestorelab/SKILL.md"),
     Path("starter-bundles/openclaw/workspace/skills/notestorelab/SKILL.md"),
-    Path("public-skills/notestorelab-case-review/SKILL.md"),
 )
 REPO_URL = "https://github.com/xiaojiou176-open/apple-notes-forensics"
 CANONICAL_NAME = "notestorelab-case-review"
 PUBLIC_SKILL_DIR = Path("public-skills/notestorelab-case-review")
-PUBLIC_SKILL_SEMVER = "1.0.0"
+PUBLIC_SKILL_SEMVER = "1.0.1"
 
 
 def _load_pyproject(repo_root: Path) -> dict[str, object]:
@@ -143,7 +142,7 @@ def collect_skill_publish_errors(repo_root: Path) -> list[str]:
             "schema_version: 1",
             "artifact: public-skill-listing-manifest",
             "name: notestorelab-case-review",
-            "version: 1.0.0",
+            "version: 1.0.1",
             "display_name: NoteStore Lab Case Review",
             "package_shape: skill-folder",
             "clawhub:",
@@ -154,6 +153,8 @@ def collect_skill_publish_errors(repo_root: Path) -> list[str]:
             "submit_via: submit this folder as skills/notestorelab-case-review/ in OpenHands/extensions",
             "canonical_repo_version: 0.1.0.post1",
             "official_listing_state: not-yet-listed",
+            "references/install-and-mcp.md",
+            "references/usage-and-proof.md",
         ):
             if token not in public_manifest_text:
                 errors.append(f"public skill manifest is missing required token: {token}")
@@ -164,6 +165,8 @@ def collect_skill_publish_errors(repo_root: Path) -> list[str]:
             "ClawHub-style",
             "skills/notestorelab-case-review/SKILL.md",
             "no official OpenHands/extensions listing without fresh PR/read-back",
+            "What this skill teaches an agent",
+            "Demo / proof links",
         ):
             if token not in public_readme_text:
                 errors.append(f"public skill README is missing required token: {token}")
