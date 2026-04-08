@@ -5,11 +5,13 @@ import json
 import shutil
 import subprocess
 import tempfile
+import tomllib
 from pathlib import Path
 
 
 REPO_URL = "https://github.com/xiaojiou176-open/apple-notes-forensics"
 SERVER_NAME = "io.github.xiaojiou176-open/notestorelab-mcp"
+IMAGE_BASE = "ghcr.io/xiaojiou176-open/apple-notes-forensics"
 
 
 def _run(args: list[str], *, cwd: Path) -> subprocess.CompletedProcess[str]:
@@ -22,8 +24,15 @@ def _run(args: list[str], *, cwd: Path) -> subprocess.CompletedProcess[str]:
     )
 
 
+def _project_version(repo_root: Path) -> str:
+    pyproject = tomllib.loads((repo_root / "pyproject.toml").read_text(encoding="utf-8"))
+    return str(pyproject["project"]["version"])
+
+
 def collect_docker_surface_errors(repo_root: Path) -> list[str]:
     errors: list[str] = []
+    project_version = _project_version(repo_root)
+    local_image_tag = f"notestorelab:{project_version}"
 
     dockerfile = repo_root / "Dockerfile"
     dockerignore = repo_root / ".dockerignore"
@@ -45,14 +54,16 @@ def collect_docker_surface_errors(repo_root: Path) -> list[str]:
     readme_text = (repo_root / "README.md").read_text(encoding="utf-8")
     integrations_text = (repo_root / "INTEGRATIONS.md").read_text(encoding="utf-8")
     distribution_text = (repo_root / "DISTRIBUTION.md").read_text(encoding="utf-8")
-    if "docker build -t notestorelab:0.1.0 ." not in readme_text:
+    if f"docker build -t {local_image_tag} ." not in readme_text:
         errors.append("README.md must include the canonical docker build command")
-    if "docker run --rm notestorelab:0.1.0 notes-recovery demo" not in readme_text:
+    if f"docker run --rm {local_image_tag} notes-recovery demo" not in readme_text:
         errors.append("README.md must include the canonical docker demo command")
     if "--entrypoint notes-recovery-mcp" not in integrations_text:
         errors.append("INTEGRATIONS.md must show the MCP container entrypoint override")
     if "Docker-ready local container surface shipped" not in distribution_text:
         errors.append("DISTRIBUTION.md must describe the Docker-ready local container surface")
+    if IMAGE_BASE not in distribution_text:
+        errors.append("DISTRIBUTION.md must describe the canonical GHCR image target")
     if "not a hosted service" not in readme_text:
         errors.append("README.md must keep the container path out of hosted-service language")
 

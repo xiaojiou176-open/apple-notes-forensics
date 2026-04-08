@@ -12,7 +12,7 @@
     {
       "name": "notestorelab-claude-plugin",
       "description": "Bounded case-root MCP launcher for NoteStore Lab review workflows.",
-      "version": "0.1.0",
+      "version": "0.1.0.post1",
       "author": {
         "name": "NoteStore Lab",
         "email": "xiaojiou176@users.noreply.github.com"

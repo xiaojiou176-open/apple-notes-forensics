@@ -1,6 +1,6 @@
 {
   "name": "notestorelab-codex-plugin",
-  "version": "0.1.0",
+  "version": "0.1.0.post1",
   "description": "Case-root review workflow and bounded MCP launcher for NoteStore Lab.",
   "author": {
     "name": "NoteStore Lab contributors",

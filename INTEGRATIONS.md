@@ -188,13 +188,13 @@ The truthful container story for this repository is:
 Canonical build:
 
 ```bash
-docker build -t notestorelab:0.1.0 .
+docker build -t notestorelab:0.1.0.post1 .
 ```
 
 Public-safe demo smoke:
 
 ```bash
-docker run --rm notestorelab:0.1.0 notes-recovery demo
+docker run --rm notestorelab:0.1.0.post1 notes-recovery demo
 ```
 
 Bounded MCP entrypoint:
@@ -203,9 +203,14 @@ Bounded MCP entrypoint:
 docker run --rm -i \
   -v "$PWD/output:/cases:ro" \
   --entrypoint notes-recovery-mcp \
-  notestorelab:0.1.0 \
+  notestorelab:0.1.0.post1 \
   --case-dir /cases/Notes_Forensics_<run_ts>
 ```
+
+If you need a canonical live-image target later, use
+`ghcr.io/xiaojiou176-open/apple-notes-forensics:0.1.0.post1`, and treat
+`latest` as a convenience tag rather than the sole source of truth. Do not
+describe that image as live until fresh GHCR push and pull read-back exist.
 
 `docker-compose` is intentionally absent here. This repo is a local CLI / MCP
 workbench, not a multi-service stack. The container image is the repo-side

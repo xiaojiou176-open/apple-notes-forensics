@@ -54,6 +54,25 @@ This means the repository can now truthfully say "independent skill surface
 shipped" or "independent skill ready" without claiming any official directory
 listing.
 
+## Package Surface
+
+The canonical installable package surface for this repository is PyPI:
+
+- package name: `apple-notes-forensics`
+- live package truth comes from PyPI JSON read-back plus install smoke
+- `server.json` points at the PyPI package because the current MCP publication
+  story is Python-first
+
+There is no tracked npm package surface in the current public contract:
+
+- no `package.json`
+- no npm install path in the public docs
+- no shipped TypeScript SDK or generated client surface yet
+
+That means npm is not a missing canonical package lane for this repository
+today. If a future npm surface ever ships, it must become an explicit new
+public contract rather than an implied comparison path.
+
 ## Container Surface
 
 Docker-ready local container surface shipped:
@@ -65,6 +84,14 @@ Docker-ready local container surface shipped:
 This container path is for local reproducibility of the CLI and stdio MCP
 surface. It is not proof of a hosted deployment, multi-tenant backend, or live
 Glama listing.
+
+The canonical live-image target, if and when fresh publish proof exists, is:
+
+- `ghcr.io/xiaojiou176-open/apple-notes-forensics:0.1.0.post1`
+- optional convenience tag: `ghcr.io/xiaojiou176-open/apple-notes-forensics:latest`
+
+Do not claim a live OCI image without fresh GHCR push read-back and pull/read
+verification.
 
 ## Proof Loops
 
@@ -110,11 +137,13 @@ The repo-side publish-readiness proof command is:
 
 - "live PyPI package `apple-notes-forensics==0.1.0.post1` verified with fresh JSON read-back"
 - "`server.json` is aligned with the live PyPI version `0.1.0.post1`"
+- "PyPI is the canonical installable package surface for this repository today"
 - "public-ready Codex plugin bundle shipped"
 - "submit-ready Claude Code marketplace artifact shipped"
 - "OpenClaw-compatible bundle shipped"
 - "independent skill surface shipped"
 - "Docker-ready local container surface shipped"
+- "`ghcr.io/xiaojiou176-open/apple-notes-forensics` is the canonical live-image target, but live-image claims still require fresh GHCR push and pull read-back"
 
 ## Forbidden Claims
 
@@ -124,5 +153,6 @@ The repo-side publish-readiness proof command is:
 - "official Codex plugin directory listing" without OpenAI-managed listing proof
 - "official Anthropic marketplace listing" without fresh marketplace read-back
 - "live ClawHub listing" without fresh OpenClaw-side listing proof
+- "official npm package" or "npm is the canonical install path" without a real shipped npm package surface
 - "officially listed skill" without fresh host-side read-back
 - "hosted service" or "multi-tenant platform" for the Docker surface
