@@ -38,6 +38,7 @@
 - `plugins/notestorelab-codex-plugin/`
 - `plugins/notestorelab-claude-plugin/`
 - `.claude-plugin/marketplace.json`
+- `skills/notestorelab-case-review/`
 - `server.json`
 - GitHub Pages landing at `/`
 

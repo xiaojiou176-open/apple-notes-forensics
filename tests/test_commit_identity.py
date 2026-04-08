@@ -242,15 +242,13 @@ def test_commit_identity_allows_github_hosted_squash_merge_commit_with_owner_nor
         content="base\n",
         message="base commit",
     )
-    legacy_name = sorted(LEGACY_PERSONAL_NAME_EXAMPLES)[0]
-    legacy_email = sorted(LEGACY_PERSONAL_EMAILS)[0]
     _commit(
         repo_root,
         filename="README.md",
         content="squash merge\n",
         message="fix(governance): harden closeout gates (#2)",
-        author_name=legacy_name,
-        author_email=legacy_email,
+        author_name=CONFIG_NAME_EXAMPLE,
+        author_email=CONFIG_EMAIL_EXAMPLE,
         committer_name=GITHUB_NAME,
         committer_email=GITHUB_EMAIL,
     )

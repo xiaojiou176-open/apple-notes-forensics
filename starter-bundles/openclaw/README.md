@@ -19,3 +19,6 @@ claim of first-class OpenClaw platform adoption.
 3. Keep the same local MCP server command and one-case-root boundary.
 
 This is a comparison-path starter, not an officially listed bundle.
+
+The bundled skill file is a host-specific derived copy. The canonical
+independent skill surface lives at `skills/notestorelab-case-review/`.

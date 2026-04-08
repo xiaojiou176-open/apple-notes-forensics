@@ -25,3 +25,6 @@ claude --plugin-dir starter-bundles/claude-code/plugins/notestorelab --help
 
 This starter matches the official plugin and marketplace surfaces, but it does
 not claim live marketplace listing.
+
+The bundled skill file is a host-specific derived copy. The canonical
+independent skill surface lives at `skills/notestorelab-case-review/`.

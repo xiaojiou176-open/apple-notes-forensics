@@ -166,8 +166,43 @@ Current design intent:
 | Codex plugin bundle | shipped | use `plugins/notestorelab-codex-plugin/` and a real local marketplace entry |
 | Claude Code marketplace-ready plugin | shipped | use `.claude-plugin/marketplace.json` plus `plugins/notestorelab-claude-plugin/` |
 | OpenClaw-compatible bundle | shipped | build the local archive from `plugins/notestorelab-openclaw-bundle/`; do not claim a live ClawHub listing yet |
-| repo-owned skills pack | shipped inside the Codex plugin | use the bundled NoteStore Lab case-review skill when you want host-local guidance without a second docs tree |
+| canonical independent skill surface | shipped | use `skills/notestorelab-case-review/` as the canonical independent skill surface; plugin/starter skill files are host-specific derived copies |
 | repo-owned host plugin | shipped as installable bundles | the shipped plugins are installable surfaces, but installability does not imply official listing |
+
+## Container Surface
+
+The truthful container story for this repository is:
+
+- one Docker image
+- local CLI and local `stdio` MCP usage
+- copied case roots mounted in by the operator
+- no hosted-service claim
+
+Canonical build:
+
+```bash
+docker build -t notestorelab:0.1.0 .
+```
+
+Public-safe demo smoke:
+
+```bash
+docker run --rm notestorelab:0.1.0 notes-recovery demo
+```
+
+Bounded MCP entrypoint:
+
+```bash
+docker run --rm -i \
+  -v "$PWD/output:/cases:ro" \
+  --entrypoint notes-recovery-mcp \
+  notestorelab:0.1.0 \
+  --case-dir /cases/Notes_Forensics_<run_ts>
+```
+
+`docker-compose` is intentionally absent here. This repo is a local CLI / MCP
+workbench, not a multi-service stack. The container image is the repo-side
+maximum we can claim truthfully today; it does not prove a live Glama listing.
 
 ## API / SDK Status
 

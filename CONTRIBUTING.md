@@ -174,6 +174,18 @@ PyPI metadata/build-readiness smoke:
 .venv/bin/python scripts/release/check_pypi_publish_readiness.py
 ```
 
+Independent skill publish-readiness smoke:
+
+```bash
+.venv/bin/python scripts/release/check_skill_publish_readiness.py
+```
+
+Docker metadata/build-readiness smoke:
+
+```bash
+.venv/bin/python scripts/release/check_docker_surface.py --metadata-only
+```
+
 Treat the root-level contract files as the only tracked public documentation
 surface. If you change the repository contract, update the relevant root files
 instead of introducing a parallel docs tree.

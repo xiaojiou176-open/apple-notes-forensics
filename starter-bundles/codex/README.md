@@ -11,6 +11,9 @@ artifacts for both project-local config and plugin-format packaging.
 - `plugins/notestorelab/skills/notestorelab-mcp/SKILL.md`
 - `marketplace.example.json`
 
+The bundled skill file is a host-specific derived copy. The canonical
+independent skill surface lives at `skills/notestorelab-case-review/`.
+
 ## Install path
 
 1. For the lightest-weight path, copy `.codex/config.toml` into your project

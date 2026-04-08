@@ -16,6 +16,11 @@ It is built for one very specific job:
 - `skills/notestorelab-case-review/SKILL.md`
 - `examples/marketplace.json`
 
+The canonical independent skill surface now lives at
+`skills/notestorelab-case-review/`. The bundled skill file in this plugin is a
+derived host copy that must stay in sync with that root-level canonical
+surface.
+
 ## Required Environment
 
 Set these before you use the plugin:

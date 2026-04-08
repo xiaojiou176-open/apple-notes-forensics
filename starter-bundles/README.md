@@ -10,6 +10,10 @@ shows one on its public surface. The goal is simpler:
 - keep the case-root and MCP contract truthful
 - give developers a real proof loop instead of prose-only examples
 
+The canonical independent skill surface now lives at
+`skills/notestorelab-case-review/`. Any skill file inside these starter bundles
+is a host-specific derived copy, not the primary source of truth.
+
 ## Included bundles
 
 | Bundle | Surface | What it gives you | Truth boundary |

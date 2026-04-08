@@ -7,15 +7,14 @@ import sys
 from pathlib import Path
 
 
-CONFIG_NAME_EXAMPLE = "repo-guardrail"
-CONFIG_EMAIL_EXAMPLE = "repo-guardrail@users.noreply.github.com"
-LEGACY_NAME_EXAMPLE = "repo-guardrail-legacy"
+CONFIG_NAME_EXAMPLE = "Yifeng" + "[Terry]" + " Yu"
+CONFIG_EMAIL_EXAMPLE = "125581657+" + "xiaojiou176" + "@users.noreply.github.com"
+LEGACY_NAME_EXAMPLE = "repo-guardrail"
 LEGACY_PERSONAL_NAME_EXAMPLES = {
-    "Yifeng" + "[Terry]" + " Yu",
-    "Yifeng" + " (Terry) " + "Yu",
+    "xiaojiou176",
 }
 LEGACY_PERSONAL_EMAILS = {
-    "125581657+" + "xiaojiou176" + "@users.noreply.github.com",
+    "xiaojiou176" + "@users.noreply.github.com",
 }
 DEPENDABOT_NAME = "dependabot[bot]"
 DEPENDABOT_EMAILS = {

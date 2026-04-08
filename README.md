@@ -343,6 +343,12 @@ It records the intended PyPI package identifier/version for a future publish
 step, not proof that PyPI already serves the package. Use
 [DISTRIBUTION.md](./DISTRIBUTION.md) for current listing truth.
 
+The repository now also ships a canonical independent skill surface at
+`skills/notestorelab-case-review/`. Treat that directory as the SSOT skill
+package, and treat the plugin/starter skill files as host-specific derived
+copies. That makes the skill independently referenceable without pretending it
+is already officially listed anywhere.
+
 When you want the repo-side publish gate before any owner-side PyPI upload, run:
 
 ```bash
@@ -372,7 +378,48 @@ Builder-facing status today:
 | shared generated client | not shipped | use the local MCP surface or parse manifests directly |
 | thin SDK | not shipped | future path only, after the shared case/MCP contract is locked |
 | repo-owned host bundles | shipped | use `plugins/`, `.claude-plugin/`, `server.json`, and `scripts/release/build_distribution_bundles.py` |
+| canonical independent skill surface | shipped | use `skills/notestorelab-case-review/` as the only SSOT skill surface; plugin/starter copies are derived packaging |
 | official marketplace/catalog listing | not shipped | public-ready artifacts do not imply official listing or publish read-back |
+
+## Docker Surface
+
+The Docker story is intentionally narrow:
+
+- it is a Docker-ready local container surface
+- it is not a hosted service
+- it keeps the MCP path on local `stdio`
+- it expects copied case roots or demo mode, not a live Notes store
+
+Build the image:
+
+```bash
+docker build -t notestorelab:0.1.0 .
+```
+
+Run the public-safe demo:
+
+```bash
+docker run --rm notestorelab:0.1.0 notes-recovery demo
+```
+
+Run the MCP help surface:
+
+```bash
+docker run --rm --entrypoint notes-recovery-mcp notestorelab:0.1.0 --help
+```
+
+Review an existing copied case root through the local stdio MCP server:
+
+```bash
+docker run --rm -i \
+  -v "$PWD/output:/cases:ro" \
+  --entrypoint notes-recovery-mcp \
+  notestorelab:0.1.0 \
+  --case-dir /cases/Notes_Forensics_<run_ts>
+```
+
+The container image is a reproducible local runtime, not a hosted portal, not
+an API gateway, and not proof of any live Glama or OCI catalog listing.
 
 Use the dedicated builder notes in [INTEGRATIONS.md](./INTEGRATIONS.md) and the
 ecosystem binding matrix in [ECOSYSTEM.md](./ECOSYSTEM.md) before you describe

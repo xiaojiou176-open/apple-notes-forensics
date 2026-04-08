@@ -26,9 +26,11 @@ Use it when you need to answer:
 - `plugins/notestorelab-codex-plugin/`
 - `plugins/notestorelab-claude-plugin/`
 - `plugins/notestorelab-openclaw-bundle/`
+- `skills/notestorelab-case-review/`
 - `.claude-plugin/marketplace.json`
 - `server.json`
 - `scripts/release/build_distribution_bundles.py`
+- `Dockerfile`
 
 ### Onboarding starter artifacts
 
@@ -36,6 +38,33 @@ Use it when you need to answer:
 - `starter-bundles/claude-code/`
 - `starter-bundles/openclaw/`
 - `scripts/release/build_starter_bundles_bundle.py`
+
+## Independent Skill Surface
+
+The canonical independent skill surface now lives at
+`skills/notestorelab-case-review/`.
+
+That directory is the single repo-owned SSOT for the skill package:
+
+- `SKILL.md` is the canonical operator guidance
+- `manifest.yaml` is the canonical publish/readiness metadata
+- plugin and starter skill files are derived host copies, not parallel SSOTs
+
+This means the repository can now truthfully say "independent skill surface
+shipped" or "independent skill ready" without claiming any official directory
+listing.
+
+## Container Surface
+
+Docker-ready local container surface shipped:
+
+- `Dockerfile`
+- `.dockerignore`
+- `scripts/release/check_docker_surface.py`
+
+This container path is for local reproducibility of the CLI and stdio MCP
+surface. It is not proof of a hosted deployment, multi-tenant backend, or live
+Glama listing.
 
 ## Proof Loops
 
@@ -86,6 +115,8 @@ The repo-side publish-readiness proof command is:
 - "public-ready Codex plugin bundle shipped"
 - "submit-ready Claude Code marketplace artifact shipped"
 - "OpenClaw-compatible bundle shipped"
+- "independent skill surface shipped"
+- "Docker-ready local container surface shipped"
 
 ## Forbidden Claims
 
@@ -96,3 +127,5 @@ The repo-side publish-readiness proof command is:
 - "official Codex plugin directory listing" without OpenAI-managed listing proof
 - "official Anthropic marketplace listing" without fresh marketplace read-back
 - "live ClawHub listing" without fresh OpenClaw-side listing proof
+- "officially listed skill" without fresh host-side read-back
+- "hosted service" or "multi-tenant platform" for the Docker surface
