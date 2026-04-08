@@ -14,7 +14,7 @@ Use it when you need to answer:
 
 | Surface | Official public surface exists | Repo-owned artifact shipped | Already listed | Current truthful claim |
 | --- | --- | --- | --- | --- |
-| MCP Registry | yes, the official MCP Registry exists and is still documented as a preview surface | yes: `server.json` and `notes-recovery-mcp` | not confirmed | live PyPI package now exists at `apple-notes-forensics==0.1.0.post1`, with fresh JSON read-back and install smoke; `server.json` now points at that live package, but MCP Registry listing itself is still not confirmed without fresh registry read-back |
+| MCP Registry | yes, the official MCP Registry exists and is still documented as a preview surface | yes: `server.json` and `notes-recovery-mcp` | not confirmed | live PyPI package now exists at `apple-notes-forensics==0.1.0.post1`, with fresh JSON read-back and install smoke; `server.json` is aligned with that live package version, but MCP Registry listing itself is still not confirmed without fresh registry read-back |
 | Codex | yes, the official Codex plugin directory exists, but third-party official-directory submission is still coming soon | yes: `plugins/notestorelab-codex-plugin/` | not confirmed | public-ready Codex plugin bundle shipped; do not claim official Codex directory listing |
 | Claude Code | yes, official plugin and marketplace surfaces exist | yes: `plugins/notestorelab-claude-plugin/` plus root `.claude-plugin/marketplace.json` | not confirmed | submit-ready Claude Code marketplace artifact shipped; do not claim Anthropic-managed listing without fresh read-back |
 | OpenClaw | yes, the official ClawHub public registry exists | yes: `plugins/notestorelab-openclaw-bundle/` | not confirmed | public-ready compatible bundle shipped; do not claim live ClawHub or official OpenClaw listing |
@@ -109,7 +109,7 @@ The repo-side publish-readiness proof command is:
 ## Allowed Claims
 
 - "live PyPI package `apple-notes-forensics==0.1.0.post1` verified with fresh JSON read-back"
-- "`server.json` points at the live PyPI package `apple-notes-forensics==0.1.0.post1`"
+- "`server.json` is aligned with the live PyPI version `0.1.0.post1`"
 - "public-ready Codex plugin bundle shipped"
 - "submit-ready Claude Code marketplace artifact shipped"
 - "OpenClaw-compatible bundle shipped"
