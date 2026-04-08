@@ -14,7 +14,7 @@ Use it when you need to answer:
 
 | Surface | Official public surface exists | Repo-owned artifact shipped | Already listed | Current truthful claim |
 | --- | --- | --- | --- | --- |
-| MCP Registry | yes, the official MCP Registry exists and is still documented as a preview surface | yes: `server.json` and `notes-recovery-mcp` | not confirmed | live PyPI package now exists at `apple-notes-forensics==0.1.0.post1`, with fresh JSON read-back and install smoke; `server.json` is aligned with that live package version, but MCP Registry listing itself is still not confirmed without fresh registry read-back |
+| MCP Registry | yes, the official MCP Registry exists and is still documented as a preview surface | yes: `server.json` and `notes-recovery-mcp` | yes | live PyPI package now exists at `apple-notes-forensics==0.1.0.post1`, `server.json` is aligned with that live package version, and the official MCP Registry now returns `io.github.xiaojiou176-open/notestorelab-mcp` as an active listing with fresh read-back |
 | Codex | yes, the official Codex plugin directory exists, but third-party official-directory submission is still coming soon | yes: `plugins/notestorelab-codex-plugin/` | not confirmed | public-ready Codex plugin bundle shipped; do not claim official Codex directory listing |
 | Claude Code | yes, official plugin and marketplace surfaces exist | yes: `plugins/notestorelab-claude-plugin/` plus root `.claude-plugin/marketplace.json` | not confirmed | submit-ready Claude Code marketplace artifact shipped; do not claim Anthropic-managed listing without fresh read-back |
 | OpenClaw | yes, the official ClawHub public registry exists | yes: `plugins/notestorelab-openclaw-bundle/` | not confirmed | public-ready compatible bundle shipped; do not claim live ClawHub or official OpenClaw listing |
@@ -100,16 +100,23 @@ Docker-ready local container surface shipped:
 - `scripts/release/check_docker_surface.py`
 
 This container path is for local reproducibility of the CLI and stdio MCP
-surface. It is not proof of a hosted deployment, multi-tenant backend, or live
-Glama listing.
+surface. A live GHCR image is now verified with fresh push, manifest, pull, and
+demo read-back. That is still not proof of a hosted deployment, multi-tenant
+backend, live Glama listing, or Docker MCP Catalog listing.
 
 The canonical live-image target, if and when fresh publish proof exists, is:
 
 - `ghcr.io/xiaojiou176-open/apple-notes-forensics:0.1.0.post1`
 - optional convenience tag: `ghcr.io/xiaojiou176-open/apple-notes-forensics:latest`
 
-Do not claim a live OCI image without fresh GHCR push read-back and pull/read
-verification.
+A live OCI image is now confirmed at:
+
+- `ghcr.io/xiaojiou176-open/apple-notes-forensics:0.1.0.post1`
+- `ghcr.io/xiaojiou176-open/apple-notes-forensics:latest`
+
+The verified current digest is:
+
+- `sha256:c1267822e3966fbc22f3a3a996a4b0cae67c2df8d94d35b14f93c5a90d9aab40`
 
 `glama.json` is now the repo-owned metadata side of the Glama story. It makes
 the intended maintainer identity explicit, but it does **not** prove a live
@@ -143,13 +150,15 @@ claude plugin validate .
 
 ### MCP Registry listing boundary
 
-`server.json` is still only the metadata side of the MCP Registry story.
+`server.json` is the metadata side of the MCP Registry story, and that story is
+now live for the current version.
 
-Fresh PyPI read-back now confirms that PyPI serves
-`apple-notes-forensics==0.1.0.post1`, and fresh install smoke confirms that the
-published package is installable. That does **not** prove that the MCP
-Registry, or any other official directory, has accepted, listed, or rendered
-the package.
+Fresh PyPI read-back confirms that PyPI serves
+`apple-notes-forensics==0.1.0.post1`, fresh install smoke confirms that the
+published package is installable, and fresh registry read-back confirms that
+the official MCP Registry now returns
+`io.github.xiaojiou176-open/notestorelab-mcp` as an active listing for
+`0.1.0.post1`.
 
 The repo-side publish-readiness proof command is:
 
@@ -162,6 +171,7 @@ The repo-side publish-readiness proof command is:
 - "live PyPI package `apple-notes-forensics==0.1.0.post1` verified with fresh JSON read-back"
 - "`server.json` is aligned with the live PyPI version `0.1.0.post1`"
 - "PyPI is the canonical installable package surface for this repository today"
+- "official MCP Registry listing is live for `io.github.xiaojiou176-open/notestorelab-mcp` at `0.1.0.post1`"
 - "public-ready Codex plugin bundle shipped"
 - "submit-ready Claude Code marketplace artifact shipped"
 - "OpenClaw-compatible bundle shipped"
@@ -169,7 +179,7 @@ The repo-side publish-readiness proof command is:
 - "OpenHands/extensions-friendly public skill folder shipped"
 - "repo-owned Glama-ready metadata shipped"
 - "Docker-ready local container surface shipped"
-- "`ghcr.io/xiaojiou176-open/apple-notes-forensics` is the canonical live-image target, but live-image claims still require fresh GHCR push and pull read-back"
+- "live GHCR image verified at `ghcr.io/xiaojiou176-open/apple-notes-forensics:0.1.0.post1` and `:latest`"
 
 ## Forbidden Claims
 

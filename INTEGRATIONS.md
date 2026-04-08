@@ -138,9 +138,11 @@ or registry listings.
 
 For MCP Registry publication, `server.json` is still only the metadata layer.
 Fresh PyPI read-back now confirms a live package at
-`apple-notes-forensics==0.1.0.post1`, but that does **not** prove an MCP
-Registry listing by itself. Use [DISTRIBUTION.md](./DISTRIBUTION.md) when you
-need the current listing or live-package truth.
+`apple-notes-forensics==0.1.0.post1`, and fresh registry read-back now confirms
+an active official MCP Registry listing for
+`io.github.xiaojiou176-open/notestorelab-mcp`. Use
+[DISTRIBUTION.md](./DISTRIBUTION.md) when you need the current listing or
+live-package truth.
 
 Fresh PyPI install path:
 
@@ -209,10 +211,11 @@ docker run --rm -i \
   --case-dir /cases/Notes_Forensics_<run_ts>
 ```
 
-If you need a canonical live-image target later, use
-`ghcr.io/xiaojiou176-open/apple-notes-forensics:0.1.0.post1`, and treat
-`latest` as a convenience tag rather than the sole source of truth. Do not
-describe that image as live until fresh GHCR push and pull read-back exist.
+The canonical live-image target is now verified at
+`ghcr.io/xiaojiou176-open/apple-notes-forensics:0.1.0.post1`, with `latest`
+as a convenience tag that currently resolves to the same digest. Keep
+describing GHCR as an OCI/package surface, not as proof of a live Glama or
+Docker catalog listing.
 
 `docker-compose` is intentionally absent here. This repo is a local CLI / MCP
 workbench, not a multi-service stack. The container image is the repo-side
