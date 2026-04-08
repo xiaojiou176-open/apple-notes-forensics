@@ -5,13 +5,16 @@ packet for NoteStore Lab.
 
 ## What this skill teaches an agent
 
-This is not just a label for Apple Notes. It teaches an agent four concrete
+This is not just a label for Apple Notes. It teaches an agent five concrete
 things:
 
 1. how to install or launch the NoteStore Lab MCP surface
 2. how to prove the review flow on public-safe demo artifacts first
 3. how to review one copied case root without touching the live Notes store
 4. how to ask bounded questions from derived artifacts instead of guessing
+5. what the MCP lane gives a host after attach: case-root listing, manifest and
+   artifact inspection, bounded case Q&A, and bounded
+   verify/report/timeline/export workflows
 
 ## What this packet includes
 
@@ -39,6 +42,25 @@ If a reviewer wants to understand the skill quickly, use this order:
 - Public proof: https://github.com/xiaojiou176-open/apple-notes-forensics/blob/main/proof.html
 - Builder guide: https://github.com/xiaojiou176-open/apple-notes-forensics/blob/main/INTEGRATIONS.md
 - Releases: https://github.com/xiaojiou176-open/apple-notes-forensics/releases
+
+## Visual demo
+
+![NoteStore Lab public demo surface](https://raw.githubusercontent.com/xiaojiou176-open/apple-notes-forensics/main/assets/readme/hero-public-demo.png)
+
+- Quick visual proof: the public demo already shows the bounded review flow on
+  safe artifacts before a host ever points the MCP lane at a real copied case
+  root.
+
+## MCP capability surface
+
+- Read-only review lane:
+  `list_case_roots`, `inspect_case_manifest`, `select_case_evidence`,
+  `inspect_case_artifact`, and `ask_case`
+- Bounded workflows:
+  `run_verify`, `run_report`, `build_timeline`, and `public_safe_export`
+- Boundary:
+  one explicit case root at a time, local stdio transport, and no live Notes
+  store mutation path
 
 ## Best-fit hosts
 

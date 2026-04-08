@@ -27,7 +27,7 @@ DERIVED_SKILL_PATHS = (
 REPO_URL = "https://github.com/xiaojiou176-open/apple-notes-forensics"
 CANONICAL_NAME = "notestorelab-case-review"
 PUBLIC_SKILL_DIR = Path("public-skills/notestorelab-case-review")
-PUBLIC_SKILL_SEMVER = "1.0.1"
+PUBLIC_SKILL_SEMVER = "1.0.2"
 
 
 def _load_pyproject(repo_root: Path) -> dict[str, object]:
@@ -142,7 +142,7 @@ def collect_skill_publish_errors(repo_root: Path) -> list[str]:
             "schema_version: 1",
             "artifact: public-skill-listing-manifest",
             "name: notestorelab-case-review",
-            "version: 1.0.1",
+            "version: 1.0.2",
             "display_name: NoteStore Lab Case Review",
             "package_shape: skill-folder",
             "clawhub:",

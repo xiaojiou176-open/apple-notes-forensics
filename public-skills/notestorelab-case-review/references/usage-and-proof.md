@@ -24,6 +24,17 @@ What this proves:
 - bounded case Q&A is real, not hypothetical
 - the MCP lane belongs on one explicit case root
 
+## MCP capability surface after attach
+
+- Read-only review surfaces:
+  `list_case_roots`, `inspect_case_manifest`, `select_case_evidence`,
+  `inspect_case_artifact`, and `ask_case`
+- Bounded workflows:
+  `run_verify`, `run_report`, `build_timeline`, and `public_safe_export`
+- Boundary:
+  local stdio only, one explicit case root at a time, and no live Notes store
+  access
+
 ## Example prompts
 
 - "Summarize the demo case and list the first two artifacts I should inspect."
@@ -38,6 +49,10 @@ What this proves:
 - Builder guide: https://github.com/xiaojiou176-open/apple-notes-forensics/blob/main/INTEGRATIONS.md
 - Distribution boundary: https://github.com/xiaojiou176-open/apple-notes-forensics/blob/main/DISTRIBUTION.md
 - Releases: https://github.com/xiaojiou176-open/apple-notes-forensics/releases
+
+## Visual demo
+
+![NoteStore Lab demo screenshot](https://raw.githubusercontent.com/xiaojiou176-open/apple-notes-forensics/main/assets/readme/hero-public-demo.png)
 
 ## Reviewer checklist
 
