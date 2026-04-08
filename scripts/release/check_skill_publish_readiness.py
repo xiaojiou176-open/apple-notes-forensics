@@ -150,7 +150,7 @@ def collect_skill_publish_errors(repo_root: Path) -> list[str]:
             "openhands-extensions:",
             "status: ready-but-not-listed",
             "status: folder-ready",
-            "submit_via: openclaw skill publish .",
+            "submit_via: clawhub publish .",
             "submit_via: submit this folder as skills/notestorelab-case-review/ in OpenHands/extensions",
             "canonical_repo_version: 0.1.0.post1",
             "official_listing_state: not-yet-listed",
