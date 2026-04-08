@@ -402,19 +402,19 @@ The Docker story is intentionally narrow:
 Build the image:
 
 ```bash
-docker build -t notestorelab:0.1.0 .
+docker build -t notestorelab:0.1.0.post1 .
 ```
 
 Run the public-safe demo:
 
 ```bash
-docker run --rm notestorelab:0.1.0 notes-recovery demo
+docker run --rm notestorelab:0.1.0.post1 notes-recovery demo
 ```
 
 Run the MCP help surface:
 
 ```bash
-docker run --rm --entrypoint notes-recovery-mcp notestorelab:0.1.0 --help
+docker run --rm --entrypoint notes-recovery-mcp notestorelab:0.1.0.post1 --help
 ```
 
 Review an existing copied case root through the local stdio MCP server:
@@ -423,9 +423,14 @@ Review an existing copied case root through the local stdio MCP server:
 docker run --rm -i \
   -v "$PWD/output:/cases:ro" \
   --entrypoint notes-recovery-mcp \
-  notestorelab:0.1.0 \
+  notestorelab:0.1.0.post1 \
   --case-dir /cases/Notes_Forensics_<run_ts>
 ```
+
+If you later publish a registry image, the canonical target is
+`ghcr.io/xiaojiou176-open/apple-notes-forensics:0.1.0.post1`, with `latest`
+as an optional convenience tag only after matching read-back. Do not claim a
+live registry image until fresh push and pull verification both succeed.
 
 The container image is a reproducible local runtime, not a hosted portal, not
 an API gateway, and not proof of any live Glama or OCI catalog listing.
@@ -435,6 +440,35 @@ ecosystem binding matrix in [ECOSYSTEM.md](./ECOSYSTEM.md) before you describe
 the repo as an integration substrate. Use [DISTRIBUTION.md](./DISTRIBUTION.md)
 when you need the exact claim boundary for Codex, Claude Code, OpenClaw, and
 the MCP Registry.
+
+## Repo-native support cleanup
+
+This repository now ships a small repo-native cleanup lane for local release and
+rewrite residue. Use it when you want to reclaim repo-local staging artifacts
+without touching copied evidence, `output/`, Docker state, browser profiles, or
+shared machine caches.
+
+```bash
+python scripts/ops/clean_support_state.py --dry-run
+python scripts/ops/clean_support_state.py --apply
+```
+
+Current cleanup classes include:
+
+- `.runtime-cache/pypi-release`
+- `.runtime-cache/history-rewrite-*`
+- `.runtime-cache/release`
+- `.runtime-cache/pypi-publish-attempt-*`
+- `.runtime-cache/lighthouse-pages*`
+- `.runtime-cache/security-audit`
+- `.runtime-cache/temp`
+- `.runtime-cache/dist-bundles`
+- `.runtime-cache/*starter*.zip`
+- `.runtime-cache/verify-*`
+- `.runtime-cache/gitleaks-*.json`
+
+Treat this as a maintainer-only lane. It is for support residue, not for copied
+evidence or public proof assets.
 
 ## Plugin Contract And Case Diff
 

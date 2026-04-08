@@ -386,6 +386,31 @@ Do not treat copied Notes evidence, case-root outputs, or public-safe export
 bundles as runtime-cleanup targets. Runtime hygiene here only applies to
 rebuildable local support surfaces.
 
+For repo-owned release/rewrite support residue under `.runtime-cache/`, use the
+maintainer-only cleanup helper:
+
+```bash
+python scripts/ops/clean_support_state.py --dry-run
+python scripts/ops/clean_support_state.py --apply
+```
+
+That helper is intentionally narrow. It may remove:
+
+- `.runtime-cache/pypi-release`
+- `.runtime-cache/history-rewrite-*`
+- `.runtime-cache/release`
+- `.runtime-cache/pypi-publish-attempt-*`
+- `.runtime-cache/lighthouse-pages*`
+- `.runtime-cache/security-audit`
+- `.runtime-cache/temp`
+- `.runtime-cache/dist-bundles`
+- `.runtime-cache/*starter*.zip`
+- `.runtime-cache/verify-*`
+- `.runtime-cache/gitleaks-*.json`
+
+It does **not** touch copied evidence, `output/`, Docker state, browser
+profiles, or shared machine caches.
+
 For deeper changes, run the broader full suite engineering sweep:
 
 ```bash
