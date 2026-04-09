@@ -28,6 +28,10 @@ REPO_URL = "https://github.com/xiaojiou176-open/apple-notes-forensics"
 CANONICAL_NAME = "notestorelab-case-review"
 PUBLIC_SKILL_DIR = Path("public-skills/notestorelab-case-review")
 PUBLIC_SKILL_SEMVER = "1.0.2"
+LEGACY_PUBLIC_REFERENCE_FILES = (
+    PUBLIC_SKILL_DIR / "references" / "install-and-mcp.md",
+    PUBLIC_SKILL_DIR / "references" / "usage-and-proof.md",
+)
 
 
 def _load_pyproject(repo_root: Path) -> dict[str, object]:
@@ -153,8 +157,13 @@ def collect_skill_publish_errors(repo_root: Path) -> list[str]:
             "submit_via: submit this folder as skills/notestorelab-case-review/ in OpenHands/extensions",
             "canonical_repo_version: 0.1.0.post1",
             "official_listing_state: not-yet-listed",
-            "references/install-and-mcp.md",
-            "references/usage-and-proof.md",
+            "references/README.md",
+            "references/INSTALL.md",
+            "references/OPENHANDS_MCP_CONFIG.json",
+            "references/OPENCLAW_MCP_CONFIG.json",
+            "references/CAPABILITIES.md",
+            "references/DEMO.md",
+            "references/TROUBLESHOOTING.md",
         ):
             if token not in public_manifest_text:
                 errors.append(f"public skill manifest is missing required token: {token}")
@@ -170,6 +179,9 @@ def collect_skill_publish_errors(repo_root: Path) -> list[str]:
         ):
             if token not in public_readme_text:
                 errors.append(f"public skill README is missing required token: {token}")
+    for legacy_ref in LEGACY_PUBLIC_REFERENCE_FILES:
+        if (repo_root / legacy_ref).exists():
+            errors.append(f"legacy public skill reference should be removed: {legacy_ref}")
 
     codex_plugin_payload = _load_json(
         repo_root / "plugins/notestorelab-codex-plugin/.codex-plugin/plugin.json"
@@ -195,6 +207,8 @@ def collect_skill_publish_errors(repo_root: Path) -> list[str]:
     readme_text = (repo_root / "README.md").read_text(encoding="utf-8")
     distribution_text = (repo_root / "DISTRIBUTION.md").read_text(encoding="utf-8")
     integrations_text = (repo_root / "INTEGRATIONS.md").read_text(encoding="utf-8")
+    contributing_text = (repo_root / "CONTRIBUTING.md").read_text(encoding="utf-8")
+    llms_text = (repo_root / "llms.txt").read_text(encoding="utf-8")
     ecosystem_text = (repo_root / "ECOSYSTEM.md").read_text(encoding="utf-8")
     if "skills/notestorelab-case-review/" not in readme_text:
         errors.append("README.md must mention the canonical independent skill surface")
@@ -208,6 +222,17 @@ def collect_skill_publish_errors(repo_root: Path) -> list[str]:
         errors.append("INTEGRATIONS.md must describe the canonical independent skill surface")
     if "OpenHands/extensions-friendly public skill folder" not in integrations_text:
         errors.append("INTEGRATIONS.md must describe the OpenHands-facing public skill folder")
+    for forbidden_token in (
+        "Fresh PyPI read-back now confirms a live package",
+        "active official MCP Registry listing",
+        "The canonical live-image target is now verified at",
+    ):
+        if forbidden_token in integrations_text:
+            errors.append(f"INTEGRATIONS.md should not reuse stale live-claim wording: {forbidden_token}")
+        if forbidden_token in contributing_text:
+            errors.append(f"CONTRIBUTING.md should not reuse stale live-claim wording: {forbidden_token}")
+        if forbidden_token in llms_text:
+            errors.append(f"llms.txt should not reuse stale live-claim wording: {forbidden_token}")
     if "OpenHands/extensions-ready public skill folder" not in ecosystem_text:
         errors.append("ECOSYSTEM.md must describe the OpenHands-facing public skill lane")
 

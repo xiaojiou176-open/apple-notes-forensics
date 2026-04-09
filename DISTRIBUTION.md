@@ -3,24 +3,27 @@
 This file is the exact claim boundary for NoteStore Lab's public distribution
 story.
 
+Treat it as a later-lane ledger, not as the repo's front-door product sentence.
+The front door stays local, copy-first, operator-first, and case-root-centric.
+
 Use it when you need to answer:
 
 - what counts as official
 - what counts as public-ready only
-- what is already listed
-- what still requires manual external action
+- which surfaces are still later-lane prep
+- what still requires Wave 2 or manual external action
 
 ## Public Distribution Matrix
 
-| Surface | Official public surface exists | Repo-owned artifact shipped | Already listed | Current truthful claim |
+| Surface | Official public surface exists | Repo-owned artifact shipped | Wave 1 posture | Current truthful boundary |
 | --- | --- | --- | --- | --- |
-| MCP Registry | yes, the official MCP Registry exists and is still documented as a preview surface | yes: `server.json` and `notes-recovery-mcp` | yes | live PyPI package now exists at `apple-notes-forensics==0.1.0.post1`, `server.json` is aligned with that live package version, and the official MCP Registry now returns `io.github.xiaojiou176-open/notestorelab-mcp` as an active listing with fresh read-back |
-| Codex | yes, the official Codex plugin directory exists, but third-party official-directory submission is still coming soon | yes: `plugins/notestorelab-codex-plugin/` | not confirmed | public-ready Codex plugin bundle shipped; do not claim official Codex directory listing |
-| Claude Code | yes, official plugin and marketplace surfaces exist | yes: `plugins/notestorelab-claude-plugin/` plus root `.claude-plugin/marketplace.json` | not confirmed | submit-ready Claude Code marketplace artifact shipped; do not claim Anthropic-managed listing without fresh read-back |
-| OpenClaw | yes, the official ClawHub public registry exists | yes: `plugins/notestorelab-openclaw-bundle/` | not confirmed | public-ready compatible bundle shipped; do not claim live ClawHub or official OpenClaw listing |
-| OpenHands/extensions | yes, the official OpenHands public extensions registry exists | yes: `public-skills/notestorelab-case-review/` plus canonical `skills/notestorelab-case-review/` | not confirmed | OpenHands/extensions-friendly public skill folder shipped; do not claim a live OpenHands/extensions listing without fresh PR/read-back |
-| Glama | yes, the public Add Server and hosted MCP surface exists | yes: `glama.json`, `Dockerfile`, and the canonical GHCR target | not confirmed | repo-owned Glama-ready metadata and Docker surface shipped; do not claim a live Glama listing without fresh Glama-side read-back |
-| Docker MCP Catalog | yes, the official curated Docker MCP Catalog exists | yes: `Dockerfile`, `scripts/release/check_docker_surface.py`, and the canonical GHCR target | not confirmed | Docker-ready local container surface shipped; do not claim a live Docker catalog listing without fresh Docker-side submission/read-back |
+| MCP Registry | yes, the official MCP Registry exists and is still documented as a preview surface | yes: `server.json` and `notes-recovery-mcp` | current pure-MCP companion lane | keep the front door on the local case-root workflow; treat package/registry read-back as later validation instead of the first claim a reviewer sees |
+| Codex | yes, the official Codex plugin directory exists, but third-party official-directory submission is still coming soon | yes: `plugins/notestorelab-codex-plugin/` | companion plugin lane | repo-owned Codex bundle shipped; do not claim official Codex directory listing |
+| Claude Code | yes, official plugin and marketplace surfaces exist | yes: `plugins/notestorelab-claude-plugin/` plus root `.claude-plugin/marketplace.json` | companion plugin lane | repo-owned Claude plugin and marketplace metadata shipped; do not claim Anthropic-managed listing without fresh read-back |
+| OpenClaw | yes, the official ClawHub public registry exists | yes: `plugins/notestorelab-openclaw-bundle/` | comparison-path companion lane | compatible bundle shipped in-repo; do not claim live ClawHub or official OpenClaw listing |
+| OpenHands/extensions | yes, the official OpenHands public extensions registry exists | yes: `public-skills/notestorelab-case-review/` plus canonical `skills/notestorelab-case-review/` | portable public skill lane | public skill folder shipped; do not claim a live OpenHands/extensions listing without fresh PR/read-back |
+| Glama | yes, the public Add Server and hosted MCP surface exists | yes: `glama.json`, `Dockerfile`, and the canonical GHCR target | Wave 2 metadata prep | repo-owned Glama metadata and Docker-facing inputs shipped; do not claim a live Glama listing without fresh Glama-side read-back |
+| Docker MCP Catalog | yes, the official curated Docker MCP Catalog exists | yes: `Dockerfile`, `scripts/release/check_docker_surface.py`, and the canonical GHCR target | Wave 2 container/catalog prep | Docker-facing container inputs shipped; do not claim a live Docker catalog listing without fresh Docker-side submission/read-back |
 
 ## Repo-Owned Artifacts
 
@@ -75,11 +78,12 @@ That packet is intentionally separate from the canonical skill SSOT:
 The canonical installable package surface for this repository is PyPI:
 
 - package name: `apple-notes-forensics`
-- live package truth comes from PyPI JSON read-back plus install smoke
 - `server.json` points at the PyPI package because the current MCP publication
   story is Python-first
 - this is the intended PyPI package identifier and version for the current repo
   contract: `apple-notes-forensics==0.1.0.post1`
+- later package read-back belongs in Wave 2 validation, not in the front-door
+  product sentence
 
 There is no tracked npm package surface in the current public contract:
 
@@ -91,7 +95,7 @@ That means npm is not a missing canonical package lane for this repository
 today. If a future npm surface ever ships, it must become an explicit new
 public contract rather than an implied comparison path.
 
-## Container Surface
+## Docker And Catalog Later Surface
 
 Docker-ready local container surface shipped:
 
@@ -100,23 +104,14 @@ Docker-ready local container surface shipped:
 - `scripts/release/check_docker_surface.py`
 
 This container path is for local reproducibility of the CLI and stdio MCP
-surface. A live GHCR image is now verified with fresh push, manifest, pull, and
-demo read-back. That is still not proof of a hosted deployment, multi-tenant
-backend, live Glama listing, or Docker MCP Catalog listing.
+surface. Treat image and catalog read-back as later validation work, not as the
+main claim for this repo. That is still not proof of a hosted deployment,
+multi-tenant backend, live Glama listing, or Docker MCP Catalog listing.
 
-The canonical live-image target, if and when fresh publish proof exists, is:
+The canonical image target, if and when later validation is refreshed, is:
 
 - `ghcr.io/xiaojiou176-open/apple-notes-forensics:0.1.0.post1`
 - optional convenience tag: `ghcr.io/xiaojiou176-open/apple-notes-forensics:latest`
-
-A live OCI image is now confirmed at:
-
-- `ghcr.io/xiaojiou176-open/apple-notes-forensics:0.1.0.post1`
-- `ghcr.io/xiaojiou176-open/apple-notes-forensics:latest`
-
-The verified current digest is:
-
-- `sha256:c1267822e3966fbc22f3a3a996a4b0cae67c2df8d94d35b14f93c5a90d9aab40`
 
 `glama.json` is now the repo-owned metadata side of the Glama story. It makes
 the intended maintainer identity explicit, but it does **not** prove a live
@@ -148,17 +143,12 @@ claude plugin validate .
 ./.venv/bin/python scripts/release/build_starter_bundles_bundle.py --out ./dist/notestorelab-host-starters.zip
 ```
 
-### MCP Registry listing boundary
+### MCP Registry descriptor boundary
 
-`server.json` is the metadata side of the MCP Registry story, and that story is
-now live for the current version.
-
-Fresh PyPI read-back confirms that PyPI serves
-`apple-notes-forensics==0.1.0.post1`, fresh install smoke confirms that the
-published package is installable, and fresh registry read-back confirms that
-the official MCP Registry now returns
-`io.github.xiaojiou176-open/notestorelab-mcp` as an active listing for
-`0.1.0.post1`.
+`server.json` is the metadata side of the MCP Registry story. In Wave 1, keep
+the repo-side claim narrow: the stdio-first MCP descriptor is shipped in-repo,
+and later registry/package read-back belongs in a fresh validation pass before
+you call anything live or listed.
 
 The repo-side publish-readiness proof command is:
 
@@ -168,22 +158,19 @@ The repo-side publish-readiness proof command is:
 
 ## Allowed Claims
 
-- "live PyPI package `apple-notes-forensics==0.1.0.post1` verified with fresh JSON read-back"
-- "`server.json` is aligned with the live PyPI version `0.1.0.post1`"
+- "`server.json` captures the current stdio-first MCP descriptor for NoteStore Lab"
 - "PyPI is the canonical installable package surface for this repository today"
-- "official MCP Registry listing is live for `io.github.xiaojiou176-open/notestorelab-mcp` at `0.1.0.post1`"
 - "public-ready Codex plugin bundle shipped"
-- "submit-ready Claude Code marketplace artifact shipped"
+- "repo-owned Claude Code plugin and marketplace metadata shipped"
 - "OpenClaw-compatible bundle shipped"
 - "independent skill surface shipped"
 - "OpenHands/extensions-friendly public skill folder shipped"
 - "repo-owned Glama-ready metadata shipped"
 - "Docker-ready local container surface shipped"
-- "live GHCR image verified at `ghcr.io/xiaojiou176-open/apple-notes-forensics:0.1.0.post1` and `:latest`"
 
 ## Forbidden Claims
 
-- "officially listed" without fresh external read-back
+- "public directory acceptance" without fresh external read-back
 - "MCP Registry submission completed" without fresh registry read-back
 - "registry metadata proves MCP Registry listing" without fresh registry read-back
 - "official Codex plugin directory listing" without OpenAI-managed listing proof
@@ -191,5 +178,5 @@ The repo-side publish-readiness proof command is:
 - "live ClawHub listing" without fresh OpenClaw-side listing proof
 - "live OpenHands/extensions listing" without fresh OpenHands PR/read-back
 - "official npm package" or "npm is the canonical install path" without a real shipped npm package surface
-- "officially listed skill" without fresh host-side read-back
+- "host-side accepted skill" without fresh host-side read-back
 - "hosted service" or "multi-tenant platform" for the Docker surface

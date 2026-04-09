@@ -1,7 +1,12 @@
 # NoteStore Lab Case Review Public Skill
 
 This folder is the OpenHands/extensions-friendly and ClawHub-style public skill
-packet for NoteStore Lab.
+packet for NoteStore Lab's secondary public lane.
+
+The flagship story is still the local copy-first NoteStore Lab workflow plus
+its explicit-case-root MCP surface. This packet exists so a host-native
+reviewer can learn that workflow without turning the repo into a hosted service
+or a plugin/store product pitch.
 
 ## What this skill teaches an agent
 
@@ -22,19 +27,29 @@ things:
   - the concise skill entry point for progressive disclosure
 - `manifest.yaml`
   - listing metadata for ClawHub-style publication
-- `references/install-and-mcp.md`
+- `references/README.md`
+  - the local index for every supporting file
+- `references/INSTALL.md`
   - exact install and MCP wiring examples
-- `references/usage-and-proof.md`
+- `references/OPENHANDS_MCP_CONFIG.json`
+  - a ready-to-edit `mcpServers` snippet
+- `references/OPENCLAW_MCP_CONFIG.json`
+  - a ready-to-edit `mcp.servers` snippet
+- `references/CAPABILITIES.md`
+  - the read-mostly case-review tool surface
+- `references/DEMO.md`
   - first-success flow, real prompts, and proof/demo links
+- `references/TROUBLESHOOTING.md`
+  - the first places to check when attach or case-root review fails
 
 ## First-success path
 
 If a reviewer wants to understand the skill quickly, use this order:
 
 1. read `SKILL.md`
-2. open `references/install-and-mcp.md`
-3. run the public-safe proof path from `references/usage-and-proof.md`
-4. inspect the public proof links before claiming anything is officially listed
+2. open `references/INSTALL.md`
+3. run the public-safe proof path from `references/DEMO.md`
+4. inspect the public proof links before claiming any host-side acceptance
 
 ## Demo / proof links
 
@@ -72,6 +87,7 @@ If a reviewer wants to understand the skill quickly, use this order:
 
 ## What this packet must not claim
 
+- no flagship plugin/store lane for the overall product
 - no official OpenHands/extensions listing without fresh PR/read-back
 - no live ClawHub listing without fresh host-side read-back
 - no hosted Glama deployment, Docker catalog listing, or remote MCP lane

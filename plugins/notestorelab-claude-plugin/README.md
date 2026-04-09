@@ -1,7 +1,8 @@
 # NoteStore Lab Claude Code Plugin
 
-This directory is a Claude Code plugin and a Git-backed marketplace-ready
-artifact.
+This directory is a Claude Code companion bundle for later host-specific
+installs. It is not the repo's flagship public lane, and it is not proof of an
+Anthropic-managed listing.
 
 It bundles:
 

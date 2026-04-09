@@ -1,6 +1,7 @@
 # NoteStore Lab Codex Plugin
 
-This is a Codex-format plugin bundle for NoteStore Lab.
+This is a Codex-format companion bundle for later host-specific installs around
+NoteStore Lab's local case-review workflow.
 
 It is built for one very specific job:
 

@@ -3,6 +3,8 @@
 This repository already exposes a usable local integration substrate.
 
 The key is to start from what is real today, not from what could exist later.
+Treat this guide as a later builder lane around the local lab, not as the first
+sentence that defines the product.
 
 ## Current Stable Builder Surfaces
 
@@ -136,13 +138,13 @@ Package the installable archives with:
 Those bundles are repo-owned public-ready artifacts, not official marketplace
 or registry listings.
 
-For MCP Registry publication, `server.json` is still only the metadata layer.
-Fresh PyPI read-back now confirms a live package at
-`apple-notes-forensics==0.1.0.post1`, and fresh registry read-back now confirms
-an active official MCP Registry listing for
-`io.github.xiaojiou176-open/notestorelab-mcp`. Use
-[DISTRIBUTION.md](./DISTRIBUTION.md) when you need the current listing or
-live-package truth.
+For the MCP lane specifically, `server.json` is still the repo-owned metadata
+layer around the same local stdio workflow. Keep the repo-side claim narrow
+here: the package/install surface is real, but package read-back, registry
+read-back, and host-side submission state belong in a fresh later-lane
+validation pass before you call anything live or listed. Use
+[DISTRIBUTION.md](./DISTRIBUTION.md) when you need the current package,
+registry, or listing boundary.
 
 Fresh PyPI install path:
 
@@ -174,13 +176,13 @@ Current design intent:
 | Surface | Status | Guidance |
 | --- | --- | --- |
 | Codex plugin bundle | shipped | use `plugins/notestorelab-codex-plugin/` and a real local marketplace entry |
-| Claude Code marketplace-ready plugin | shipped | use `.claude-plugin/marketplace.json` plus `plugins/notestorelab-claude-plugin/` |
+| Claude Code marketplace-format plugin | shipped | use `.claude-plugin/marketplace.json` plus `plugins/notestorelab-claude-plugin/` without turning it into proof of an Anthropic-managed listing |
 | OpenClaw-compatible bundle | shipped | build the local archive from `plugins/notestorelab-openclaw-bundle/`; do not claim a live ClawHub listing yet |
 | canonical independent skill surface | shipped | use `skills/notestorelab-case-review/` as the canonical independent skill surface; plugin/starter skill files are host-specific derived copies |
 | OpenHands/extensions-friendly public skill folder | shipped | use `public-skills/notestorelab-case-review/` when you need a standalone skill-folder packet for OpenHands/extensions or similar registries |
 | repo-owned host plugin | shipped as installable bundles | the shipped plugins are installable surfaces, but installability does not imply official listing |
 
-## Container Surface
+## Container Later Surface
 
 The truthful container story for this repository is:
 
@@ -211,11 +213,10 @@ docker run --rm -i \
   --case-dir /cases/Notes_Forensics_<run_ts>
 ```
 
-The canonical live-image target is now verified at
+The canonical image target, if and when later validation is refreshed, is
 `ghcr.io/xiaojiou176-open/apple-notes-forensics:0.1.0.post1`, with `latest`
-as a convenience tag that currently resolves to the same digest. Keep
-describing GHCR as an OCI/package surface, not as proof of a live Glama or
-Docker catalog listing.
+as the convenience tag. Keep describing GHCR as an OCI/package surface, not as
+proof of a live Glama or Docker catalog listing.
 
 `docker-compose` is intentionally absent here. This repo is a local CLI / MCP
 workbench, not a multi-service stack. The container image is the repo-side

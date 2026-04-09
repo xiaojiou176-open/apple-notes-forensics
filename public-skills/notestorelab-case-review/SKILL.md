@@ -42,7 +42,7 @@ Lab review flow on one explicit case root or the public-safe demo surface.
 
 ## First-success flow
 
-1. Install or launch the shipped surface using `references/install-and-mcp.md`.
+1. Install or launch the shipped surface using `references/INSTALL.md`.
 2. Run the public-safe proof path:
    - `notes-recovery demo`
    - `notes-recovery ai-review --demo`
@@ -83,5 +83,10 @@ notes-recovery-mcp --case-dir ./output/Notes_Forensics_<run_ts>
 
 ## Read next
 
-- `references/install-and-mcp.md`
-- `references/usage-and-proof.md`
+- `references/README.md`
+- `references/INSTALL.md`
+- `references/OPENHANDS_MCP_CONFIG.json`
+- `references/OPENCLAW_MCP_CONFIG.json`
+- `references/CAPABILITIES.md`
+- `references/DEMO.md`
+- `references/TROUBLESHOOTING.md`
