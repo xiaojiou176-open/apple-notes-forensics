@@ -58,6 +58,19 @@ If you are here for Codex / Claude Code integration, run the operator path
 once, then jump to the [Builder Guide](./INTEGRATIONS.md). The builder lane is
 real, but it is not the first thing a new operator should read.
 
+## Current lane order
+
+- **Primary**: the local copy-first recovery lab on one explicit case root
+- **Primary extension**: `notes-recovery-mcp` as the repo's `pure_mcp` review
+  surface
+- **Secondary**: `public-skills/notestorelab-case-review/` as the standalone
+  `pure_skills` packet for host-native reviewers
+- **Later / companion**: plugin bundles, PyPI or registry proof, Docker/GHCR,
+  and Glama metadata after the local case path already makes sense
+- **Current non-claims**: no hosted Notes recovery service, no multi-tenant
+  review portal, and no live ClawHub/OpenHands/extensions/Glama/Docker catalog
+  listing language in Wave 1
+
 Deep reads once the first path makes sense:
 [LLMs Guide](./llms.txt) · [Distribution](./DISTRIBUTION.md) ·
 [Use Cases](./USE_CASES.md) · [Ecosystem Fit](./ECOSYSTEM.md)
@@ -304,6 +317,10 @@ Those protocol surfaces keep the same product boundary:
 
 The current builder story is intentionally narrow and stable:
 
+Treat this whole section as a later builder lane around the local lab. It is
+real and useful, but it is not the front-door sentence a new reviewer should
+use to describe the product.
+
 - use the **case root contract** as the file-system-level substrate
 - use manifests, summaries, verification previews, and AI review outputs as the
   shared read layer
@@ -338,25 +355,18 @@ Those public-ready surfaces live under `plugins/`, `.claude-plugin/`, and
 .venv/bin/python scripts/release/build_distribution_bundles.py --out-dir ./dist
 ```
 
-For the MCP Registry specifically, `server.json` is still only the metadata
-layer. Fresh PyPI read-back confirms a live package at
-`apple-notes-forensics==0.1.0.post1`, fresh install smoke confirms that the
-published package is installable now, and fresh registry read-back confirms an
-active official MCP Registry listing for
-`io.github.xiaojiou176-open/notestorelab-mcp`. Use
-[DISTRIBUTION.md](./DISTRIBUTION.md) for the exact listing boundary.
-
-When you want the live package directly from PyPI, install:
-
-```bash
-python -m pip install apple-notes-forensics==0.1.0.post1
-```
+For the MCP lane specifically, `server.json` is the repo-owned descriptor
+around the same local stdio case-review workflow. Package publication,
+registry read-back, and marketplace/manual submission status can drift over
+time, so this README keeps the primary story on the local bench first. Use
+[DISTRIBUTION.md](./DISTRIBUTION.md) when you need the later-lane claim
+boundary.
 
 The repository now also ships a canonical independent skill surface at
 `skills/notestorelab-case-review/`. Treat that directory as the SSOT skill
 package, and treat the plugin/starter skill files as host-specific derived
 copies. That makes the skill independently referenceable without pretending it
-is already officially listed anywhere.
+has already cleared any external directory gate.
 
 For OpenHands/extensions and ClawHub-style submissions, the repo now also ships
 an OpenHands/extensions-friendly public skill folder at
@@ -394,16 +404,18 @@ Builder-facing status today:
 | OpenAPI contract | not shipped | use documented case-root artifacts and MCP tool/resource names |
 | shared generated client | not shipped | use the local MCP surface or parse manifests directly |
 | thin SDK | not shipped | future path only, after the shared case/MCP contract is locked |
-| repo-owned host bundles | shipped | use `plugins/`, `.claude-plugin/`, `server.json`, and `scripts/release/build_distribution_bundles.py` |
-| canonical independent skill surface | shipped | use `skills/notestorelab-case-review/` as the only SSOT skill surface; plugin/starter copies are derived packaging |
-| OpenHands/extensions-friendly public skill folder | shipped | use `public-skills/notestorelab-case-review/` for OpenHands/extensions or ClawHub-style skill submissions |
-| official marketplace/catalog listing | not shipped | public-ready artifacts do not imply official listing or publish read-back |
+| repo-owned host bundles | companion packaging | use `plugins/`, `.claude-plugin/`, `server.json`, and `scripts/release/build_distribution_bundles.py` after the local MCP story is already clear |
+| canonical independent skill surface | secondary current lane | use `skills/notestorelab-case-review/` as the only SSOT skill surface; plugin/starter copies are derived packaging |
+| OpenHands/extensions-friendly public skill folder | portable secondary packet | use `public-skills/notestorelab-case-review/` for OpenHands/extensions or ClawHub-style skill submissions without turning it into the repo's main front door |
+| official marketplace/catalog listing | Wave 2 external validation | repo-owned artifacts do not imply official listing or publish read-back |
 
-## Docker Surface
+## Docker And Catalog Later Surface
 
-The Docker story is intentionally narrow:
+The Docker story is intentionally narrow and secondary:
 
-- it is a Docker-ready local container surface
+- it is a Docker-ready local container surface around the same case-root
+  workflow
+- it is a companion packaging lane, not the primary front door
 - it is not a hosted service
 - it keeps the MCP path on local `stdio`
 - it expects copied case roots or demo mode, not a live Notes store
@@ -435,10 +447,6 @@ docker run --rm -i \
   notestorelab:0.1.0.post1 \
   --case-dir /cases/Notes_Forensics_<run_ts>
 ```
-
-The canonical registry image is now live at
-`ghcr.io/xiaojiou176-open/apple-notes-forensics:0.1.0.post1`, with `latest`
-as a convenience tag that currently resolves to the same verified digest.
 
 The container image is a reproducible local runtime, not a hosted portal, not
 an API gateway, and not proof of any live Glama or OCI catalog listing.
@@ -505,11 +513,15 @@ surfaces:
 The GitHub repository page and the root-level contract files are the current
 public truth for this project.
 
+Use `DISTRIBUTION.md` as the later-lane ledger for package, registry, plugin,
+Docker, and Glama details. Those surfaces are real, but they should not replace
+the copy-first local lab story in the first paragraph a reviewer reads.
+
 Right now:
 
 - a public-safe demo is available in this repository
-- the GitHub Release feed is live at the [Releases](https://github.com/xiaojiou176-open/apple-notes-forensics/releases) page, with a synthetic public demo bundle attached to `v0.1.0`
-- the GitHub Pages landing is the current external front door at [xiaojiou176-open.github.io/apple-notes-forensics](https://xiaojiou176-open.github.io/apple-notes-forensics/)
+- the GitHub Release page and the GitHub Pages landing are the main public
+  proof surfaces around the repo
 - `llms.txt`, `robots.txt`, and `sitemap.xml` now expose the current public contract to AI crawlers and search engines without pretending the repo is an API platform
 - GitHub description, topics, and custom social preview status should be treated
   as GitHub Settings items, not repository facts
@@ -518,14 +530,14 @@ Use [CHANGELOG.md](./CHANGELOG.md) for tracked milestone history and the
 [Releases](https://github.com/xiaojiou176-open/apple-notes-forensics/releases)
 page for the published GitHub release feed and the synthetic public demo bundle.
 
-The current live/public sync status is:
+The current repo-owned public contract is:
 
 - README and root-level contract files are current
-- the GitHub Pages landing points at the same shipped story as the README hero
-- `llms.txt`, `robots.txt`, and `sitemap.xml` are live on the landing host
+- the GitHub Pages landing should match the same shipped story as the README
+  hero
+- `llms.txt`, `robots.txt`, and `sitemap.xml` are repo-owned public contract
+  files, not platform-acceptance receipts
 - `llms.txt` is now the fastest AI-crawler / agent-reader entrypoint for the current shipped public contract
-- GitHub description and topics are refreshed to the current AI/MCP story
-- release `v0.1.0` title/body/asset are refreshed
 - custom social preview still requires a GitHub Settings upload plus REST
   `open_graph_image_url` read-back before you claim a custom card is live
 

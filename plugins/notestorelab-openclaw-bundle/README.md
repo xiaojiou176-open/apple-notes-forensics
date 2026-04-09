@@ -1,11 +1,10 @@
 # NoteStore Lab OpenClaw-Compatible Bundle
 
-This directory is a comparison-path public-ready bundle for OpenClaw-style
-hosts.
+This directory is a comparison-path companion bundle for OpenClaw-style hosts.
 
 It is intentionally not an official OpenClaw listing. Instead, it packages the
 same bounded NoteStore Lab MCP launcher, plus a workspace skill, into one
-portable bundle shape.
+portable bundle shape after the local copy-first lab already makes sense.
 
 ## What it includes
 

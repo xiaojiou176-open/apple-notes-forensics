@@ -111,4 +111,6 @@ PUBLIC_STORY_FORBIDDEN_CHANGELOG_TOKENS = (
 PUBLIC_STORY_FORBIDDEN_DOC_TOKENS = (
     "already exists on PyPI",
     "points at the live PyPI package",
+    "Fresh PyPI read-back now confirms a live package at",
+    "active official MCP Registry listing",
 )

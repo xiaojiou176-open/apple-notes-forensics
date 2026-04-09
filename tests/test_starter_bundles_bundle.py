@@ -34,9 +34,9 @@ def test_build_starter_bundles_bundle(tmp_path: Path) -> None:
             "openclaw/workspace/skills/notestorelab/SKILL.md",
         ]
         root_readme = bundle.read("README.md").decode("utf-8")
-        assert "marketplace-ready" in root_readme
+        assert "marketplace-format starter" in root_readme
         assert "fresh live read-back" in root_readme
         claude_readme = bundle.read("claude-code/README.md").decode("utf-8")
-        assert "official plugin and marketplace surfaces" in claude_readme
+        assert "plugin plus marketplace-format surfaces" in claude_readme
         openclaw_readme = bundle.read("openclaw/README.md").decode("utf-8")
         assert "comparison-path starter" in openclaw_readme

@@ -165,10 +165,11 @@ bundles locally:
 
 If you are touching `server.json` or the MCP Registry story, keep the package
 boundary honest: registry metadata alone is not an MCP Registry listing claim.
-Fresh PyPI read-back now confirms a live package at
-`apple-notes-forensics==0.1.0.post1`, so keep the package name/version in
-`server.json` aligned with the live PyPI package until the next deliberate
-version bump.
+The current repo contract still targets
+`apple-notes-forensics==0.1.0.post1` on the PyPI lane, but live package state
+can drift outside the repository. Keep the package name/version in
+`server.json` aligned with the current repo version, and refresh PyPI
+read-back before you repeat any live-package claim.
 
 PyPI metadata/build-readiness smoke:
 
@@ -176,7 +177,7 @@ PyPI metadata/build-readiness smoke:
 .venv/bin/python scripts/release/check_pypi_publish_readiness.py
 ```
 
-Fresh PyPI install smoke:
+Current PyPI install smoke:
 
 ```bash
 python -m pip install apple-notes-forensics==0.1.0.post1

@@ -1,7 +1,7 @@
 # NoteStore Lab Starter Bundles
 
-This directory contains repo-owned public-ready starter artifacts for the
-current host surfaces around NoteStore Lab.
+This directory contains repo-owned companion starter artifacts for the current
+host surfaces around NoteStore Lab.
 
 These bundles do not claim official listing unless the target platform already
 shows one on its public surface. The goal is simpler:
@@ -19,15 +19,15 @@ is a host-specific derived copy, not the primary source of truth.
 | Bundle | Surface | What it gives you | Truth boundary |
 | --- | --- | --- | --- |
 | `codex/` | Codex local/plugin marketplace starter | a tracked `.codex/config.toml` example plus a plugin-format bundle you can load through a local Codex marketplace | public-ready starter only, not an official Codex Plugin Directory listing |
-| `claude-code/` | Claude Code plugin + marketplace starter | a marketplace-ready root and a minimal plugin that packages NoteStore Lab onboarding as a Claude Code plugin surface | plugin-ready and marketplace-ready, but not already listed in an Anthropic-managed marketplace |
+| `claude-code/` | Claude Code plugin + marketplace starter | a marketplace-format root and a minimal plugin that packages NoteStore Lab onboarding as a Claude Code plugin surface | plugin-ready starter only, not already listed in an Anthropic-managed marketplace |
 | `openclaw/` | OpenClaw comparison-path starter | a sample MCP config and a workspace skill starter for OpenClaw-compatible local installs | comparison-path starter only, not an official OpenClaw listing or ClawHub publication |
 
 ## Allowed claims
 
 - `repo-owned starter bundle shipped`
 - `plugin-ready` when the artifact validates against the host's local validator
-- `marketplace-ready` when the host exposes a marketplace format and this repo
-  ships the required files
+- `marketplace-format starter` when the host exposes a marketplace format and
+  this repo ships the required files
 - `comparison-path starter` when the artifact is intentionally not the primary
   front-door claim
 
