@@ -177,7 +177,7 @@ PyPI metadata/build-readiness smoke:
 .venv/bin/python scripts/release/check_pypi_publish_readiness.py
 ```
 
-Fresh PyPI install smoke:
+Current PyPI install smoke:
 
 ```bash
 python -m pip install apple-notes-forensics==0.1.0.post1

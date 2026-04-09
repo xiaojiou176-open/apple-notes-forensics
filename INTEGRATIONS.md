@@ -135,8 +135,8 @@ Package the installable archives with:
 .venv/bin/python scripts/release/build_distribution_bundles.py --out-dir ./dist
 ```
 
-Those bundles are repo-owned public-ready artifacts, not official marketplace
-or registry listings.
+Those bundles are repo-owned companion artifacts, not official marketplace or
+registry listings.
 
 For the MCP lane specifically, `server.json` is still the repo-owned metadata
 layer around the same local stdio workflow. Keep the repo-side claim narrow
@@ -146,7 +146,7 @@ validation pass before you call anything live or listed. Use
 [DISTRIBUTION.md](./DISTRIBUTION.md) when you need the current package,
 registry, or listing boundary.
 
-Fresh PyPI install path:
+Current PyPI install path:
 
 ```bash
 python -m pip install apple-notes-forensics==0.1.0.post1
@@ -176,7 +176,7 @@ Current design intent:
 | Surface | Status | Guidance |
 | --- | --- | --- |
 | Codex plugin bundle | shipped | use `plugins/notestorelab-codex-plugin/` and a real local marketplace entry |
-| Claude Code marketplace-format plugin | shipped | use `.claude-plugin/marketplace.json` plus `plugins/notestorelab-claude-plugin/` without turning it into proof of an Anthropic-managed listing |
+| Claude Code marketplace-format starter | shipped | use `.claude-plugin/marketplace.json` plus `plugins/notestorelab-claude-plugin/` without turning it into proof of an Anthropic-managed listing |
 | OpenClaw-compatible bundle | shipped | build the local archive from `plugins/notestorelab-openclaw-bundle/`; do not claim a live ClawHub listing yet |
 | canonical independent skill surface | shipped | use `skills/notestorelab-case-review/` as the canonical independent skill surface; plugin/starter skill files are host-specific derived copies |
 | OpenHands/extensions-friendly public skill folder | shipped | use `public-skills/notestorelab-case-review/` when you need a standalone skill-folder packet for OpenHands/extensions or similar registries |
@@ -213,9 +213,9 @@ docker run --rm -i \
   --case-dir /cases/Notes_Forensics_<run_ts>
 ```
 
-The canonical image target, if and when later validation is refreshed, is
+The canonical image target for later validation is
 `ghcr.io/xiaojiou176-open/apple-notes-forensics:0.1.0.post1`, with `latest`
-as the convenience tag. Keep describing GHCR as an OCI/package surface, not as
+as the optional convenience tag. Keep describing GHCR as an OCI/package surface, not as
 proof of a live Glama or Docker catalog listing.
 
 `docker-compose` is intentionally absent here. This repo is a local CLI / MCP
