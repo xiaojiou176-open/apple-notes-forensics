@@ -24,6 +24,7 @@
 [Start Here](#start-here) ·
 [Public Proof](./proof.html) ·
 [Landing](https://xiaojiou176-open.github.io/apple-notes-forensics/) ·
+[Use Cases](./USE_CASES.md) ·
 [Builder Guide](./INTEGRATIONS.md) ·
 [Support](./SUPPORT.md)
 
@@ -57,6 +58,13 @@ What this path proves in under five minutes:
 If you are here for Codex / Claude Code integration, run the operator path
 once, then jump to the [Builder Guide](./INTEGRATIONS.md). The builder lane is
 real, but it is not the first thing a new operator should read.
+
+Fast route map if you do not want to guess:
+
+- start at the [Landing](https://xiaojiou176-open.github.io/apple-notes-forensics/) for the copy-first story and proof-path overview
+- open [Public Proof](./proof.html) when the question becomes "what is really proved versus still manual"
+- open [Use Cases](./USE_CASES.md) when you want to match your goal to operator, AI review, MCP, or case-diff lanes
+- only then open the [Builder Guide](./INTEGRATIONS.md) if you are reusing the same case root in Codex / Claude Code
 
 ## Current lane order
 
