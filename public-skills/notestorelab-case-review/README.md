@@ -8,6 +8,11 @@ its explicit-case-root MCP surface. This packet exists so a host-native
 reviewer can learn that workflow without turning the repo into a hosted service
 or a plugin/store product pitch.
 
+Today the secondary ClawHub packet listing is live, while the
+OpenHands/extensions submission still sits in a changes-requested review state.
+That means this packet can point to a real public listing without pretending
+the OpenHands lane is already accepted or live.
+
 ## What this skill teaches an agent
 
 This is not just a label for Apple Notes. It teaches an agent five concrete
@@ -49,13 +54,20 @@ If a reviewer wants to understand the skill quickly, use this order:
 1. read `SKILL.md`
 2. open `references/INSTALL.md`
 3. run the public-safe proof path from `references/DEMO.md`
-4. inspect the public proof links before claiming any host-side acceptance
+4. walk `Landing -> Public Proof -> Use Cases` before opening builder or raw-source references
 
 ## Demo / proof links
 
+Primary reviewer route:
+
 - Landing: https://xiaojiou176-open.github.io/apple-notes-forensics/
-- Public proof: https://github.com/xiaojiou176-open/apple-notes-forensics/blob/main/proof.html
+- Public proof: https://xiaojiou176-open.github.io/apple-notes-forensics/proof.html
+- Use cases: https://github.com/xiaojiou176-open/apple-notes-forensics/blob/main/USE_CASES.md
+
+Builder / raw-source references after the route above:
+
 - Builder guide: https://github.com/xiaojiou176-open/apple-notes-forensics/blob/main/INTEGRATIONS.md
+- Distribution boundary: https://github.com/xiaojiou176-open/apple-notes-forensics/blob/main/DISTRIBUTION.md
 - Releases: https://github.com/xiaojiou176-open/apple-notes-forensics/releases
 
 ## Visual demo
@@ -89,7 +101,8 @@ If a reviewer wants to understand the skill quickly, use this order:
 
 - no flagship plugin/store lane for the overall product
 - no official OpenHands/extensions listing without fresh PR/read-back
-- no live ClawHub listing without fresh host-side read-back
+- no accepted OpenHands/extensions host lane just because a submission already exists
+- no first-class OpenClaw bundle listing or host-wrapper acceptance just because the secondary ClawHub skill listing is live
 - no hosted Glama deployment, Docker catalog listing, or remote MCP lane
 - no direct mutation of the live Apple Notes store
 
