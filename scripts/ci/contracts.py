@@ -31,6 +31,7 @@ BASELINE_DEMO_COMMAND = ".venv/bin/notes-recovery demo"
 FULL_SUITE_DOC_COMMAND = ".venv/bin/python -m pytest tests/ -q"
 WORKFLOW_HELP_COMMAND = "notes-recovery --help"
 WORKFLOW_DEMO_COMMAND = "notes-recovery demo"
+DEEP_REALISM_JOB_NAME = "deep-realism"
 
 BASELINE_TESTS = (
     "tests/test_cli_entrypoints.py",
@@ -39,17 +40,26 @@ BASELINE_TESTS = (
     "tests/test_case_contract.py",
     "tests/test_handlers_commands.py",
     "tests/test_auto_run_full.py",
+    "tests/test_verify.py",
+)
+
+DEEP_REALISM_TESTS = (
     "tests/test_realistic_flow_e2e.py",
     "tests/test_timeline_integration.py",
     "tests/test_spotlight_deep.py",
     "tests/test_fts_index_build.py",
-    "tests/test_verify.py",
 )
 
 VERIFICATION_SUMMARY_TOKENS = (
     "baseline smoke",
     "full suite",
     "optional surfaces",
+)
+
+CONTRIBUTING_VERIFICATION_REQUIRED_TOKENS = (
+    *VERIFICATION_SUMMARY_TOKENS,
+    "deep realism",
+    "required-check compatibility",
 )
 
 README_VERIFICATION_REQUIRED_TOKENS = (

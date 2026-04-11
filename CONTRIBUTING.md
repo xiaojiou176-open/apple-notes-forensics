@@ -240,7 +240,7 @@ Use this layer map when you decide where a check belongs:
 | `pre-commit` | every local commit attempt | fast local static gates, hygiene, docs/public-surface drift guards, and host-safety checks |
 | `pre-push` | before pushing a branch | local baseline smoke on the core recovery path, plus commit-history identity checks |
 | `hosted` | GitHub Actions on `push` / `pull_request` | required matrix jobs, repo-hygiene/security scans, optional-surface smoke, and deterministic distribution build-readiness |
-| `nightly` | scheduled GitHub Actions | non-required deep analysis that is useful over time but too heavy or too platform-bound for the default push path |
+| `nightly` | scheduled GitHub Actions and manual dispatch | non-required deep analysis that is useful over time but too heavy or too platform-bound for the default pull-request fast lane |
 | `manual` | maintainer-triggered or owner-side | live GitHub settings/storefront checks, registry/marketplace submission, PyPI publish, and final release-readiness acceptance |
 
 Keep remote GitHub-state checks and publication checks out of the default local
@@ -261,10 +261,6 @@ grep -q "NoteStore Lab public demo" "$tmp"
   tests/test_case_contract.py \
   tests/test_handlers_commands.py \
   tests/test_auto_run_full.py \
-  tests/test_realistic_flow_e2e.py \
-  tests/test_timeline_integration.py \
-  tests/test_spotlight_deep.py \
-  tests/test_fts_index_build.py \
   tests/test_verify.py \
   -q
 ```
@@ -274,6 +270,31 @@ That baseline contract is intentionally narrow:
 - `notes-recovery --help` proves the installed CLI entrypoint resolves
 - `notes-recovery demo` proves the public-safe first-look path is non-empty
 - the canonical smoke test list proves the core `.[dev]` pipeline still holds
+
+Treat the `baseline` job name as the merge-critical first-success lane. It is
+the fast PR gate, not the place for longer realism or indexing checks.
+
+The workflow also keeps a dedicated **deep realism** lane for the slower paths
+that still matter after merge:
+
+- it runs on pushes to `main`
+- it is available through scheduled/nightly automation
+- it is available through manual dispatch when you want the deeper path on demand
+
+The workflow keeps the existing required-check names stable for branch-protection
+compatibility. Jobs such as `extras-dashboard` remain separate compatibility
+contexts; they do not redefine what the baseline contract means.
+
+Deep realism smoke:
+
+```bash
+.venv/bin/python -m pytest \
+  tests/test_realistic_flow_e2e.py \
+  tests/test_timeline_integration.py \
+  tests/test_spotlight_deep.py \
+  tests/test_fts_index_build.py \
+  -q
+```
 
 Run optional smoke checks only when you touch those areas.
 
@@ -528,6 +549,11 @@ contexts exposed by the canonical GitHub repository:
 - `repo-hygiene`
 - `local-guardrails`
 - `open-source-boundary`
+
+Only `baseline` is the merge-critical first-success lane. The remaining
+required-check compatibility contexts stay split so the repository can keep the
+current GitHub branch-protection names stable without pretending optional
+surfaces are part of the baseline smoke contract.
 
 CodeQL is still part of the repository's security posture, but it remains a
 non-required analysis lane in the current branch-protection contract. Keep it

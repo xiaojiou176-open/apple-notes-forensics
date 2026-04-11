@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import re
 import sys
 from pathlib import Path
 
@@ -8,9 +9,11 @@ try:
         BASELINE_DEMO_COMMAND,
         BASELINE_DOC_COMMAND,
         BASELINE_TESTS,
+        CONTRIBUTING_VERIFICATION_REQUIRED_TOKENS,
+        DEEP_REALISM_JOB_NAME,
+        DEEP_REALISM_TESTS,
         FULL_SUITE_DOC_COMMAND,
         README_VERIFICATION_REQUIRED_TOKENS,
-        VERIFICATION_SUMMARY_TOKENS,
         WORKFLOW_DEMO_COMMAND,
         WORKFLOW_HELP_COMMAND,
     )
@@ -19,9 +22,11 @@ except ModuleNotFoundError:  # pragma: no cover - direct script execution fallba
         BASELINE_DEMO_COMMAND,
         BASELINE_DOC_COMMAND,
         BASELINE_TESTS,
+        CONTRIBUTING_VERIFICATION_REQUIRED_TOKENS,
+        DEEP_REALISM_JOB_NAME,
+        DEEP_REALISM_TESTS,
         FULL_SUITE_DOC_COMMAND,
         README_VERIFICATION_REQUIRED_TOKENS,
-        VERIFICATION_SUMMARY_TOKENS,
         WORKFLOW_DEMO_COMMAND,
         WORKFLOW_HELP_COMMAND,
     )
@@ -38,6 +43,16 @@ FORBIDDEN_BASELINE_LINES = (
 )
 
 
+def _extract_job_block(workflow_text: str, job_name: str) -> str | None:
+    match = re.search(
+        rf"(?ms)^  {re.escape(job_name)}:\n(.*?)(?=^  [A-Za-z0-9_-]+:\n|\Z)",
+        workflow_text,
+    )
+    if match is None:
+        return None
+    return match.group(0)
+
+
 def _read(repo_root: Path, rel_path: str) -> str | None:
     path = repo_root / rel_path
     if not path.exists():
@@ -52,14 +67,43 @@ def collect_verification_contract_errors(repo_root: Path) -> list[str]:
     if workflow_text is None:
         return ["missing .github/workflows/ci.yml"]
 
-    if WORKFLOW_HELP_COMMAND not in workflow_text:
+    baseline_block = _extract_job_block(workflow_text, "baseline")
+    if baseline_block is None:
+        errors.append("workflow is missing the baseline job block")
+        baseline_block = workflow_text
+
+    if WORKFLOW_HELP_COMMAND not in baseline_block:
         errors.append("workflow baseline is missing the CLI help command")
-    if WORKFLOW_DEMO_COMMAND not in workflow_text:
+    if WORKFLOW_DEMO_COMMAND not in baseline_block:
         errors.append("workflow baseline is missing the public demo command")
 
     for test_path in BASELINE_TESTS:
-        if test_path not in workflow_text:
+        if test_path not in baseline_block:
             errors.append(f"workflow baseline is missing canonical smoke test: {test_path}")
+
+    for test_path in DEEP_REALISM_TESTS:
+        if test_path in baseline_block:
+            errors.append(
+                f"workflow baseline must not include deep realism test: {test_path}"
+            )
+
+    deep_realism_block = _extract_job_block(workflow_text, DEEP_REALISM_JOB_NAME)
+    if deep_realism_block is None:
+        errors.append(
+            f"workflow is missing the `{DEEP_REALISM_JOB_NAME}` job for deeper-path verification"
+        )
+    else:
+        for test_path in DEEP_REALISM_TESTS:
+            if test_path not in deep_realism_block:
+                errors.append(
+                    f"`{DEEP_REALISM_JOB_NAME}` is missing deep realism test: {test_path}"
+                )
+
+    for trigger in ("schedule:", "workflow_dispatch:"):
+        if trigger not in workflow_text:
+            errors.append(
+                f"workflow must expose `{DEEP_REALISM_JOB_NAME}` through `{trigger}`"
+            )
 
     readme_text = _read(repo_root, "README.md")
     if readme_text is None:
@@ -93,13 +137,16 @@ def collect_verification_contract_errors(repo_root: Path) -> list[str]:
             if forbidden in stripped_lines:
                 errors.append(f"CONTRIBUTING.md must not claim `{forbidden}` as the baseline contract")
 
-        for token in VERIFICATION_SUMMARY_TOKENS:
+        for token in CONTRIBUTING_VERIFICATION_REQUIRED_TOKENS:
             if token not in lowered:
                 errors.append(f"CONTRIBUTING.md is missing verification contract token: {token}")
 
         for test_path in BASELINE_TESTS:
             if test_path not in contributing_text:
                 errors.append(f"CONTRIBUTING.md is missing canonical smoke test: {test_path}")
+        for test_path in DEEP_REALISM_TESTS:
+            if test_path not in contributing_text:
+                errors.append(f"CONTRIBUTING.md is missing deep realism test: {test_path}")
         if FULL_SUITE_DOC_COMMAND not in contributing_text:
             errors.append("CONTRIBUTING.md should document the broader full suite sweep explicitly")
 

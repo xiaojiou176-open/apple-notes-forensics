@@ -3,6 +3,9 @@ name: CI
 on:
   push:
   pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 8 * * *"
 
 permissions:
   actions: read
@@ -35,11 +38,29 @@ jobs:
             tests/test_case_contract.py \
             tests/test_handlers_commands.py \
             tests/test_auto_run_full.py \
+            tests/test_verify.py \
+            -q
+
+  deep-realism:
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || github.ref == 'refs/heads/main'
+    runs-on: macos-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install -e .[dev]
+      - name: Deep realism smoke
+        run: |
+          python -m pytest \
             tests/test_realistic_flow_e2e.py \
             tests/test_timeline_integration.py \
             tests/test_spotlight_deep.py \
             tests/test_fts_index_build.py \
-            tests/test_verify.py \
             -q
 
   extras-ai-mcp:

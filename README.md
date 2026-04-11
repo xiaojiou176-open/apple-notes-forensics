@@ -72,12 +72,17 @@ Fast route map if you do not want to guess:
 - **Primary extension**: `notes-recovery-mcp` as the repo's `pure_mcp` review
   surface
 - **Secondary**: `public-skills/notestorelab-case-review/` as the standalone
-  `pure_skills` packet for host-native reviewers
-- **Later / companion**: plugin bundles, PyPI or registry proof, Docker/GHCR,
-  and Glama metadata after the local case path already makes sense
+  `pure_skills` packet for host-native reviewers; its secondary ClawHub packet
+  listing is live, but it still stays behind the landing/proof route
+- **Later / companion**: plugin bundles, deeper package/registry detail,
+  Docker/GHCR, and Glama metadata after the local case path already makes
+  sense
 - **Current non-claims**: no hosted Notes recovery service, no multi-tenant
-  review portal, and no live ClawHub/OpenHands/extensions/Glama/Docker catalog
-  listing language in Wave 1
+  review portal, and no live OpenHands/extensions/Glama/Docker catalog listing
+  language in the front-door sentence
+- **Current review tail**: OpenHands/extensions is submission-done with
+  changes requested, so keep that lane in platform review until a live
+  read-back exists
 
 Deep reads once the first path makes sense:
 [LLMs Guide](./llms.txt) · [Distribution](./DISTRIBUTION.md) ·
@@ -530,6 +535,9 @@ Right now:
 - a public-safe demo is available in this repository
 - the GitHub Release page and the GitHub Pages landing are the main public
   proof surfaces around the repo
+- fresh distribution read-back exists for the MCP package lane, the PyPI
+  package lane, and the secondary ClawHub skill packet; keep those as support
+  receipts instead of the first sentence a new reviewer sees
 - `llms.txt`, `robots.txt`, and `sitemap.xml` now expose the current public contract to AI crawlers and search engines without pretending the repo is an API platform
 - GitHub description, topics, and custom social preview status should be treated
   as GitHub Settings items, not repository facts
