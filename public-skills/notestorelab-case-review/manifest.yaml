@@ -10,20 +10,23 @@ skill:
 
 registry_targets:
   clawhub:
-    status: ready-but-not-listed
+    status: listed-live
+    live_read_back: https://clawhub.ai/xiaojiou176/notestorelab-case-review
     package_shape: skill-folder
     submit_via: clawhub publish . --slug notestorelab-case-review --name "NoteStore Lab Case Review" --version 1.0.2 --tags apple-notes,forensics,incident-response,mcp
   openhands-extensions:
-    status: folder-ready
+    status: submission-done-platform-not-accepted-yet
+    review_state: changes-requested
     package_shape: skill-folder
     submit_via: submit this folder as skills/notestorelab-case-review/ in OpenHands/extensions
 
 boundaries:
   product_identity: Copy-first Apple Notes case review skill for NoteStore Lab.
   canonical_repo_version: 0.1.0.post1
-  official_listing_state: not-yet-listed
+  official_listing_state: clawhub-listed-live-openhands-submission-done
+  confirmed_live:
+    - ClawHub public skill listing is live at https://clawhub.ai/xiaojiou176/notestorelab-case-review
   not_claimed:
-    - No live ClawHub listing exists yet
     - No live OpenHands/extensions listing exists yet
     - No hosted Glama deployment exists yet
     - No live Docker MCP Catalog listing exists yet
