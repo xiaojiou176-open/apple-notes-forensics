@@ -140,9 +140,9 @@ registry listings.
 
 For the MCP lane specifically, `server.json` is still the repo-owned metadata
 layer around the same local stdio workflow. Keep the repo-side claim narrow
-here: the package/install surface is real, but package read-back, registry
-read-back, and host-side submission state belong in a fresh later-lane
-validation pass before you call anything live or listed. Use
+here: the package/install surface is real, and fresh package/registry
+read-back now exists for the current MCP and PyPI lane, but this guide still
+keeps that supporting truth behind the local case-root story. Use
 [DISTRIBUTION.md](./DISTRIBUTION.md) when you need the current package,
 registry, or listing boundary.
 
@@ -162,7 +162,7 @@ OpenClaw-style install path:
 
 - Build the OpenClaw-compatible archive with `build_distribution_bundles.py`.
 - Install the local archive with `openclaw plugins install ./dist/notestorelab-openclaw-bundle-v0.1.0.zip`.
-- Treat ClawHub publication as a later manual external step, not as a repo-side done claim.
+- A live ClawHub public-skill listing now exists for the secondary packet lane, but that does not turn this OpenClaw-compatible bundle into a live OpenClaw bundle listing.
 
 Current design intent:
 
@@ -177,9 +177,9 @@ Current design intent:
 | --- | --- | --- |
 | Codex plugin bundle | shipped | use `plugins/notestorelab-codex-plugin/` and a real local marketplace entry |
 | Claude Code marketplace-format starter | shipped | use `.claude-plugin/marketplace.json` plus `plugins/notestorelab-claude-plugin/` without turning it into proof of an Anthropic-managed listing |
-| OpenClaw-compatible bundle | shipped | build the local archive from `plugins/notestorelab-openclaw-bundle/`; do not claim a live ClawHub listing yet |
+| OpenClaw-compatible bundle | shipped | build the local archive from `plugins/notestorelab-openclaw-bundle/`; the secondary ClawHub public-skill listing is live, but it does not prove a live OpenClaw bundle listing |
 | canonical independent skill surface | shipped | use `skills/notestorelab-case-review/` as the canonical independent skill surface; plugin/starter skill files are host-specific derived copies |
-| OpenHands/extensions-friendly public skill folder | shipped | use `public-skills/notestorelab-case-review/` when you need a standalone skill-folder packet for OpenHands/extensions or similar registries |
+| OpenHands/extensions-friendly public skill folder | shipped | use `public-skills/notestorelab-case-review/` when you need a standalone skill-folder packet for OpenHands/extensions or similar registries; today the same packet is live on ClawHub while the OpenHands thread remains changes-requested |
 | repo-owned host plugin | shipped as installable bundles | the shipped plugins are installable surfaces, but installability does not imply official listing |
 
 ## Container Later Surface

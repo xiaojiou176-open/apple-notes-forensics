@@ -17,11 +17,11 @@ Use it when you need to answer:
 
 | Surface | Official public surface exists | Repo-owned artifact shipped | Wave 1 posture | Current truthful boundary |
 | --- | --- | --- | --- | --- |
-| MCP Registry | yes, the official MCP Registry exists and is still documented as a preview surface | yes: `server.json` and `notes-recovery-mcp` | current pure-MCP companion lane | keep the front door on the local case-root workflow; treat package/registry read-back as later validation instead of the first claim a reviewer sees |
+| MCP Registry | yes, the official MCP Registry exists and is still documented as a preview surface | yes: `server.json` and `notes-recovery-mcp` | current pure-MCP companion lane | fresh registry read-back exists for the current package lane, but keep the front door on the local case-root workflow instead of leading with registry status |
 | Codex | yes, the official Codex plugin directory exists, but third-party official-directory submission is still coming soon | yes: `plugins/notestorelab-codex-plugin/` | companion plugin lane | repo-owned Codex bundle shipped; do not claim official Codex directory listing |
 | Claude Code | yes, official plugin and marketplace surfaces exist | yes: `plugins/notestorelab-claude-plugin/` plus root `.claude-plugin/marketplace.json` | companion plugin lane | repo-owned Claude plugin and marketplace metadata shipped; do not claim Anthropic-managed listing without fresh read-back |
-| OpenClaw | yes, the official ClawHub public registry exists | yes: `plugins/notestorelab-openclaw-bundle/` | comparison-path companion lane | compatible bundle shipped in-repo; do not claim live ClawHub or official OpenClaw listing |
-| OpenHands/extensions | yes, the official OpenHands public extensions registry exists | yes: `public-skills/notestorelab-case-review/` plus canonical `skills/notestorelab-case-review/` | portable public skill lane | public skill folder shipped; do not claim a live OpenHands/extensions listing without fresh PR/read-back |
+| OpenClaw | yes, the official ClawHub public registry exists | yes: `plugins/notestorelab-openclaw-bundle/` | comparison-path companion lane | the secondary ClawHub public-skill listing is live, but the shipped OpenClaw-compatible bundle still does not prove an official OpenClaw listing or first-class host wrapper acceptance |
+| OpenHands/extensions | yes, the official OpenHands public extensions registry exists | yes: `public-skills/notestorelab-case-review/` plus canonical `skills/notestorelab-case-review/` | portable public skill lane | public skill folder shipped; the current thread is submission-done plus changes-requested, so do not claim a live OpenHands/extensions listing until maintainer acceptance lands |
 | Glama | yes, the public Add Server and hosted MCP surface exists | yes: `glama.json`, `Dockerfile`, and the canonical GHCR target | Wave 2 metadata prep | repo-owned Glama metadata and Docker-facing inputs shipped; do not claim a live Glama listing without fresh Glama-side read-back |
 | Docker MCP Catalog | yes, the official curated Docker MCP Catalog exists | yes: `Dockerfile`, `scripts/release/check_docker_surface.py`, and the canonical GHCR target | Wave 2 container/catalog prep | Docker-facing container inputs shipped; do not claim a live Docker catalog listing without fresh Docker-side submission/read-back |
 
@@ -72,6 +72,8 @@ That packet is intentionally separate from the canonical skill SSOT:
   publication
 - the public packet adds an OpenHands/extensions-facing README so external
   reviewers do not need to infer the install story from internal bundle paths
+- today that packet already has a live secondary ClawHub listing, while the
+  OpenHands submission still remains in platform review
 
 ## Package Surface
 
@@ -82,8 +84,9 @@ The canonical installable package surface for this repository is PyPI:
   story is Python-first
 - this is the intended PyPI package identifier and version for the current repo
   contract: `apple-notes-forensics==0.1.0.post1`
-- later package read-back belongs in Wave 2 validation, not in the front-door
-  product sentence
+- fresh package read-back exists for this package lane, but keep package status
+  as supporting distribution truth rather than the first sentence of the
+  product story
 
 There is no tracked npm package surface in the current public contract:
 
@@ -145,10 +148,10 @@ claude plugin validate .
 
 ### MCP Registry descriptor boundary
 
-`server.json` is the metadata side of the MCP Registry story. In Wave 1, keep
-the repo-side claim narrow: the stdio-first MCP descriptor is shipped in-repo,
-and later registry/package read-back belongs in a fresh validation pass before
-you call anything live or listed.
+`server.json` is the metadata side of the MCP Registry story. Keep the
+repo-side claim narrow: the stdio-first MCP descriptor is shipped in-repo, and
+fresh registry/package read-back supports that lane without replacing the
+copy-first front-door story.
 
 The repo-side publish-readiness proof command is:
 
@@ -175,7 +178,7 @@ The repo-side publish-readiness proof command is:
 - "registry metadata proves MCP Registry listing" without fresh registry read-back
 - "official Codex plugin directory listing" without OpenAI-managed listing proof
 - "official Anthropic marketplace listing" without fresh marketplace read-back
-- "live ClawHub listing" without fresh OpenClaw-side listing proof
+- "live OpenClaw bundle listing" without fresh OpenClaw-side acceptance proof
 - "live OpenHands/extensions listing" without fresh OpenHands PR/read-back
 - "official npm package" or "npm is the canonical install path" without a real shipped npm package surface
 - "host-side accepted skill" without fresh host-side read-back

@@ -4,10 +4,12 @@ from pathlib import Path
 
 from scripts.ci.contracts import (
     BASELINE_TESTS,
+    CONTRIBUTING_VERIFICATION_REQUIRED_TOKENS,
+    DEEP_REALISM_JOB_NAME,
+    DEEP_REALISM_TESTS,
     HOST_SAFETY_DOC_TOKENS_BY_FILE,
     README_VERIFICATION_REQUIRED_TOKENS,
     RUNTIME_HYGIENE_TOKENS,
-    VERIFICATION_SUMMARY_TOKENS,
 )
 from scripts.ci.check_docs_surface import collect_docs_surface_errors
 from scripts.ci.check_discovery_surface_contract import collect_discovery_surface_errors
@@ -34,11 +36,17 @@ def _build_contributing_verification_block() -> str:
         *[f"  {test_path} \\" for test_path in BASELINE_TESTS],
         "  -q",
     ]
+    deep_realism_lines = [
+        ".venv/bin/python -m pytest \\",
+        *[f"  {test_path} \\" for test_path in DEEP_REALISM_TESTS],
+        "  -q",
+    ]
     return "\n".join(
         [
             "# Contributing",
-            *VERIFICATION_SUMMARY_TOKENS,
+            *CONTRIBUTING_VERIFICATION_REQUIRED_TOKENS,
             *baseline_lines,
+            *deep_realism_lines,
             ".venv/bin/python -m pytest tests/ -q",
         ]
     )
@@ -318,15 +326,29 @@ def test_verification_contract_passes_for_aligned_surface(tmp_path: Path) -> Non
         *[f"            {test_path} \\" for test_path in BASELINE_TESTS],
         "            -q",
     ]
+    deep_realism_lines = [
+        "          python -m pytest \\",
+        *[f"            {test_path} \\" for test_path in DEEP_REALISM_TESTS],
+        "            -q",
+    ]
     workflow_block = "\n".join(
         [
             "name: CI",
+            "on:",
+            "  workflow_dispatch:",
+            "  schedule:",
+            "    - cron: '17 8 * * *'",
             "jobs:",
             "  baseline:",
             "    steps:",
             "      - name: Baseline smoke",
             "        run: |",
             *baseline_lines,
+            f"  {DEEP_REALISM_JOB_NAME}:",
+            "    steps:",
+            "      - name: Deep realism smoke",
+            "        run: |",
+            *deep_realism_lines,
         ]
     )
     readme_text = "\n".join(
@@ -359,6 +381,44 @@ def test_verification_contract_detects_readme_drift(tmp_path: Path) -> None:
 
     errors = collect_verification_contract_errors(tmp_path)
     assert any("must not claim" in error for error in errors)
+
+
+def test_verification_contract_detects_baseline_deep_mix(tmp_path: Path) -> None:
+    mixed_baseline = "\n".join(
+        [
+            "name: CI",
+            "on:",
+            "  workflow_dispatch:",
+            "  schedule:",
+            "    - cron: '17 8 * * *'",
+            "jobs:",
+            "  baseline:",
+            "    steps:",
+            "      - name: Baseline smoke",
+            "        run: |",
+            "          notes-recovery --help",
+            "          notes-recovery demo",
+            "          python -m pytest \\",
+            *[f"            {test_path} \\" for test_path in BASELINE_TESTS],
+            *[f"            {test_path} \\" for test_path in DEEP_REALISM_TESTS],
+            "            -q",
+        ]
+    )
+    _write(
+        tmp_path / "README.md",
+        "\n".join(
+            [
+                "# NoteStore Lab",
+                *README_VERIFICATION_REQUIRED_TOKENS,
+                "[Contributing](CONTRIBUTING.md)",
+            ]
+        ),
+    )
+    _write(tmp_path / "CONTRIBUTING.md", _build_contributing_verification_block())
+    _write(tmp_path / ".github" / "workflows" / "ci.yml", mixed_baseline)
+
+    errors = collect_verification_contract_errors(tmp_path)
+    assert any("must not include deep realism test" in error for error in errors)
 
 
 def test_runtime_hygiene_tokens_track_shared_contract() -> None:

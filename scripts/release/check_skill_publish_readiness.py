@@ -32,6 +32,7 @@ LEGACY_PUBLIC_REFERENCE_FILES = (
     PUBLIC_SKILL_DIR / "references" / "install-and-mcp.md",
     PUBLIC_SKILL_DIR / "references" / "usage-and-proof.md",
 )
+PUBLIC_SKILL_DEMO_PATH = PUBLIC_SKILL_DIR / "references" / "DEMO.md"
 
 
 def _load_pyproject(repo_root: Path) -> dict[str, object]:
@@ -134,12 +135,15 @@ def collect_skill_publish_errors(repo_root: Path) -> list[str]:
     public_skill_dir = repo_root / PUBLIC_SKILL_DIR
     public_skill_manifest = public_skill_dir / "manifest.yaml"
     public_skill_readme = public_skill_dir / "README.md"
+    public_skill_demo = repo_root / PUBLIC_SKILL_DEMO_PATH
     if not public_skill_dir.exists():
         errors.append(f"missing public skill directory: {PUBLIC_SKILL_DIR}")
     if not public_skill_manifest.exists():
         errors.append(f"missing public skill manifest: {public_skill_manifest.relative_to(repo_root)}")
     if not public_skill_readme.exists():
         errors.append(f"missing public skill README: {public_skill_readme.relative_to(repo_root)}")
+    if not public_skill_demo.exists():
+        errors.append(f"missing public skill demo reference: {public_skill_demo.relative_to(repo_root)}")
     if public_skill_manifest.exists():
         public_manifest_text = public_skill_manifest.read_text(encoding="utf-8")
         for token in (
@@ -151,12 +155,16 @@ def collect_skill_publish_errors(repo_root: Path) -> list[str]:
             "package_shape: skill-folder",
             "clawhub:",
             "openhands-extensions:",
-            "status: ready-but-not-listed",
-            "status: folder-ready",
+            "status: listed-live",
+            "live_read_back: https://clawhub.ai/xiaojiou176/notestorelab-case-review",
+            "status: submission-done-platform-not-accepted-yet",
+            "review_state: changes-requested",
             "submit_via: clawhub publish .",
             "submit_via: submit this folder as skills/notestorelab-case-review/ in OpenHands/extensions",
             "canonical_repo_version: 0.1.0.post1",
-            "official_listing_state: not-yet-listed",
+            "official_listing_state: clawhub-listed-live-openhands-submission-done",
+            "confirmed_live:",
+            "ClawHub public skill listing is live at https://clawhub.ai/xiaojiou176/notestorelab-case-review",
             "references/README.md",
             "references/INSTALL.md",
             "references/OPENHANDS_MCP_CONFIG.json",
@@ -174,11 +182,38 @@ def collect_skill_publish_errors(repo_root: Path) -> list[str]:
             "ClawHub-style",
             "skills/notestorelab-case-review/SKILL.md",
             "no official OpenHands/extensions listing without fresh PR/read-back",
+            "Today the secondary ClawHub packet listing is live",
+            "OpenHands/extensions submission still sits in a changes-requested review state",
             "What this skill teaches an agent",
+            "Primary reviewer route:",
+            "Use cases: https://github.com/xiaojiou176-open/apple-notes-forensics/blob/main/USE_CASES.md",
+            "Builder / raw-source references after the route above:",
             "Demo / proof links",
         ):
             if token not in public_readme_text:
                 errors.append(f"public skill README is missing required token: {token}")
+        for token in (
+            "no live ClawHub listing without fresh host-side read-back",
+        ):
+            if token in public_readme_text:
+                errors.append(f"public skill README still contains stale ClawHub wording: {token}")
+    if public_skill_demo.exists():
+        public_demo_text = public_skill_demo.read_text(encoding="utf-8")
+        for token in (
+            "Primary reviewer route:",
+            "Landing page: https://xiaojiou176-open.github.io/apple-notes-forensics/",
+            "Public proof page: https://xiaojiou176-open.github.io/apple-notes-forensics/proof.html",
+            "Use cases: https://github.com/xiaojiou176-open/apple-notes-forensics/blob/main/USE_CASES.md",
+            "Builder / raw-source references after the route above:",
+            "the secondary ClawHub packet listing is live",
+            "submission-done plus changes-requested",
+        ):
+            if token not in public_demo_text:
+                errors.append(f"public skill demo reference is missing required token: {token}")
+        if "https://github.com/xiaojiou176-open/apple-notes-forensics/blob/main/proof.html" in public_demo_text:
+            errors.append(
+                "public skill demo reference still points first-hop proof at a blob page"
+            )
     for legacy_ref in LEGACY_PUBLIC_REFERENCE_FILES:
         if (repo_root / legacy_ref).exists():
             errors.append(f"legacy public skill reference should be removed: {legacy_ref}")
@@ -235,6 +270,19 @@ def collect_skill_publish_errors(repo_root: Path) -> list[str]:
             errors.append(f"llms.txt should not reuse stale live-claim wording: {forbidden_token}")
     if "OpenHands/extensions-ready public skill folder" not in ecosystem_text:
         errors.append("ECOSYSTEM.md must describe the OpenHands-facing public skill lane")
+    for rel_path, text in (
+        ("README.md", readme_text),
+        ("DISTRIBUTION.md", distribution_text),
+        ("INTEGRATIONS.md", integrations_text),
+    ):
+        for token in (
+            "no live ClawHub/OpenHands/extensions/Glama/Docker catalog listing language in Wave 1",
+            "do not claim live ClawHub or official OpenClaw listing",
+            "Treat ClawHub publication as a later manual external step",
+            "do not claim a live ClawHub listing yet",
+        ):
+            if token in text:
+                errors.append(f"{rel_path} still contains stale ClawHub or OpenHands wording: {token}")
 
     return errors
 
