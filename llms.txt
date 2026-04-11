@@ -55,7 +55,7 @@
 
 - Primary fit: MCP, Codex, Claude Code
 - Secondary / comparison fit: OpenHands, OpenCode
-- OpenClaw: installable compatible bundle path exists, but there is no live ClawHub listing claim yet
+- OpenClaw: installable compatible bundle path exists; the secondary ClawHub public-skill listing is live, but that does not imply a live OpenClaw bundle listing
 - Not a primary front-door claim: hosted portals and generic agent-platform promises
 
 ## Host Notes

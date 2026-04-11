@@ -136,6 +136,7 @@ def collect_skill_publish_errors(repo_root: Path) -> list[str]:
     public_skill_manifest = public_skill_dir / "manifest.yaml"
     public_skill_readme = public_skill_dir / "README.md"
     public_skill_demo = repo_root / PUBLIC_SKILL_DEMO_PATH
+    public_skill_root_readme = repo_root / "public-skills" / "README.md"
     if not public_skill_dir.exists():
         errors.append(f"missing public skill directory: {PUBLIC_SKILL_DIR}")
     if not public_skill_manifest.exists():
@@ -144,6 +145,8 @@ def collect_skill_publish_errors(repo_root: Path) -> list[str]:
         errors.append(f"missing public skill README: {public_skill_readme.relative_to(repo_root)}")
     if not public_skill_demo.exists():
         errors.append(f"missing public skill demo reference: {public_skill_demo.relative_to(repo_root)}")
+    if not public_skill_root_readme.exists():
+        errors.append("missing public-skills/README.md")
     if public_skill_manifest.exists():
         public_manifest_text = public_skill_manifest.read_text(encoding="utf-8")
         for token in (
@@ -214,6 +217,21 @@ def collect_skill_publish_errors(repo_root: Path) -> list[str]:
             errors.append(
                 "public skill demo reference still points first-hop proof at a blob page"
             )
+    if public_skill_root_readme.exists():
+        public_skill_root_text = public_skill_root_readme.read_text(encoding="utf-8")
+        for token in (
+            "OpenHands/extensions-friendly public skill folder",
+            "ClawHub-style manifest with semver-ready listing metadata",
+            "today the secondary ClawHub public-skill listing is already live",
+        ):
+            if token not in public_skill_root_text:
+                errors.append(f"public-skills/README.md is missing required token: {token}")
+        for token in (
+            "proof of a live listing on OpenHands/extensions, ClawHub, Glama, or Docker",
+            "no live ClawHub listing today",
+        ):
+            if token in public_skill_root_text:
+                errors.append(f"public-skills/README.md still contains stale listing wording: {token}")
     for legacy_ref in LEGACY_PUBLIC_REFERENCE_FILES:
         if (repo_root / legacy_ref).exists():
             errors.append(f"legacy public skill reference should be removed: {legacy_ref}")
@@ -274,12 +292,16 @@ def collect_skill_publish_errors(repo_root: Path) -> list[str]:
         ("README.md", readme_text),
         ("DISTRIBUTION.md", distribution_text),
         ("INTEGRATIONS.md", integrations_text),
+        ("llms.txt", llms_text),
+        ("ECOSYSTEM.md", ecosystem_text),
     ):
         for token in (
             "no live ClawHub/OpenHands/extensions/Glama/Docker catalog listing language in Wave 1",
             "do not claim live ClawHub or official OpenClaw listing",
             "Treat ClawHub publication as a later manual external step",
             "do not claim a live ClawHub listing yet",
+            "there is no live ClawHub listing claim yet",
+            "no live ClawHub listing today",
         ):
             if token in text:
                 errors.append(f"{rel_path} still contains stale ClawHub or OpenHands wording: {token}")
