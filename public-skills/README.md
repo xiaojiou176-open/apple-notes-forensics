@@ -14,8 +14,9 @@ What this pack is for:
 What this pack is not:
 
 - a dump of `.agents/skills/`
-- proof of a live listing on OpenHands/extensions, ClawHub, Glama, or Docker
-  MCP Catalog
+- proof of a live listing on OpenHands/extensions, Glama, or Docker MCP Catalog
+- proof that the live secondary ClawHub skill listing automatically means a live
+  OpenClaw bundle listing or accepted host-wrapper lane
 - a hosted runtime or remote MCP deployment
 
 Current public-safe contents:
@@ -23,6 +24,7 @@ Current public-safe contents:
 - `notestorelab-case-review/`
   - OpenHands/extensions-friendly public skill folder
   - ClawHub-style manifest with semver-ready listing metadata
+  - today the secondary ClawHub public-skill listing is already live
   - one derived copy of the canonical `skills/notestorelab-case-review/SKILL.md`
 
 Public-safe inclusion test:

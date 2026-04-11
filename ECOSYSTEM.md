@@ -12,7 +12,7 @@ ecosystem without overstating what is actually shipped.
 | Claude Code | Primary | same reason as Codex, plus tracked marketplace-format metadata and a companion plugin bundle that match Claude Code's local install surface | README, `notes-recovery-mcp`, `ai-review`, `ask-case`, `.claude-plugin/marketplace.json`, `plugins/notestorelab-claude-plugin/` |
 | OpenHands | OpenHands/extensions-ready public skill folder | the repo now ships a public skill-folder packet for OpenHands/extensions while keeping runtime claims on local CLI + MCP only | `public-skills/notestorelab-case-review/`, `skills/notestorelab-case-review/`, CLI + MCP |
 | OpenCode | Secondary / comparison | the repo exposes a clean local tool / MCP story, but no dedicated OpenCode-specific integration layer | CLI + MCP are real; no OpenCode-specific contract or SDK |
-| OpenClaw | Comparison-path companion bundle | OpenClaw can consume the shipped compatible bundle archive, but this repo still does not claim a live ClawHub listing | `scripts/release/build_distribution_bundles.py`, `DISTRIBUTION.md` |
+| OpenClaw | Comparison-path companion bundle | OpenClaw can consume the shipped compatible bundle archive; the secondary ClawHub public-skill listing is live, but that still does not prove a live OpenClaw bundle listing | `scripts/release/build_distribution_bundles.py`, `DISTRIBUTION.md` |
 
 ## What Is True Today
 
@@ -39,4 +39,4 @@ ecosystem without overstating what is actually shipped.
 - no write-capable MCP by default
 - no hosted review backend
 - no generic “works with every agent framework” promise
-- no live ClawHub listing today
+- no live OpenClaw bundle listing today
