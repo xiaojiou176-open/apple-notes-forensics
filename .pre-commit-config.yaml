@@ -111,10 +111,6 @@ repos:
           tests/test_case_contract.py
           tests/test_handlers_commands.py
           tests/test_auto_run_full.py
-          tests/test_realistic_flow_e2e.py
-          tests/test_timeline_integration.py
-          tests/test_spotlight_deep.py
-          tests/test_fts_index_build.py
           tests/test_verify.py
           -q'
         language: system

@@ -32,6 +32,10 @@ FULL_SUITE_DOC_COMMAND = ".venv/bin/python -m pytest tests/ -q"
 WORKFLOW_HELP_COMMAND = "notes-recovery --help"
 WORKFLOW_DEMO_COMMAND = "notes-recovery demo"
 DEEP_REALISM_JOB_NAME = "deep-realism"
+PRE_PUSH_HOOK_ID = "baseline-smoke"
+PRE_PUSH_STAGE_NAME = "pre-push"
+PRE_PUSH_HELP_FRAGMENT = '--help >/dev/null'
+PRE_PUSH_DEMO_FRAGMENT = 'demo > "$tmp"'
 
 BASELINE_TESTS = (
     "tests/test_cli_entrypoints.py",
@@ -60,6 +64,11 @@ CONTRIBUTING_VERIFICATION_REQUIRED_TOKENS = (
     *VERIFICATION_SUMMARY_TOKENS,
     "deep realism",
     "required-check compatibility",
+)
+
+DISTRIBUTION_REQUIRED_TOKENS = (
+    "copied-evidence workbench",
+    "companion lanes around that workbench",
 )
 
 README_VERIFICATION_REQUIRED_TOKENS = (

@@ -5,6 +5,9 @@ story.
 
 Treat it as a later-lane ledger, not as the repo's front-door product sentence.
 The front door stays local, copy-first, operator-first, and case-root-centric.
+Treat the copied-evidence workbench as the main cargo. Registry, package, and
+public-skill lanes are companion lanes around that workbench, not replacement
+front doors.
 
 Use it when you need to answer:
 

@@ -270,6 +270,8 @@ That baseline contract is intentionally narrow:
 - `notes-recovery --help` proves the installed CLI entrypoint resolves
 - `notes-recovery demo` proves the public-safe first-look path is non-empty
 - the canonical smoke test list proves the core `.[dev]` pipeline still holds
+- the local pre-push `baseline-smoke` hook must mirror this same narrow list
+  instead of quietly adding deeper realism coverage
 
 Treat the `baseline` job name as the merge-critical first-success lane. It is
 the fast PR gate, not the place for longer realism or indexing checks.
@@ -280,6 +282,8 @@ that still matter after merge:
 - it runs on pushes to `main`
 - it is available through scheduled/nightly automation
 - it is available through manual dispatch when you want the deeper path on demand
+- it stays out of the default local pre-push fast lane so contributors do not
+  confuse "baseline smoke" with "full realism replay"
 
 The workflow keeps the existing required-check names stable for branch-protection
 compatibility. Jobs such as `extras-dashboard` remain separate compatibility

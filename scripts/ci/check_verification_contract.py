@@ -12,7 +12,12 @@ try:
         CONTRIBUTING_VERIFICATION_REQUIRED_TOKENS,
         DEEP_REALISM_JOB_NAME,
         DEEP_REALISM_TESTS,
+        DISTRIBUTION_REQUIRED_TOKENS,
         FULL_SUITE_DOC_COMMAND,
+        PRE_PUSH_DEMO_FRAGMENT,
+        PRE_PUSH_HELP_FRAGMENT,
+        PRE_PUSH_HOOK_ID,
+        PRE_PUSH_STAGE_NAME,
         README_VERIFICATION_REQUIRED_TOKENS,
         WORKFLOW_DEMO_COMMAND,
         WORKFLOW_HELP_COMMAND,
@@ -25,7 +30,12 @@ except ModuleNotFoundError:  # pragma: no cover - direct script execution fallba
         CONTRIBUTING_VERIFICATION_REQUIRED_TOKENS,
         DEEP_REALISM_JOB_NAME,
         DEEP_REALISM_TESTS,
+        DISTRIBUTION_REQUIRED_TOKENS,
         FULL_SUITE_DOC_COMMAND,
+        PRE_PUSH_DEMO_FRAGMENT,
+        PRE_PUSH_HELP_FRAGMENT,
+        PRE_PUSH_HOOK_ID,
+        PRE_PUSH_STAGE_NAME,
         README_VERIFICATION_REQUIRED_TOKENS,
         WORKFLOW_DEMO_COMMAND,
         WORKFLOW_HELP_COMMAND,
@@ -35,6 +45,7 @@ except ModuleNotFoundError:  # pragma: no cover - direct script execution fallba
 DOC_FILES = (
     "README.md",
     "CONTRIBUTING.md",
+    "DISTRIBUTION.md",
 )
 
 FORBIDDEN_BASELINE_LINES = (
@@ -47,6 +58,16 @@ def _extract_job_block(workflow_text: str, job_name: str) -> str | None:
     match = re.search(
         rf"(?ms)^  {re.escape(job_name)}:\n(.*?)(?=^  [A-Za-z0-9_-]+:\n|\Z)",
         workflow_text,
+    )
+    if match is None:
+        return None
+    return match.group(0)
+
+
+def _extract_precommit_hook_block(config_text: str, hook_id: str) -> str | None:
+    match = re.search(
+        rf"(?ms)^      - id: {re.escape(hook_id)}\n(.*?)(?=^      - id: |\Z)",
+        config_text,
     )
     if match is None:
         return None
@@ -105,6 +126,39 @@ def collect_verification_contract_errors(repo_root: Path) -> list[str]:
                 f"workflow must expose `{DEEP_REALISM_JOB_NAME}` through `{trigger}`"
             )
 
+    precommit_text = _read(repo_root, ".pre-commit-config.yaml")
+    if precommit_text is None:
+        errors.append("missing local verification contract file: .pre-commit-config.yaml")
+    else:
+        prepush_block = _extract_precommit_hook_block(precommit_text, PRE_PUSH_HOOK_ID)
+        if prepush_block is None:
+            errors.append(
+                f".pre-commit-config.yaml is missing the `{PRE_PUSH_HOOK_ID}` pre-push hook"
+            )
+        else:
+            if PRE_PUSH_HELP_FRAGMENT not in prepush_block:
+                errors.append(
+                    f"`{PRE_PUSH_HOOK_ID}` is missing the CLI help smoke fragment"
+                )
+            if PRE_PUSH_DEMO_FRAGMENT not in prepush_block:
+                errors.append(
+                    f"`{PRE_PUSH_HOOK_ID}` is missing the public demo smoke fragment"
+                )
+            if PRE_PUSH_STAGE_NAME not in prepush_block:
+                errors.append(
+                    f"`{PRE_PUSH_HOOK_ID}` must stay scoped to the `{PRE_PUSH_STAGE_NAME}` stage"
+                )
+            for test_path in BASELINE_TESTS:
+                if test_path not in prepush_block:
+                    errors.append(
+                        f"`{PRE_PUSH_HOOK_ID}` is missing canonical smoke test: {test_path}"
+                    )
+            for test_path in DEEP_REALISM_TESTS:
+                if test_path in prepush_block:
+                    errors.append(
+                        f"`{PRE_PUSH_HOOK_ID}` must not include deep realism test: {test_path}"
+                    )
+
     readme_text = _read(repo_root, "README.md")
     if readme_text is None:
         errors.append("missing verification contract doc: README.md")
@@ -149,6 +203,15 @@ def collect_verification_contract_errors(repo_root: Path) -> list[str]:
                 errors.append(f"CONTRIBUTING.md is missing deep realism test: {test_path}")
         if FULL_SUITE_DOC_COMMAND not in contributing_text:
             errors.append("CONTRIBUTING.md should document the broader full suite sweep explicitly")
+
+    distribution_text = _read(repo_root, "DISTRIBUTION.md")
+    if distribution_text is None:
+        errors.append("missing verification contract doc: DISTRIBUTION.md")
+    else:
+        lowered = distribution_text.casefold()
+        for token in DISTRIBUTION_REQUIRED_TOKENS:
+            if token.casefold() not in lowered:
+                errors.append(f"DISTRIBUTION.md is missing distribution boundary token: {token}")
 
     return errors
 
