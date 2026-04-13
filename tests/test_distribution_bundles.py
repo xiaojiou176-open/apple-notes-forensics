@@ -26,6 +26,19 @@ def test_distribution_artifacts_exist() -> None:
     assert marketplace_payload["plugins"][0]["author"]["email"] == marketplace_payload["owner"]["email"]
     assert marketplace_payload["plugins"][0]["source"] == "./plugins/notestorelab-claude-plugin"
     assert "intended PyPI package identifier and version" in distribution_text
+    assert (
+        "the intake is submitted on [`cline/mcp-marketplace#1324`]"
+        in distribution_text
+    )
+    assert (
+        '"the Cline MCP Marketplace intake is submitted and review-pending on '
+        '`cline/mcp-marketplace#1324`"'
+        in distribution_text
+    )
+    assert (
+        '"Cline MCP Marketplace is listed live" without fresh marketplace read-back'
+        in distribution_text
+    )
     assert '"MCP Registry submission completed"' in distribution_text
 
     assert (repo_root / "plugins" / "notestorelab-codex-plugin" / ".codex-plugin" / "plugin.json").exists()

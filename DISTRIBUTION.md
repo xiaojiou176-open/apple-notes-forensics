@@ -18,6 +18,7 @@ Use it when you need to answer:
 | Surface | Official public surface exists | Repo-owned artifact shipped | Wave 1 posture | Current truthful boundary |
 | --- | --- | --- | --- | --- |
 | MCP Registry | yes, the official MCP Registry exists and is still documented as a preview surface | yes: `server.json` and `notes-recovery-mcp` | current pure-MCP companion lane | fresh registry read-back exists for the current package lane, but keep the front door on the local case-root workflow instead of leading with registry status |
+| Cline MCP Marketplace | yes, the public intake issue lane exists | yes: `server.json`, `README.md`, and repo-root install proof are already aligned to the current stdio-first MCP story | companion review lane | the intake is submitted on [`cline/mcp-marketplace#1324`](https://github.com/cline/mcp-marketplace/issues/1324), but it is still review-pending and not listed live |
 | Codex | yes, the official Codex plugin directory exists, but third-party official-directory submission is still coming soon | yes: `plugins/notestorelab-codex-plugin/` | companion plugin lane | repo-owned Codex bundle shipped; do not claim official Codex directory listing |
 | Claude Code | yes, official plugin and marketplace surfaces exist | yes: `plugins/notestorelab-claude-plugin/` plus root `.claude-plugin/marketplace.json` | companion plugin lane | repo-owned Claude plugin and marketplace metadata shipped; do not claim Anthropic-managed listing without fresh read-back |
 | OpenClaw | yes, the official ClawHub public registry exists | yes: `plugins/notestorelab-openclaw-bundle/` | comparison-path companion lane | the secondary ClawHub public-skill listing is live, but the shipped OpenClaw-compatible bundle still does not prove an official OpenClaw listing or first-class host wrapper acceptance |
@@ -162,6 +163,7 @@ The repo-side publish-readiness proof command is:
 ## Allowed Claims
 
 - "`server.json` captures the current stdio-first MCP descriptor for NoteStore Lab"
+- "the Cline MCP Marketplace intake is submitted and review-pending on `cline/mcp-marketplace#1324`"
 - "PyPI is the canonical installable package surface for this repository today"
 - "public-ready Codex plugin bundle shipped"
 - "repo-owned Claude Code plugin and marketplace metadata shipped"
@@ -174,6 +176,7 @@ The repo-side publish-readiness proof command is:
 ## Forbidden Claims
 
 - "public directory acceptance" without fresh external read-back
+- "Cline MCP Marketplace is listed live" without fresh marketplace read-back
 - "MCP Registry submission completed" without fresh registry read-back
 - "registry metadata proves MCP Registry listing" without fresh registry read-back
 - "official Codex plugin directory listing" without OpenAI-managed listing proof
