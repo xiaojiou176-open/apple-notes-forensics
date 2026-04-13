@@ -6,13 +6,14 @@
   <img src="./assets/brand/notestorelab-mark.svg" alt="NoteStore Lab brand mark" width="84" height="84" />
 </p>
 
+`apple-notes-forensics` is the repository. **NoteStore Lab** is the public
+product name for the same copy-first Apple Notes recovery lab.
+
 > Copy first. Prove the case path. Then let AI and local MCP review the same
 > case root.
 >
-> Operator-first proof path:
-> `notes-recovery demo` -> `notes-recovery ai-review --demo` ->
-> `notes-recovery ask-case --demo --question "What should I inspect first?"` ->
-> `notes-recovery doctor`
+> Short copy-first path:
+> `notes-recovery demo` -> `notes-recovery doctor`
 >
 > Repository identity: `apple-notes-forensics` · Primary entrypoints:
 > `notes-recovery` and `notes-recovery-mcp`
@@ -33,6 +34,18 @@
 *Public-safe proof block: one copied-evidence workflow, one timestamped case
 root, and reviewable outputs for backup, recovery, verification, and reports.*
 
+## At A Glance
+
+If you want the shortest truthful filter before reading deeper, use this table:
+
+| What you need to know | Current answer |
+| --- | --- |
+| Product thesis | a copy-first local Apple Notes recovery and review lab for macOS |
+| First success | `notes-recovery demo` -> `notes-recovery doctor` |
+| First proof | one timestamped synthetic case root plus a zero-risk host readiness check |
+| Builder lane later | `notes-recovery-mcp` and [`INTEGRATIONS.md`](./INTEGRATIONS.md) after the operator path already makes sense |
+| What it must never be reduced to | a hosted recovery portal, generic AI assistant, or multi-tenant review service |
+
 ## Start Here
 
 Treat this repository like a lab bench, not a rescue button. Start by proving
@@ -40,31 +53,38 @@ the workflow shape on synthetic artifacts first:
 
 ```bash
 notes-recovery demo
-notes-recovery ai-review --demo
-notes-recovery ask-case --demo --question "What should I inspect first?"
 notes-recovery doctor
 ```
 
-What this path proves in under five minutes:
+What this short path proves in under five minutes:
 
 - one timestamped case root instead of ad hoc loose files
-- reviewable outputs for backup, recovery, verification, and reports
 - a zero-risk first look that does not touch private evidence or a live Notes
   store
-- a synthetic AI triage path that stays on review artifacts instead of raw
-  copied evidence
-- an evidence-backed case question flow that cites what it used
+- a host-readiness verdict before you move on to a real copied-evidence run
+
+If you want the second-ring synthetic review lane after that, continue with:
+
+```bash
+notes-recovery ai-review --demo
+notes-recovery ask-case --demo --question "What should I inspect first?"
+```
+
+That second ring proves bounded AI review and evidence-backed case questioning
+on the same synthetic case root.
 
 If you are here for Codex / Claude Code integration, run the operator path
 once, then jump to the [Builder Guide](./INTEGRATIONS.md). The builder lane is
 real, but it is not the first thing a new operator should read.
 
-Fast route map if you do not want to guess:
+Open the right next door after that first pass:
 
-- start at the [Landing](https://xiaojiou176-open.github.io/apple-notes-forensics/) for the copy-first story and proof-path overview
-- open [Public Proof](./proof.html) when the question becomes "what is really proved versus still manual"
-- open [Use Cases](./USE_CASES.md) when you want to match your goal to operator, AI review, MCP, or case-diff lanes
-- only then open the [Builder Guide](./INTEGRATIONS.md) if you are reusing the same case root in Codex / Claude Code
+| If you want to... | Open this next | Why |
+| --- | --- | --- |
+| see the copy-first story and proof-path overview | [Landing](https://xiaojiou176-open.github.io/apple-notes-forensics/) | this is the shortest product overview for a first-time visitor |
+| separate repo proof from manual or platform tails | [Public Proof](./proof.html) | this is where "what is proved" and "what is still manual" are split cleanly |
+| match your goal to the right workflow lane | [Use Cases](./USE_CASES.md) | it sorts operator, AI review, MCP, and case-diff jobs without mixing them |
+| reuse the same case root in Codex / Claude Code | [Builder Guide](./INTEGRATIONS.md) | builder reuse is real, but it still comes after the operator path |
 
 ## Current lane order
 
