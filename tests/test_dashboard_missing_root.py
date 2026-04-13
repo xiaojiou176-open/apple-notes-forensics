@@ -39,6 +39,15 @@ class _FakeStreamlit:
     def caption(self, _text):
         return None
 
+    def markdown(self, _text, **_kwargs):
+        return None
+
+    def tabs(self, labels):
+        return [_FakeContext(self) for _ in labels]
+
+    def expander(self, _label, expanded=False):
+        return _FakeContext(self)
+
     def error(self, _text):
         return None
 
