@@ -132,8 +132,14 @@ class _FakeStreamlit:
     def dataframe(self, *_args, **_kwargs):
         return None
 
-    def markdown(self, _text):
+    def markdown(self, _text, **_kwargs):
         return None
+
+    def tabs(self, labels):
+        return [_FakeContext(self) for _ in labels]
+
+    def expander(self, _label, expanded=False):
+        return _FakeContext(self)
 
     def code(self, _text, language=None):
         return None

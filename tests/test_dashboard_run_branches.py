@@ -59,8 +59,14 @@ class _MiniStreamlit:
     def metric(self, _label, _value):
         return None
 
-    def markdown(self, _text):
+    def markdown(self, _text, **_kwargs):
         return None
+
+    def tabs(self, labels):
+        return [_MiniContext(self) for _ in labels]
+
+    def expander(self, _label, expanded=False):
+        return _MiniContext(self)
 
     def code(self, _text, language=None):
         return None
